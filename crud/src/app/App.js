@@ -107,7 +107,6 @@ function App() {
 
       {/* When 'Manage Users' button is clicked, it displays the user information. Currently, it doesn't hide it after */}
       {showContainer && (
-        <div id="c">
         <div className="container">
           {/* TODO: Add search bar to make the users more accesible. */}
           <table className="table">
@@ -128,7 +127,6 @@ function App() {
               ))}
             </tbody>
           </table>
-        </div>
         </div>
       )}
     </>
