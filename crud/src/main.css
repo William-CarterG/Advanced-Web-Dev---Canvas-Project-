@@ -1,0 +1,53 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+  }
+
+.hidden {
+    display: none !important;
+  }
+
+:root {
+    --background-color-primary: #282c34;
+    --background-color-secondary: #a72350;
+    --background-color-dark-primary: #40b6ca;
+    --background-color-dark-secondary: #5800b4;
+
+    --text-color-primary: white;
+    --text-color-secondary: #282c34;;
+
+    --button-background-color: white;
+    --button-color-active: #323741;
+  }
+
+body {
+    background-color: var(--background-color-primary);
+    color: var(--text-color-secondary);
+    padding: 40px;
+    font-family: Sans-Serif;
+    text-align: center;
+  }
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--text-color-primary);
+  }
+
+.button {
+    background-color: var(--button-background-color);
+    color: black;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+.button:hover {
+    background-color: var(--button-color-active);
+    color: var(--text-color-primary);
+  }
+
