@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Users({ onClick }) {
   function handleUsersButtonClick() {
     // Navigate to the Users CRUD page
