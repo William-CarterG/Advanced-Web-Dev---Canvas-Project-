@@ -1,88 +1,90 @@
 *, *::after, *::before {
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
+}
 
 .hidden {
-    display: none !important;
-  }
+  display: none !important;
+}
 
 :root {
-    --background-color-primary: #282c34;
-    --background-color-secondary: #a72350;
-    --background-color-dark-primary: #40b6ca;
-    --background-color-dark-secondary: #5800b4;
+  --background-color-primary: #282c34;
+  --background-color-secondary: #a72350;
+  --background-color-dark-primary: #40b6ca;
+  --background-color-dark-secondary: #5800b4;
 
-    --text-color-primary: white;
-    --text-color-secondary: #282c34;;
+  --text-color-primary: white;
+  --text-color-secondary: #282c34;;
 
-    --button-background-color: white;
-    --button-color-active: #323741;
-  }
+  --button-background-color: white;
+  --button-color-active: #323741;
+}
 
 body {
-    background-color: var(--background-color-primary);
-    color: var(--text-color-secondary);
-    padding: 40px;
-    font-family: Sans-Serif;
-    text-align: center;
-  }
+  background-color: var(--background-color-primary);
+  color: var(--text-color-secondary);
+  padding: 40px;
+  font-family: Sans-Serif;
+  text-align: center;
+}
 
 h1 {
-    font-size: 2em;
-    font-weight: bold;
-    color: var(--text-color-primary);
-  }
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--text-color-primary);
+}
 
 .button {
-    background-color: var(--button-background-color);
-    color: black;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-  }
+  background-color: var(--button-background-color);
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
 
 .button:hover {
-    background-color: var(--button-color-active);
-    color: var(--text-color-primary);
-  }
+  background-color: var(--button-color-active);
+  color: var(--text-color-primary);
+}
 
 .pressed-button {
-    background-color: var(--button-color-active);
-    color: var(--text-color-primary);
-  }
+  background-color: var(--button-color-active);
+  color: var(--text-color-primary);
+}
 
 .container{
-    display: flex;
-    flex-direction: column;
-    row-gap: 4rem;
-    min-height: 100%; /* This might mess with some stuff in responsive views */
-    margin: 1rem 0rem;
-    border: 1px solid black;
-    background-color: white;
-    border-radius: 20px;
-    overflow: auto;
-    max-height: 69vh; /* Adjust the maximum height as needed */
-  }
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4rem;
+  min-height: 100%; /* This might mess with some stuff in responsive views */
+  margin: 1rem 0rem;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 20px;
+  overflow: auto;
+  max-height: 69vh; /* Adjust the maximum height as needed */
+}
 
   
 .table {
-    width: 100%;
-    table-layout: fixed;
-  }
+  width: 100%;
+  table-layout: fixed;
+}
 
 .table thead th {
-    position: sticky;
-    top: 0;
-    background-color: #c3c3c3; /* Set the desired background color */
-  }
+  position: sticky;
+  top: 0;
+  background-color: #c3c3c3; /* Set the desired background color */
+}
 
 .table th, .table td {
-    width: 33.33%; /* Adjust this value based on the number of columns */
-    padding: 8px;
-    text-align: center;
-  }
+  width: 33.33%; /* Adjust this value based on the number of columns */
+  padding: 8px;
+  text-align: center;
+}
