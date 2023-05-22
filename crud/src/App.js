@@ -17,10 +17,12 @@ function handleTestsButtonClick() {
   console.log("Tests CRUD clicked.");
 }
 
+// Adds the 'pressed-button' class so button looks pressed.
 function buttonPressed(button) {
   button.classList.add('pressed-button');
 }
 
+// Resets buttons display, so it can properly show the new button being pressed right after.
 function unpressedButtons() {
   const buttons = document.querySelectorAll('.button');
   buttons.forEach((button) => {
@@ -38,9 +40,6 @@ function App() {
   }
 
   useEffect(() => {
-    // No need to attach event listeners manually
-    // Instead, handle button clicks within the component
-
     // Function to handle button click and add the 'pressed' class
     function handleClick(event) {
       unpressedButtons(); // Remove 'pressed' class from all buttons
@@ -62,6 +61,7 @@ function App() {
     };
   }, []);
 
+  // Fake data to fill user's table.
   const fakeData = [
     { name: 'John Doe', email: 'johndoe@example.com', role: 'Admin' },
     { name: 'Jane Smith', email: 'janesmith@example.com', role: 'User' },
@@ -111,6 +111,8 @@ function App() {
       <button className="button" onClick={handleTestsButtonClick}>
         Manage Tests
       </button>
+
+      {/* When 'Manage Users' button is clicked, it displays the user information. Currently, it doesn't hide it after */}
       {showContainer && (
         <div className="container">
           {/* TODO: Add search bar to make the users more accesible. */}
