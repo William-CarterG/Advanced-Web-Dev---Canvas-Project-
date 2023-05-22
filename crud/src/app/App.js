@@ -3,11 +3,7 @@ import './main.css';
 import Users from './components/Users';
 import Groups from './components/Groups';
 import Evaluations from './components/Evaluations';
-
-function handleTestsButtonClick() {
-  // Navigate to the Tests CRUD page
-  console.log("Tests CRUD clicked.");
-}
+import Tests from './components/Tests';
 
 // Adds the 'pressed-button' class so button looks pressed.
 function buttonPressed(button) {
@@ -51,7 +47,8 @@ function App() {
   const tableHeaders = {
     users: ['Name', 'Email', 'Role'],
     groups: ['Group Name', 'Creator', 'Average Grade'],
-    evaluations: ['Evaluator', 'N° of Questions', 'Submission Deadline']
+    evaluations: ['Evaluator', 'N° of Questions', 'Submission Deadline'],
+    tests: ['Test Creator', 'N° of Questions', 'Submission Deadline']
   };
 
   // Fill table with it's corresponding data.
@@ -75,6 +72,14 @@ function App() {
             </tr>
     } 
     else if (activeContainer === 'evaluations') {
+      // Return table rows for evaluations container.
+      return <tr>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+            </tr>
+    } 
+    else if (activeContainer === 'tests') {
       // Return table rows for evaluations container.
       return <tr>
               <td>...</td>
@@ -125,12 +130,10 @@ function App() {
   return (
     <>
       <h1>Welcome to the Administration Panel</h1>
-      <Users onClick={() => setActiveContainer('users')}/>
+      <Users onClick={() => setActiveContainer('users')} />
       <Groups onClick={() => setActiveContainer('groups')} />
       <Evaluations onClick={() => setActiveContainer('evaluations')} />
-      <button className="button" onClick={handleTestsButtonClick}>
-        Manage Tests
-      </button>
+      <Tests onClick={() => setActiveContainer('tests')} />
 
       {/* When a button is clicked, it displays the information corresponding to it. */}
       {activeContainer && (
