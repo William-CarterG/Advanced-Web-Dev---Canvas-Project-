@@ -16,7 +16,7 @@
   --text-color-secondary: #282c34;;
 
   --button-background-color: white;
-  --button-color-active: #323741;
+  --button-color-active: #1d232e;
 }
 
 body {
@@ -71,7 +71,6 @@ h1 {
   max-height: 69vh; /* Adjust the maximum height as needed */
 }
 
-  
 .table {
   width: 100%;
   table-layout: fixed;
