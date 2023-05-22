@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './main.css';
 import Users from './components/Users';
-
-
-function handleGroupsButtonClick() {
-  // Navigate to the Groups CRUD page
-  console.log("Groups CRUD clicked.");
-}
+import Groups from './components/Groups';
 
 function handleEvaluationsButtonClick() {
   // Navigate to the Evaluations CRUD page
@@ -33,6 +28,7 @@ function unpressedButtons() {
 
 function App() {
   const [showContainer, setShowContainer] = useState(false);
+  const [showGroupsContainer, setShowGroupContainer] = useState(false);
 
   useEffect(() => {
     // Function to handle button click and add the 'pressed' class
@@ -95,9 +91,7 @@ function App() {
     <>
       <h1>Welcome to the Administration Panel</h1>
       <Users onClick={() => setShowContainer(true)} />
-      <button className="button" onClick={handleGroupsButtonClick}>
-        Manage Groups
-      </button>
+      <Groups onClick={() => setShowGroupContainer(true)} />
       <button className="button" onClick={handleEvaluationsButtonClick}>
         Manage Evaluations
       </button>
@@ -125,6 +119,24 @@ function App() {
                   <td>{item.role}</td>
                 </tr>
               ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {showGroupsContainer && (
+        <div className="container">
+          {/* TODO: Add search bar to make the users more accesible. */}
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Group Name</th>
+                <th>Creator</th>
+                <th>Average Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              
             </tbody>
           </table>
         </div>
