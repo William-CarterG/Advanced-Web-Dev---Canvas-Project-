@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './main.css';
 import Users from './components/Users';
 import Groups from './components/Groups';
-
-function handleEvaluationsButtonClick() {
-  // Navigate to the Evaluations CRUD page
-  console.log("Evaluations CRUD clicked.");
-}
+import Evaluations from './components/Evaluations';
 
 function handleTestsButtonClick() {
   // Navigate to the Tests CRUD page
@@ -55,6 +51,7 @@ function App() {
   const tableHeaders = {
     users: ['Name', 'Email', 'Role'],
     groups: ['Group Name', 'Creator', 'Average Grade'],
+    evaluations: ['Evaluator', 'N° of Questions', 'Submission Deadline']
   };
 
   // Fill table with it's corresponding data.
@@ -68,14 +65,24 @@ function App() {
           <td>{item.role}</td>
         </tr>
       ));
-    } else if (activeContainer === 'groups') {
+    } 
+    else if (activeContainer === 'groups') {
       // Return table rows for groups container.
       return <tr>
               <td>...</td>
               <td>...</td>
               <td>...</td>
             </tr>
-    } else {
+    } 
+    else if (activeContainer === 'evaluations') {
+      // Return table rows for evaluations container.
+      return <tr>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+            </tr>
+    } 
+    else {
       return null;
     }
   };
@@ -120,17 +127,15 @@ function App() {
       <h1>Welcome to the Administration Panel</h1>
       <Users onClick={() => setActiveContainer('users')}/>
       <Groups onClick={() => setActiveContainer('groups')} />
-      <button className="button" onClick={handleEvaluationsButtonClick}>
-        Manage Evaluations
-      </button>
+      <Evaluations onClick={() => setActiveContainer('evaluations')} />
       <button className="button" onClick={handleTestsButtonClick}>
         Manage Tests
       </button>
 
-      {/* When 'Manage Users' button is clicked, it displays the user information. Currently, it doesn't hide it after */}
+      {/* When a button is clicked, it displays the information corresponding to it. */}
       {activeContainer && (
         <div className="container">
-          {/* TODO: Add search bar to make the users more accessible. */}
+          {/* TODO: Add search bar to make the information more accessible. */}
           <table className="table">
             <thead>
               <tr>
