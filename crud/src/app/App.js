@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './main.css';
+import Users from './components/Users';
+
 
 function handleGroupsButtonClick() {
   // Navigate to the Groups CRUD page
@@ -31,12 +33,6 @@ function unpressedButtons() {
 
 function App() {
   const [showContainer, setShowContainer] = useState(false);
-
-  function handleUsersButtonClick() {
-    // Navigate to the Users CRUD page
-    console.log("Users CRUD clicked.");
-    setShowContainer(true);
-  }
 
   useEffect(() => {
     // Function to handle button click and add the 'pressed' class
@@ -98,9 +94,7 @@ function App() {
   return (
     <>
       <h1>Welcome to the Administration Panel</h1>
-      <button className="button" onClick={handleUsersButtonClick}>
-        Manage Users
-      </button>
+      <Users onClick={() => setShowContainer(true)} />
       <button className="button" onClick={handleGroupsButtonClick}>
         Manage Groups
       </button>
@@ -113,6 +107,7 @@ function App() {
 
       {/* When 'Manage Users' button is clicked, it displays the user information. Currently, it doesn't hide it after */}
       {showContainer && (
+        <div id="c">
         <div className="container">
           {/* TODO: Add search bar to make the users more accesible. */}
           <table className="table">
@@ -133,6 +128,7 @@ function App() {
               ))}
             </tbody>
           </table>
+        </div>
         </div>
       )}
     </>
