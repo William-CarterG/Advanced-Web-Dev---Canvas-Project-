@@ -27,8 +27,7 @@ function unpressedButtons() {
 }
 
 function App() {
-  const [showContainer, setShowContainer] = useState(false);
-  const [showGroupsContainer, setShowGroupContainer] = useState(false);
+  const [activeContainer, setActiveContainer] = useState(null);
 
   useEffect(() => {
     // Function to handle button click and add the 'pressed' class
@@ -90,8 +89,8 @@ function App() {
   return (
     <>
       <h1>Welcome to the Administration Panel</h1>
-      <Users onClick={() => setShowContainer(true)} />
-      <Groups onClick={() => setShowGroupContainer(true)} />
+      <Users onClick={() => setActiveContainer('users')}/>
+      <Groups onClick={() => setActiveContainer('groups')} />
       <button className="button" onClick={handleEvaluationsButtonClick}>
         Manage Evaluations
       </button>
@@ -100,7 +99,7 @@ function App() {
       </button>
 
       {/* When 'Manage Users' button is clicked, it displays the user information. Currently, it doesn't hide it after */}
-      {showContainer && (
+      {activeContainer === 'users'&& (
         <div className="container">
           {/* TODO: Add search bar to make the users more accesible. */}
           <table className="table">
@@ -124,7 +123,7 @@ function App() {
         </div>
       )}
 
-      {showGroupsContainer && (
+      {activeContainer === 'groups' && (
         <div className="container">
           {/* TODO: Add search bar to make the users more accesible. */}
           <table className="table">
