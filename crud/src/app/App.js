@@ -30,26 +30,55 @@ function App() {
   const [activeContainer, setActiveContainer] = useState(null);
 
   useEffect(() => {
-    // Function to handle button click and add the 'pressed' class
+    // Function to handle button click and add the 'pressed' class.
     function handleClick(event) {
-      unpressedButtons(); // Remove 'pressed' class from all buttons
+      unpressedButtons(); // Remove 'pressed' class from all buttons.
       const button = event.target;
       buttonPressed(button);
     }
 
-    // Attach click event listeners to the buttons
+    // Attach click event listeners to the buttons.
     const buttons = document.querySelectorAll('.button');
     buttons.forEach((button) => {
       button.addEventListener('click', handleClick);
     });
 
-    // Clean up the event listeners when the component unmounts
+    // Clean up the event listeners when the component unmounts.
     return () => {
       buttons.forEach((button) => {
         button.removeEventListener('click', handleClick);
       });
     };
   }, []);
+
+  // Columns names desired for each table. Remember to modify CSS table when adding/deleting columns.
+  const tableHeaders = {
+    users: ['Name', 'Email', 'Role'],
+    groups: ['Group Name', 'Creator', 'Average Grade'],
+  };
+
+  // Fill table with it's corresponding data.
+  const renderTableRows = () => {
+    if (activeContainer === 'users') {
+      // Return table rows for users container.
+      return fakeData.map((item, index) => (
+        <tr key={index}>
+          <td>{item.name}</td>
+          <td>{item.email}</td>
+          <td>{item.role}</td>
+        </tr>
+      ));
+    } else if (activeContainer === 'groups') {
+      // Return table rows for groups container.
+      return <tr>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+            </tr>
+    } else {
+      return null;
+    }
+  };
 
   // Fake data to fill user's table.
   const fakeData = [
@@ -99,44 +128,18 @@ function App() {
       </button>
 
       {/* When 'Manage Users' button is clicked, it displays the user information. Currently, it doesn't hide it after */}
-      {activeContainer === 'users'&& (
+      {activeContainer && (
         <div className="container">
-          {/* TODO: Add search bar to make the users more accesible. */}
+          {/* TODO: Add search bar to make the users more accessible. */}
           <table className="table">
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
+                {tableHeaders[activeContainer].map((header, index) => (
+                  <th key={index}>{header}</th>
+                ))}
               </tr>
             </thead>
-            <tbody>
-              {fakeData.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.name}</td>
-                  <td>{item.email}</td>
-                  <td>{item.role}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {activeContainer === 'groups' && (
-        <div className="container">
-          {/* TODO: Add search bar to make the users more accesible. */}
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Group Name</th>
-                <th>Creator</th>
-                <th>Average Grade</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-            </tbody>
+            <tbody>{renderTableRows()}</tbody>
           </table>
         </div>
       )}
