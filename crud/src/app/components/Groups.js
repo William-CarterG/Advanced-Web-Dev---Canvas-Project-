@@ -5,7 +5,7 @@ function Groups({ onClick }) {
         onClick();
     }
     return (
-    <button className="button" onClick={handleGroupsButtonClick}>
+    <button className="button menu-button" onClick={handleGroupsButtonClick}>
         Manage Groups
     </button>
     );

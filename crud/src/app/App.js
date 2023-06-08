@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './main.css';
-import Users from './components/Users';
+import Users from './components/users/Users';
 import Groups from './components/Groups';
 import Evaluations from './components/Evaluations';
 import Tests from './components/Tests';
+import AddUser from './components/users/addUser';
+
 
 // Adds the 'pressed-button' class so button looks pressed.
 function buttonPressed(button) {
@@ -30,14 +32,14 @@ function App() {
     }
 
     // Attach click event listeners to the buttons.
-    const buttons = document.querySelectorAll('.button');
-    buttons.forEach((button) => {
+    const menuButtons = document.querySelectorAll('.menu-button');
+    menuButtons.forEach((button) => {
       button.addEventListener('click', handleClick);
     });
 
     // Clean up the event listeners when the component unmounts.
     return () => {
-      buttons.forEach((button) => {
+      menuButtons.forEach((button) => {
         button.removeEventListener('click', handleClick);
       });
     };
@@ -56,10 +58,11 @@ function App() {
     if (activeContainer === 'users') {
       // Return table rows for users container.
       return fakeData.map((item, index) => (
-        <tr key={index}>
-          <td>{item.name}</td>
-          <td>{item.email}</td>
-          <td>{item.role}</td>
+        <tr className="border-b hover:bg-gray-50" key={index}>
+          <td className="p-4">{item.name}</td>
+          <td className="p-4">{item.email}</td>
+          <td className="p-4">{item.role}</td>
+          
         </tr>
       ));
     } 
@@ -138,19 +141,22 @@ function App() {
       {/* When a button is clicked, it displays the information corresponding to it. */}
       {activeContainer && (
         <div className="container">
-          {/* TODO: Add search bar to make the information more accessible. */}
-          <table className="table">
-            <thead>
-              <tr>
-                {tableHeaders[activeContainer].map((header, index) => (
-                  <th key={index}>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>{renderTableRows()}</tbody>
-          </table>
+          <div className="table-wrapper">
+            <table className="table">
+              <thead>
+                <tr>
+                  {tableHeaders[activeContainer].map((header, index) => (
+                    <th key={index}>{header}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>{renderTableRows()}</tbody>
+            </table>
+          </div>
         </div>
       )}
+      {activeContainer && <AddUser />} {/* Add this line */}  
+
     </>
   );
 }

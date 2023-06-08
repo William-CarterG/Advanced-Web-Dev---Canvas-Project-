@@ -6,7 +6,7 @@ function Users({ onClick }) {
   }
 
   return (
-    <button className="button" onClick={handleUsersButtonClick}>
+    <button className="button menu-button" onClick={handleUsersButtonClick}>
       Manage Users
     </button>
   );

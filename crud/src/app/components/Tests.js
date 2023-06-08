@@ -6,7 +6,7 @@ function Tests({ onClick }) {
     }
   
     return (
-        <button className="button" onClick={handleTestsButtonClick}>
+        <button className="button menu-button" onClick={handleTestsButtonClick}>
             Manage Tests
         </button>
     );

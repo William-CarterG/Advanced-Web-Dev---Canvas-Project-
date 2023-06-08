@@ -6,7 +6,7 @@ function Evaluations({ onClick }) {
     }
   
     return (
-        <button className="button" onClick={handleEvaluationsButtonClick}>
+        <button className="button menu-button" onClick={handleEvaluationsButtonClick}>
             Manage Evaluations
         </button>
     );
