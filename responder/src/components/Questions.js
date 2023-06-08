@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Bools from './type/Bools.js';
 import MultipleChoices from './type/MultipleChoices.js';
 import SemiOpen from './type/SemiOpen.js';
+import Number from './type/Number.js';
+import Matrix from './type/Matrix.js';
+
 
 const Questions = () => {
     const [question, setQuestion] = useState('bools');
@@ -13,6 +16,10 @@ const Questions = () => {
                 return <MultipleChoices />;
             case 'semiOpen':
                 return <SemiOpen />;
+            case 'number':
+                return <Number />;
+            case 'matrix':
+                return <Matrix />;
         }
       };
     return (
@@ -37,7 +44,15 @@ const Questions = () => {
                                 setQuestion('semiOpen');
                             } else{
                                 if (question === "semiOpen") {
-                                    setQuestion('bools');
+                                    setQuestion('number');
+                                } else{
+                                    if (question === "number") {
+                                        setQuestion('matrix');
+                                    } else{
+                                        if (question === "matrix") {
+                                            setQuestion('bools');
+                                        }
+                                    }
                                 }
                             }
                         }
