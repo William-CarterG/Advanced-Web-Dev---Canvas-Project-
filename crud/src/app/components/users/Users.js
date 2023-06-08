@@ -1,12 +1,11 @@
 function Users({ onClick }) {
   function handleUsersButtonClick() {
     // Navigate to the Users CRUD page
-    console.log("Users CRUD clicked.");
     onClick(); // Call the onClick prop passed from the parent component
   }
 
   return (
-    <button className="button menu-button" onClick={handleUsersButtonClick}>
+    <button className="button pressed-button menu-button" onClick={handleUsersButtonClick}>
       Manage Users
     </button>
   );

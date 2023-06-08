@@ -124,8 +124,9 @@ function App() {
     <>
       <h1  className='text-center'>Welcome to the Administration Panel</h1>
     
-      <div className="mt-6 md:flex md:items-center">  
-        <div className="relative flex items-center mt-4 md:mt-0">
+      <div className="mt-6 mb-8 md:flex md:items-center relative">  
+        {/* Search bar */}
+        <div className="flex items-center">
             <span className="absolute">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600">
                     <path strokeLinecap="round"
@@ -141,13 +142,11 @@ function App() {
             focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 
             focus:outline-none focus:ring focus:ring-opacity-40"/>
         </div>
-        <div className="inline-flex ml-11">
+        <div className="inline-flex absolute left-1/2 transform -translate-x-1/2">
           <Users onClick={() => setActiveContainer('users')} />
           <Groups onClick={() => setActiveContainer('groups')} />
           <Evaluations onClick={() => setActiveContainer('evaluations')} />
           <Tests onClick={() => setActiveContainer('tests')} />
-        </div>
-          <div className="">
         </div>
     </div>
 
