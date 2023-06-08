@@ -1,42 +1,49 @@
 import React, { useState } from 'react';
 import Bools from './type/Bools.js';
-import Choices from './type/Choices.js';
+import MultipleChoices from './type/MultipleChoices.js';
+import SemiOpen from './type/SemiOpen.js';
 
 const Questions = () => {
-    const [question, setQuestion] = useState('choices');
+    const [question, setQuestion] = useState('bools');
     const renderQuestion = () => {
         switch (question) {
-          case 'choices':
-            return <Choices />;
-          case 'bools':
-            return <Bools />;
+            case 'bools':
+                return <Bools />;
+            case 'multipleChoices':
+                return <MultipleChoices />;
+            case 'semiOpen':
+                return <SemiOpen />;
         }
       };
     return (
-        <div class="flex items-center justify-center p-12">
-            <div class="mx-auto w-full max-w-[550px]">
+        <div class="flex items-center justify-center pt-5 px-5">
+            <div class="mx-auto w-full">
                 <div class="mb-5">
                     <label
-                    class="mb-3 block text-2xl font-medium text-gray-700"
+                    class="flex text-justify mb-3 text-lg font-medium text-gray-700"
                     >
                     ¿Aqui se puede ver una pregunta que cambia dinamicamente?
                     </label>
-                    <span>Indique su respuesta:</span>
-                    <br/>
                     <div>{renderQuestion()}</div>
                 </div>
-                <div>
+                <div className="flex justify-center w-full">
                     <button
-                    className="hover:shadow-form rounded-lg bg-gray-700 py-3 px-8 text-base font-semibold text-white outline-none"
+                    className="w-2/3 rounded-lg bg-gray-700 py-3 px-8 text-base font-semibold text-white outline-none"
                     onClick={() => {
-                        if (question === "choices") {
-                            setQuestion('bools');
+                        if (question === "bools") {
+                            setQuestion('multipleChoices');
                         } else{
-                            setQuestion('choices');
+                            if (question === "multipleChoices") {
+                                setQuestion('semiOpen');
+                            } else{
+                                if (question === "semiOpen") {
+                                    setQuestion('bools');
+                                }
+                            }
                         }
                     }}
                     >
-                    Submit
+                    Enviar
                     </button>
                 </div>
             </div>
