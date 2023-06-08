@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function AddUser() {
+function AddUser(container) {
   const [modelOpen, setModelOpen] = useState(false);
   const [showCanMakeTask, setShowCanMakeTask] = useState(false);
   const [showCanDeleteTask, setShowCanDeleteTask] = useState(false);
@@ -11,7 +11,7 @@ function AddUser() {
   };
 
   return (
-    <div>
+    <div className='mt-4'>
       <button
         onClick={toggleModelOpen}
         className="button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white 
