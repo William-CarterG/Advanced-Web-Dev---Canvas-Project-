@@ -85,15 +85,9 @@ h1 {
   table-layout: fixed;
 }
 
-.table thead th {
+table thead th {
   position: sticky;
   top: 0;
   background-color: #c3c3c3;
 }
 
-.table th,
-.table td {
-  width: 33.33%;
-  padding: 8px;
-  text-align: center;
-}

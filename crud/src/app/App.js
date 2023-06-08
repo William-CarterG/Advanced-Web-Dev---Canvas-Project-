@@ -5,6 +5,7 @@ import Groups from './components/Groups';
 import Evaluations from './components/Evaluations';
 import Tests from './components/Tests';
 import AddUser from './components/users/addUser';
+import TableComponent from './components/TableComponent';
 
 
 // Adds the 'pressed-button' class so button looks pressed.
@@ -47,7 +48,7 @@ function App() {
 
   // Columns names desired for each table. Remember to modify CSS table when adding/deleting columns.
   const tableHeaders = {
-    users: ['Name', 'Email', 'Role'],
+    users: ['Name', 'Email', 'Roles'],
     groups: ['Group Name', 'Creator', 'Average Grade'],
     evaluations: ['Evaluator', 'N° of Questions', 'Submission Deadline'],
     tests: ['Test Creator', 'N° of Questions', 'Submission Deadline']
@@ -55,18 +56,7 @@ function App() {
 
   // Fill table with it's corresponding data.
   const renderTableRows = () => {
-    if (activeContainer === 'users') {
-      // Return table rows for users container.
-      return fakeData.map((item, index) => (
-        <tr className="border-b hover:bg-gray-50" key={index}>
-          <td className="p-4">{item.name}</td>
-          <td className="p-4">{item.email}</td>
-          <td className="p-4">{item.role}</td>
-          
-        </tr>
-      ));
-    } 
-    else if (activeContainer === 'groups') {
+    if (activeContainer === 'groups') {
       // Return table rows for groups container.
       return <tr>
               <td>...</td>
@@ -140,6 +130,12 @@ function App() {
 
       {/* When a button is clicked, it displays the information corresponding to it. */}
       {activeContainer && (
+        <TableComponent
+          data={fakeData}
+          headers={tableHeaders[activeContainer]}
+        />
+      )}
+      {/*
         <div className="container">
           <div className="table-wrapper">
             <table className="table">
@@ -155,7 +151,9 @@ function App() {
           </div>
         </div>
       )}
+      */}
       {activeContainer && <AddUser />} {/* Add this line */}  
+      
 
     </>
   );
