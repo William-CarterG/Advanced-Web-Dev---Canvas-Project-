@@ -55,38 +55,13 @@ function App() {
   };
 
   // Fake data to fill user's table.
-  const fakeData = [
-    { name: 'John Doe', email: 'johndoe@example.com', role: 'Admin' },
-    { name: 'Jane Smith', email: 'janesmith@example.com', role: 'User' },
-    { name: 'Michael Johnson', email: 'michaeljohnson@example.com', role: 'Admin' },
-    { name: 'Emily Davis', email: 'emilydavis@example.com', role: 'Evaluador' },
-    { name: 'Daniel Wilson', email: 'danielwilson@example.com', role: 'Visualizador' },
-    { name: 'Olivia Brown', email: 'oliviabrown@example.com', role: 'Admin' },
-    { name: 'William Taylor', email: 'williamtaylor@example.com', role: 'User' },
-    { name: 'Sophia Martinez', email: 'sophiamartinez@example.com', role: 'Evaluador' },
-    { name: 'Joseph Anderson', email: 'josephanderson@example.com', role: 'Visualizador' },
-    { name: 'Abigail Thomas', email: 'abigailthomas@example.com', role: 'Admin' },
-    { name: 'James White', email: 'jameswhite@example.com', role: 'User' },
-    { name: 'Mia Garcia', email: 'miagarcia@example.com', role: 'Evaluador' },
-    { name: 'Alexander Rodriguez', email: 'alexanderrodriguez@example.com', role: 'Visualizador' },
-    { name: 'Charlotte Lee', email: 'charlottelee@example.com', role: 'Admin' },
-    { name: 'David Clark', email: 'davidclark@example.com', role: 'User' },
-    { name: 'Sofia Lewis', email: 'sofialewis@example.com', role: 'Evaluador' },
-    { name: 'Benjamin Walker', email: 'benjaminwalker@example.com', role: 'Visualizador' },
-    { name: 'Ava Hall', email: 'avahall@example.com', role: 'Admin' },
-    { name: 'Logan Young', email: 'loganyoung@example.com', role: 'User' },
-    { name: 'Chloe Hernandez', email: 'chloehernandez@example.com', role: 'Evaluador' },
-    { name: 'Elijah King', email: 'elijahking@example.com', role: 'Visualizador' },
-    { name: 'Lily Green', email: 'lilygreen@example.com', role: 'Admin' },
-    { name: 'Christopher Martinez', email: 'christophermartinez@example.com', role: 'User' },
-    { name: 'Grace Turner', email: 'graceturner@example.com', role: 'Evaluador' },
-    { name: 'Daniel Thompson', email: 'danielthompson@example.com', role: 'Visualizador' },
-    { name: 'Avery Scott', email: 'averyscott@example.com', role: 'Admin' },
-    { name: 'Victoria Phillips', email: 'victoriaphillips@example.com', role: 'User' },
-    { name: 'Jackson Baker', email: 'jacksonbaker@example.com', role: 'Evaluador' },
-    { name: 'Scarlett Adams', email: 'scarlettadams@example.com', role: 'Visualizador' },
-    { name: 'Anthony Wright', email: 'anthonywright@example.com', role: 'Admin' },
-    // Add more fake data
+  const fakeUserData = [
+    { name: 'John Doe', email: 'johndoe@example.com', role: [1,2,3] },
+    { name: 'Jane Smith', email: 'janesmith@example.com', role: [1,2] },
+    { name: 'Michael Johnson', email: 'michaeljohnson@example.com', role: [1,3] },
+    { name: 'Emily Davis', email: 'emilydavis@example.com', role: [2,3] },
+    { name: 'Daniel Wilson', email: 'danielwilson@example.com', role: [2] },
+    { name: 'Olivia Brown', email: 'oliviabrown@example.com', role: [3] },
   ];
 
   return (
@@ -123,7 +98,7 @@ function App() {
       {activeContainer==="users" && (
       <div>
         <UserTableComponent 
-          data={fakeData} 
+          data={fakeUserData} 
           headers={tableHeaders[activeContainer]} 
         />
         <AddUser 
@@ -135,7 +110,7 @@ function App() {
       {activeContainer==="groups" && (
       <div>
         <UserTableComponent 
-          data={fakeData} 
+          data={fakeUserData} 
           headers={tableHeaders[activeContainer]} 
         />
         <AddUser 
