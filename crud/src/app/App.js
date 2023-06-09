@@ -5,7 +5,7 @@ import Groups from './components/groups/Groups';
 import Evaluations from './components/Evaluations';
 import Tests from './components/Tests';
 import AddUser from './components/users/addUser';
-import UserTableComponent from './components/users/UserTableComponent';
+import UserTable from './components/users/UserTable';
 
 
 // Adds the 'pressed-button' class so button looks pressed.
@@ -97,7 +97,7 @@ function App() {
       {/* When a button is clicked, it displays the information corresponding to it. */}
       {activeContainer==="users" && (
       <div>
-        <UserTableComponent 
+        <UserTable
           data={fakeUserData} 
           headers={tableHeaders[activeContainer]} 
         />
@@ -109,7 +109,7 @@ function App() {
 
       {activeContainer==="groups" && (
       <div>
-        <UserTableComponent 
+        <UserTable 
           data={fakeUserData} 
           headers={tableHeaders[activeContainer]} 
         />

@@ -5,6 +5,7 @@ import EditUser from './editUser';
 // creating a good part of this table.
 
 const TableRow = ({ item }) => {
+  // Component is being rendered twice, for some reason...
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
   const [isEditUserOpen, setIsEditUserOpen] = useState(false);
@@ -204,10 +205,13 @@ const TableRow = ({ item }) => {
               </div>
             </div>
           )}
-          {isEditUserOpen && (
-            <EditUser closeEditUserModal={openEditUserModal} />
-          )}
         </div>
+        {isEditUserOpen && (
+          <EditUser 
+            closeEditUserModal={openEditUserModal} 
+            roles={item.role} 
+          />
+        )}
       </td>
     </tr>
   );
@@ -215,37 +219,39 @@ const TableRow = ({ item }) => {
 
 
 const UserTableComponent = ({ data, headers }) => {
-    const fakeData = data;
-    return (
-      <div className="mt-10 flex flex-col h-96 min-w-full py-6 align-middle">  
-        <div className="flex-grow rounded-2xl overflow-auto"> 
-          <table className="relative w-full border"> 
-            <thead className="sticky top-0 px-6 py-3 bg-gray-50">
-              <tr>
-                {headers.map((header, index) => (
-                <th key={index}
-                  scope="col"
-                  className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
-                >
-                  {header}
-                </th>
-                ))}
-                <th scope="col"
-                className="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                >
-                  <span className="sr-only">Actions</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200 bg-white">
-              {fakeData.map((item) => (
-              <TableRow key={item.id} item={item} />
+
+  const fakeData = data;
+  return (
+    <div className="mt-10 flex flex-col h-96 min-w-full py-6 align-middle">  
+      <div className="flex-grow rounded-2xl overflow-auto"> 
+        <table className="relative w-full border"> 
+          <thead className="sticky top-0 px-6 py-3 bg-gray-50">
+            <tr>
+              {headers.map((header, index) => (
+              <th key={index}
+                scope="col"
+                className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+              >
+                {header}
+              </th>
               ))}
-            </tbody>
-          </table>
-        </div>
+              <th scope="col"
+              className="relative py-3.5 pl-3 pr-4 sm:pr-6"
+              >
+                <span className="sr-only">Actions</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200 bg-white">
+            {fakeData.map((item) => (
+              <TableRow key={item.id} item={item} />
+              
+            ))}
+          </tbody>
+        </table>
       </div>
-    );
+    </div>
+  );
 };
 
 export default UserTableComponent;
