@@ -89,21 +89,7 @@ function AddUser(container) {
                 </div>
 
                 <div className="mt-4">
-                  <label
-                    htmlFor="email"
-                    className="block text-sm text-gray-700 capitalize dark:text-gray-200"
-                  >
-                    Email
-                  </label>
-                  <input
-                    placeholder="johndoe@example.com"
-                    type="email"
-                    className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
-                  />
-                </div>
-
-                <div className="mt-4">
-                  <h1 className="text-xs font-medium text-gray-400 uppercase">Permissions</h1>
+                  <h1 className="text-xs font-medium text-gray-400 uppercase">Roles</h1>
 
                   <div className="mt-4 space-y-5">
                     <div

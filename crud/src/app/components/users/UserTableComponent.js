@@ -35,7 +35,6 @@ const TableRow = ({ item }) => {
   return (
     <tr key={item.name} className="border-b hover:bg-gray-50">
       <td className="p-4">{item.name}</td>
-      <td className="p-4">{item.email}</td>
       <td className="whitespace-nowrap px-3 py-4 text-sm">
         <span className="flex justify-center">
           <svg
@@ -163,7 +162,7 @@ const UserTableComponent = ({ data, headers }) => {
     const fakeData = data;
     return (
       <div className="mt-10 flex flex-col h-96 min-w-full py-6 align-middle">  
-        <div className="flex-grow overflow-auto"> 
+        <div className="flex-grow rounded-2xl overflow-auto"> 
           <table className="relative w-full border"> 
             <thead className="sticky top-0 px-6 py-3 bg-gray-50">
               <tr>

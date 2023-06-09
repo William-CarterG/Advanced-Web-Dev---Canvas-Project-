@@ -51,13 +51,13 @@ function EditUser({ closeEditUserModal }) {
               </div>
 
               <p className="mt-2 text-sm text-gray-500 ">
-                Modify the privileges of user.
+                Here you can modify user roles.
               </p>
 
               <form className="mt-5">
 
                 <div className="mt-4">
-                  <h1 className="text-xs font-medium text-gray-400 uppercase">Permissions</h1>
+                  <h1 className="text-xs font-medium text-gray-400 uppercase">Roles</h1>
 
                   <div className="mt-4 space-y-5">
                     <div

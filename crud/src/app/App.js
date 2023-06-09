@@ -48,8 +48,8 @@ function App() {
 
   // Columns names desired for each table. Remember to modify CSS table when adding/deleting columns.
   const tableHeaders = {
-    users: ['Name', 'Email', 'Roles'],
-    groups: ['Group ID', 'Group Name', 'Members'],
+    users: ['Name', 'Roles'],
+    groups: ['Group Name', 'Members'],
     evaluations: ['Evaluation Name', 'Status', 'Submission Deadline'],
     tests: ['Name', 'N° of Questions', 'Creator']
   };
