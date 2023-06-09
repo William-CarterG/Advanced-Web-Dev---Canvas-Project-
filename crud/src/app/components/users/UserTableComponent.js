@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import EditUser from './users/editUser';
+import EditUser from './editUser';
 
 const TableRow = ({ item }) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -159,7 +159,7 @@ const TableRow = ({ item }) => {
 
 
 
-const TableComponent = ({ data, headers }) => {
+const UserTableComponent = ({ data, headers }) => {
     const fakeData = data;
     return (
         <div className="mt-3 rounded-2xl max-w-9xl mx-auto h-96 overflow-y-auto">
@@ -197,4 +197,4 @@ const TableComponent = ({ data, headers }) => {
     );
 };
 
-export default TableComponent;
+export default UserTableComponent;

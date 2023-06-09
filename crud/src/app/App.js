@@ -5,7 +5,7 @@ import Groups from './components/Groups';
 import Evaluations from './components/Evaluations';
 import Tests from './components/Tests';
 import AddUser from './components/users/addUser';
-import TableComponent from './components/TableComponent';
+import UserTableComponent from './components/users/UserTableComponent';
 
 
 // Adds the 'pressed-button' class so button looks pressed.
@@ -49,40 +49,9 @@ function App() {
   // Columns names desired for each table. Remember to modify CSS table when adding/deleting columns.
   const tableHeaders = {
     users: ['Name', 'Email', 'Roles'],
-    groups: ['Group Name', 'Creator', 'Average Grade'],
-    evaluations: ['Evaluator', 'N° of Questions', 'Submission Deadline'],
-    tests: ['Test Creator', 'N° of Questions', 'Submission Deadline']
-  };
-
-  // Fill table with it's corresponding data.
-  const renderTableRows = () => {
-    if (activeContainer === 'groups') {
-      // Return table rows for groups container.
-      return <tr>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-            </tr>
-    } 
-    else if (activeContainer === 'evaluations') {
-      // Return table rows for evaluations container.
-      return <tr>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-            </tr>
-    } 
-    else if (activeContainer === 'tests') {
-      // Return table rows for evaluations container.
-      return <tr>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-            </tr>
-    } 
-    else {
-      return null;
-    }
+    groups: ['Group ID', 'Group Name', 'Members'],
+    evaluations: ['Evaluation Name', 'Status', 'Submission Deadline'],
+    tests: ['Name', 'N° of Questions', 'Creator']
   };
 
   // Fake data to fill user's table.
@@ -152,33 +121,17 @@ function App() {
 
       {/* When a button is clicked, it displays the information corresponding to it. */}
       {activeContainer && (
-        <TableComponent
-          data={fakeData}
-          headers={tableHeaders[activeContainer]}
+      <div>
+        <UserTableComponent 
+          data={fakeData} 
+          headers={tableHeaders[activeContainer]} 
         />
-      )}
-      {/*
-        <div className="container">
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  {tableHeaders[activeContainer].map((header, index) => (
-                    <th key={index}>{header}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>{renderTableRows()}</tbody>
-            </table>
-          </div>
-        </div>
-      )}
-      */}
-      {activeContainer && (
         <AddUser 
-          container = {activeContainer}
+          container={activeContainer} 
         />
-      )}
+      </div>
+    )}
+
       
 
     </>

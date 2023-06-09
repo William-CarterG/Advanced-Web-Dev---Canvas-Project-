@@ -68,7 +68,7 @@ function AddUser(container) {
               </div>
 
               <p className="mt-2 text-sm text-gray-500 ">
-                Create a new user for this project, and grant all the permissions you deemed necessary.
+                Create a new user for this project, and an email will be sent shortly.
               </p>
 
               <form className="mt-5">
