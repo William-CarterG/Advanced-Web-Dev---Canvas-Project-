@@ -15,7 +15,7 @@ const App = () => {
         "id": 1,
         "question_type": "bools",
         "difficulty": "Alta",
-        "text": "Indique la respuesta correcta.",
+        "text": "¿Huilo-Huilo es una region de Chile?",
         "correct_answer": "false",
         "order": 1,
         "test": 1,
@@ -25,28 +25,33 @@ const App = () => {
         "id": 2,
         "question_type": "multipleChoices",
         "difficulty": "Media",
-        "text": "Indique la respuesta correcta.",
+        "text": "¿Donde se encuentra la universidad de los Andes?",
         "correct_answer": "true",
         "order": 2,
         "test": 1,
+        "options": "Vitacura;La Dehesa;La Reina;Las Condes;Providencia",
         "tags": []
-    },
-    {
-      "id": 3,
-      "question_type": "matrix",
-      "difficulty": "Media",
-      "text": "Indique la respuesta correcta.",
-      "correct_answer": "true",
-      "order": 2,
-      "test": 1,
-      "tags": []
-  }
+    }
   ])
+  const [evaluations] = useState(
+    {
+      "id": 1,
+      "test": "Math test",
+      "group": "6ta Gen",
+      "is_active": false,
+      "name": "Geografia basica.",
+      "created": "2023-05-29T06:16:39.826984Z",
+      "limit_date": "2023-05-01T00:00:00Z",
+      "general_instructions": "En este test, se abordarán conceptos básicos de geografía chilena, donde se evaluarán los conocimientos sobre esta materia. Durante el test, se presentarán preguntas relacionadas con distintos aspectos geográficos de Chile, relacionados a la ubicación en el mapa. ¡Buena suerte en el test!"
+    }
+  )
+  
+
   let typeMessage
   const renderPage = () => {
     switch (route) {
       case 'homepage':
-        return <Homepage setRoute={setRoute} setIndex={setIndex}/>;
+        return <Homepage setRoute={setRoute} setIndex={setIndex} evaluations={evaluations}/>;
       case 'questions':
         switch (questions[index]["question_type"]) {
           case "bools":

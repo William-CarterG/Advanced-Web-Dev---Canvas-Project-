@@ -13,7 +13,7 @@ const Questions = ({question, index, setIndex, countOfQuestions, description, se
             case 'bools':
                 return <Bools />;
             case 'multipleChoices':
-                return <MultipleChoices />;
+                return <MultipleChoices options={question["options"].split(";")}/>;
             case 'semiOpen':
                 return <SemiOpen />;
             case 'number':
@@ -30,7 +30,7 @@ const Questions = ({question, index, setIndex, countOfQuestions, description, se
                     <label
                     class="flex text-justify mb-3 text-lg font-medium text-gray-700"
                     >
-                    ¿Aqui se puede ver una pregunta que cambia dinamicamente?
+                    {question["text"]}
                     </label>
                     <div className="flex justify-between mb-4">
                         <span className=" text-xs">{description}</span>

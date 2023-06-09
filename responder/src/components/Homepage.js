@@ -1,11 +1,11 @@
-const Homepage = ({setRoute, setIndex}) => {
+const Homepage = ({setRoute, setIndex, evaluations}) => {
   return (
     <div>
       <div class="flex max-w-4xl mx-auto  bg-white justify-center ">
         <div class="items-center justify-center">
           <div class="py-6 px-8">
-            <h2 class="text-gray-700 text-2xl font-bold mb-5">Cuestionario de Web</h2>
-            <p class="mt-2 text-black text-base text-justify">En el siguiente test, se abordaran preguntas basicas del manejo de css, y html.</p>
+            <h2 class="text-gray-700 text-2xl font-bold mb-5">{evaluations["name"]}</h2>
+            <p class="mt-2 text-black text-base text-justify">{evaluations["general_instructions"]}</p>
           </div>
         </div>
       </div>

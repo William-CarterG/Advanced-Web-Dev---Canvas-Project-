@@ -28,7 +28,7 @@ const Matrix = () => {
                         <tr class="divide-x divide-gray-200">
                             <td class="text-sm text-center px-2">0</td>
                             <Choice status={"text-gray-400"}/>
-                            <Choice status={"text-blue-500"}/>
+                            <Choice status={"text-gray-700"}/>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-400"}/>
                         </tr>
@@ -37,11 +37,11 @@ const Matrix = () => {
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-400"}/>
-                            <Choice status={"text-blue-500"}/>
+                            <Choice status={"text-gray-700"}/>
                         </tr>
                         <tr class="divide-x divide-gray-200">
                             <td class="text-sm text-center px-2">N</td>
-                            <Choice status={"text-blue-500"}/>
+                            <Choice status={"text-gray-700"}/>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-400"}/>
