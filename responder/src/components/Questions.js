@@ -43,11 +43,14 @@ const Questions = ({question, index, setIndex, countOfQuestions, description, se
                     className="w-2/3 rounded-lg bg-gray-700 py-3 px-8 text-base font-semibold text-white outline-none"
                     onClick={() => {
                         if (index+1 == countOfQuestions){
+                            localStorage.setItem('state', 1);
                             setRoute('finished')
                         } else{
                             setIndex(index+1)
                             setRoute('questions')
                         }
+                        let indexValue = localStorage.getItem('index');
+                        localStorage.setItem('index', parseInt(indexValue) + 1);
                     }}
                     >
                     Enviar

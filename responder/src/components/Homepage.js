@@ -14,6 +14,7 @@ const Homepage = ({setRoute, setIndex, evaluations}) => {
           <button class="py-3 px-4 bg-gray-700 text-gray-100 font-semibold"
             onClick={() => {
               setIndex(0)
+              localStorage.setItem('index', 0);
               setRoute('questions')
             }}>Realizar Prueba</button> 
       </div>

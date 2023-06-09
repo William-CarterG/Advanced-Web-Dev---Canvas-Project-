@@ -1,15 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Homepage from './components/Homepage.js';
 import Questions from './components/Questions.js';
 import Finished from './components/Finished.js';
 
-
-const App = () => {
+const App = ({indexValue}) => {
   const [name] = useState("Javier Muñoz")
-  const [route, setRoute] = useState('homepage')
-  let [index,setIndex] = useState(-1)
+  
+  //localStorage.removeItem('index');
+  //localStorage.removeItem('state');
+  
+  const [index, setIndex] = useState(indexValue);
   const [questions] = useState([
     {
         "id": 1,
@@ -45,7 +47,19 @@ const App = () => {
       "general_instructions": "En este test, se abordarán conceptos básicos de geografía chilena, donde se evaluarán los conocimientos sobre esta materia. Durante el test, se presentarán preguntas relacionadas con distintos aspectos geográficos de Chile, relacionados a la ubicación en el mapa. ¡Buena suerte en el test!"
     }
   )
-  
+
+  let routeValue = ""
+  if (questions.length == index){
+    localStorage.setItem('state', 1);
+    routeValue = "finished"
+  } else {
+    if (index == -1){
+      routeValue = "homepage"
+    } else{
+      routeValue = "questions"
+    }
+  }
+  const [route, setRoute] = useState(routeValue)
 
   let typeMessage
   const renderPage = () => {
