@@ -1,0 +1,93 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+.hidden {
+  display: none !important;
+}
+
+:root {
+  --background-color-primary: #282c34;
+  --background-color-secondary: #a72350;
+  --background-color-dark-primary: #40b6ca;
+  --background-color-dark-secondary: #5800b4;
+
+  --text-color-primary: white;
+  --text-color-secondary: #282c34;;
+
+  --button-background-color: white;
+  --button-color-active: #1d232e;
+}
+
+body {
+  background-color: var(--background-color-primary);
+  color: var(--text-color-secondary);
+  padding: 40px;
+  font-family: Sans-Serif;
+  text-align: center;
+  overflow: hidden;
+
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--text-color-primary);
+}
+
+.button {
+  background-color: var(--button-background-color);
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--button-color-active);
+  color: var(--text-color-primary);
+}
+
+.pressed-button {
+  background-color: var(--button-color-active);
+  color: var(--text-color-primary);
+}
+
+.container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4rem;
+  min-height: 100%;
+  margin: 1rem 0rem;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.table-wrapper {
+  max-height: 64vh; /* Adjust the maximum height as needed */
+  overflow: auto;
+}
+
+.table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #c3c3c3;
+}
+
