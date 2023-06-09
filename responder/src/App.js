@@ -3,6 +3,8 @@ import './App.css';
 import React, { useState } from 'react';
 import Homepage from './components/Homepage.js';
 import Questions from './components/Questions.js';
+import Finished from './components/Finished.js';
+
 
 const App = () => {
   const [name] = useState("Javier Muñoz")
@@ -28,7 +30,17 @@ const App = () => {
         "order": 2,
         "test": 1,
         "tags": []
-    }
+    },
+    {
+      "id": 3,
+      "question_type": "matrix",
+      "difficulty": "Media",
+      "text": "Indique la respuesta correcta.",
+      "correct_answer": "true",
+      "order": 2,
+      "test": 1,
+      "tags": []
+  }
   ])
   let typeMessage
   const renderPage = () => {
@@ -54,6 +66,8 @@ const App = () => {
             break
         }
         return <Questions question={questions[index]} index={index} setIndex={setIndex} countOfQuestions={questions.length} description={typeMessage} setRoute={setRoute}/>;
+      case 'finished':
+        return <Finished/>;
     }
   };
 
