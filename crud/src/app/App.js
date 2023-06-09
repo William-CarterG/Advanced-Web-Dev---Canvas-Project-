@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './main.css';
 import Users from './components/users/Users';
-import Groups from './components/Groups';
+import Groups from './components/groups/Groups';
 import Evaluations from './components/Evaluations';
 import Tests from './components/Tests';
 import AddUser from './components/users/addUser';
@@ -117,10 +117,10 @@ function App() {
           <Evaluations onClick={() => setActiveContainer('evaluations')} />
           <Tests onClick={() => setActiveContainer('tests')} />
         </div>
-    </div>
+      </div>
 
       {/* When a button is clicked, it displays the information corresponding to it. */}
-      {activeContainer && (
+      {activeContainer==="users" && (
       <div>
         <UserTableComponent 
           data={fakeData} 
@@ -130,9 +130,20 @@ function App() {
           container={activeContainer} 
         />
       </div>
-    )}
+      )}
 
-      
+      {activeContainer==="groups" && (
+      <div>
+        <UserTableComponent 
+          data={fakeData} 
+          headers={tableHeaders[activeContainer]} 
+        />
+        <AddUser 
+          container={activeContainer} 
+        />
+      </div>
+      )}
+
 
     </>
   );
