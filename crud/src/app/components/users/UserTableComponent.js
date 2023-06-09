@@ -18,6 +18,10 @@ const TableRow = ({ item }) => {
     setIsEditUserOpen(!isEditUserOpen);
   };
 
+  const deleteUser = () => {
+    // TODO: Connection to back.
+  }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -35,8 +39,10 @@ const TableRow = ({ item }) => {
   return (
     <tr key={item.name} className="border-b hover:bg-gray-50">
       <td className="p-4">{item.name}</td>
+      {/* User roles*/}
       <td className="whitespace-nowrap px-3 py-4 text-sm">
         <span className="flex justify-center">
+          {/* Admin User role */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-green-500"
@@ -49,6 +55,7 @@ const TableRow = ({ item }) => {
               clipRule="evenodd"
             />
           </svg>
+          {/* Evaluator User role */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-green-500"
@@ -61,6 +68,7 @@ const TableRow = ({ item }) => {
               clipRule="evenodd"
             />
           </svg>
+          {/* Visualizer User role */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-red-500"
@@ -77,6 +85,7 @@ const TableRow = ({ item }) => {
       </td>
 
       <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+        {/* Edit and delete menu */}
         <div className="inline-block text-left" ref={menuRef}>
           <button
             onClick={toggleMenu}
@@ -107,7 +116,7 @@ const TableRow = ({ item }) => {
               aria-labelledby={`menu-button-${item.id}`}
               tabIndex="-1"
             >
-              <button className="" onClick={openEditUserModal} role="none">
+              <div className="" onClick={openEditUserModal} role="none">
                 <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -125,9 +134,9 @@ const TableRow = ({ item }) => {
                   </svg>
                   Edit
                 </span>
-              </button>
+              </div>
 
-              <div className="" role="none">
+              <div className="" onClick={deleteUser} role="none">
                 <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
