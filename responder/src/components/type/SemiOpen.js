@@ -29,11 +29,6 @@ const SemiOpen = () => {
 
     return (
         <div>
-            <div className="flex justify-between mb-4">
-                <span className=" text-xs">Conteste la pregunta anterior:</span>
-                <span className="text-xs">Pregunta 3 de 5</span>
-            </div>
-
             <Combobox value={selected} onChange={setSelected}>
                 <div className="relative mt-1">
                     <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md border-2">

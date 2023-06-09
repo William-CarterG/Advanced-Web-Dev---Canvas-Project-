@@ -5,10 +5,6 @@ const Matrix = () => {
 
     return (
         <div>
-            <div className="flex justify-between mb-4">
-                <span className=" text-xs">Indique los campos correctos:</span>
-                <span className="text-xs">Pregunta 5 de 5</span>
-            </div>
             <div class="grid space-y-4 overflow-x-auto">
                 <table>
                     <thead class="bg-gray-50">

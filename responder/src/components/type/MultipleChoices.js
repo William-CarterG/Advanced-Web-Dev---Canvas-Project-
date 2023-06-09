@@ -7,11 +7,6 @@ const MultipleChoices = () => {
     let options = ["Opcion A","Opcion B","Opcion C","Opcion D","Opcion E"]
     return (
         <div>
-            <div className="flex justify-between mb-4">
-                <span className=" text-xs">Selecciona las alternativas correctas:</span>
-                <span className="text-xs">Pregunta 2 de 5</span>
-            </div>
-
             <div class="grid space-y-4">
                 {Object.keys(options).map((key) => (
                     <React.Fragment key={key}>
