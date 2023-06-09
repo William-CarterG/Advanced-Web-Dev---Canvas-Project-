@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './main.css';
+
 import Users from './components/users/Users';
-import Groups from './components/groups/Groups';
-import Evaluations from './components/Evaluations';
-import Tests from './components/Tests';
 import AddUser from './components/users/addUser';
 import UserTable from './components/users/UserTable';
+
+import Groups from './components/groups/Groups';
+import GroupsTable from './components/groups/GroupsTable'
+import AddGroup from './components/groups/addGroup';
+
+import Evaluations from './components/Evaluations';
+import Tests from './components/Tests';
+
+
 
 
 // Adds the 'pressed-button' class so button looks pressed.
@@ -64,6 +71,12 @@ function App() {
     { name: 'Olivia Brown', email: 'oliviabrown@example.com', role: [3] },
   ];
 
+  const fakeGroupData = [
+    { name: 'Desarrollo Web Avanzado', members: 22},
+    { name: 'Arquitectura de Computadores', members: 20},
+    { name: 'Proyecto de Desarrollo de Software', members: 15},
+  ];
+
   return (
     <>
       <h1  className='text-center'>Welcome to the Administration Panel</h1>
@@ -109,11 +122,11 @@ function App() {
 
       {activeContainer==="groups" && (
       <div>
-        <UserTable 
-          data={fakeUserData} 
+        <GroupsTable 
+          data={fakeGroupData} 
           headers={tableHeaders[activeContainer]} 
         />
-        <AddUser 
+        <AddGroup 
           container={activeContainer} 
         />
       </div>

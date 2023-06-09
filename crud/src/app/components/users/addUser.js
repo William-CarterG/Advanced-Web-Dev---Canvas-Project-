@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function AddUser(container) {
+function AddUser() {
   const [modelOpen, setModelOpen] = useState(false);
-  const [showCanMakeTask, setShowCanMakeTask] = useState(false);
-  const [showCanDeleteTask, setShowCanDeleteTask] = useState(false);
-  const [showCanEditTask, setShowCanEditTask] = useState(false);
+  const [IsAdmin, setIsAdmin] = useState(false);
+  const [IsEvaluator, setIsEvaluator] = useState(false);
+  const [IsVisualizer, setIsVisualizer] = useState(false);
 
   const toggleModelOpen = () => {
     setModelOpen(!modelOpen);
@@ -27,7 +27,7 @@ function AddUser(container) {
             clipRule="evenodd"
           />
         </svg>
-        Add
+        Create User
       </button>
 
       {modelOpen && (
@@ -94,17 +94,17 @@ function AddUser(container) {
                   <div className="mt-4 space-y-5">
                     <div
                       className="flex items-center space-x-3 cursor-pointer"
-                      onClick={() => setShowCanMakeTask(!showCanMakeTask)}
+                      onClick={() => setIsAdmin(!IsAdmin)}
                     >
                       <div
                         className={`relative w-10 h-5 transition duration-200 ease-linear rounded-full ${
-                          showCanMakeTask ? 'bg-blue-400' : 'bg-gray-300'
+                          IsAdmin ? 'bg-blue-400' : 'bg-gray-300'
                         }`}
                       >
                         <label
                           htmlFor="show"
                           className={`absolute left-0 w-5 h-5 mb-2 transition duration-100 ease-linear transform bg-white border-2 rounded-full cursor-pointer ${
-                            showCanMakeTask ? 'translate-x-5 bg-indigo-500' : 'translate-x-0 bg-gray-300'
+                            IsAdmin ? 'translate-x-5 bg-indigo-500' : 'translate-x-0 bg-gray-300'
                           }`}
                         ></label>
                         <input
@@ -119,17 +119,17 @@ function AddUser(container) {
 
                     <div
                       className="flex items-center space-x-3 cursor-pointer"
-                      onClick={() => setShowCanDeleteTask(!showCanDeleteTask)}
+                      onClick={() => setIsEvaluator(!IsEvaluator)}
                     >
                       <div
                         className={`relative w-10 h-5 transition duration-200 ease-linear rounded-full ${
-                          showCanDeleteTask ? 'bg-blue-400' : 'bg-gray-300'
+                          IsEvaluator ? 'bg-blue-400' : 'bg-gray-300'
                         }`}
                       >
                         <label
                           htmlFor="show"
                           className={`absolute left-0 w-5 h-5 mb-2 transition duration-100 ease-linear transform bg-white border-2 rounded-full cursor-pointer ${
-                            showCanDeleteTask ? 'translate-x-5 bg-indigo-500' : 'translate-x-0 bg-gray-300'
+                            IsEvaluator ? 'translate-x-5 bg-indigo-500' : 'translate-x-0 bg-gray-300'
                           }`}
                         ></label>
                         <input
@@ -144,17 +144,17 @@ function AddUser(container) {
 
                     <div
                       className="flex items-center space-x-3 cursor-pointer"
-                      onClick={() => setShowCanEditTask(!showCanEditTask)}
+                      onClick={() => setIsVisualizer(!IsVisualizer)}
                     >
                       <div
                         className={`relative w-10 h-5 transition duration-200 ease-linear rounded-full ${
-                          showCanEditTask ? 'bg-blue-400' : 'bg-gray-300'
+                          IsVisualizer ? 'bg-blue-400' : 'bg-gray-300'
                         }`}
                       >
                         <label
                           htmlFor="show"
                           className={`absolute left-0 w-5 h-5 mb-2 transition duration-100 ease-linear transform bg-white border-2 rounded-full cursor-pointer ${
-                            showCanEditTask ? 'translate-x-5 bg-gray-300' : 'translate-x-0 bg-gray-300'
+                            IsVisualizer ? 'translate-x-5 bg-gray-300' : 'translate-x-0 bg-gray-300'
                           }`}
                         ></label>
                         <input
@@ -182,7 +182,7 @@ function AddUser(container) {
                             clipRule="evenodd"
                           />
                         </svg>
-                      Add
+                      Create
                   </button>
                 </div>
               </form>
