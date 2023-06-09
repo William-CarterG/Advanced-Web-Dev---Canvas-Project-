@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+// Credits to TailwindComponents user 'khatabwedaa' for 
+// creating a good part of this modal window. 
 function AddUser(container) {
   const [modelOpen, setModelOpen] = useState(false);
   const [showCanMakeTask, setShowCanMakeTask] = useState(false);
