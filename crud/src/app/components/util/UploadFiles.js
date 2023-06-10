@@ -40,8 +40,7 @@ const DragAndDrop = () => {
 
   return (
     <div
-      className={`mt-2 flex flex-col items-center justify-center h-44 border-4 border-dashed rounded-lg ${
-        dragging ? 'border-blue-400' : 'border-gray-400'
+      className={`mt-2 flex flex-col items-center justify-center h-44 border-4 border-dashed rounded-lg ${dragging ? 'border-blue-400' : 'border-gray-400'
       }`}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}

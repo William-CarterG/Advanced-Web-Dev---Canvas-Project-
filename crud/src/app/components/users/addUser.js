@@ -79,7 +79,7 @@ function AddUser() {
                     htmlFor="user name"
                     className="block text-sm text-gray-700 capitalize dark:text-gray-200"
                   >
-                    Name
+                    Username
                   </label>
                   <input
                     placeholder="John Doe"

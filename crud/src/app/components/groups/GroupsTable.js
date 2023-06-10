@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import EditGroup from './editGroup';
 import AddStudent from './addStudent';
+import ViewGroup from './viewDetails';
 
 // Credits to TailwindComponents user 'BrendaMorales97' for 
 // creating a good part of this table.
@@ -10,6 +11,7 @@ const TableRow = ({ item }) => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
   const [isEditGroupOpen, setIsEditGroupOpen] = useState(false);
+  const [isViewGroupOpen, setIsViewGroupOpen] = useState(false);
   const [isAddStudentOpen, setIsAddStudentOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -19,6 +21,11 @@ const TableRow = ({ item }) => {
   const openEditGroupModal = () => {
     toggleMenu();
     setIsEditGroupOpen(!isEditGroupOpen);
+  };
+
+  const openViewGroupModal = () => {
+    toggleMenu();
+    setIsViewGroupOpen(!isViewGroupOpen);
   };
 
   const openAddStudentModal = () => {
@@ -50,7 +57,7 @@ const TableRow = ({ item }) => {
       <td className="p-4">{item.members}</td>
 
       <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-        {/* Edit and delete menu */}
+        {/*View Details, Add user, Edit, Delete menu */}
         <div className="inline-block text-left" ref={menuRef}>
           <button
             onClick={toggleMenu}
@@ -74,16 +81,24 @@ const TableRow = ({ item }) => {
             </svg>
           </button>
           {openMenu && (
-            <div
-              className="origin-top-right absolute right-16 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+            <div className="origin-top-right absolute right-12 mt-2 w-44 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby={`menu-button-${item.id}`}
               tabIndex="-1"
             >
+              <div className="" onClick={openViewGroupModal} role="none">
+                <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
+                <svg className="mr-2 w-6 h-6" fill="none" stroke="#000000" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                </svg>
+                  View Details
+                </span>
+              </div>
+
               <div className="" onClick={openAddStudentModal} role="none">
                 <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg className="mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                   <circle cx="8.5" cy="7" r="4"/>
                   <line x1="20" y1="8" x2="20" y2="14"/>
@@ -100,8 +115,8 @@ const TableRow = ({ item }) => {
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="h-6 w-6"
+                    stroke="#000000"
+                    className="mr-2 h-6 w-6"
                   >
                     <path
                       strokeLinecap="round"
@@ -120,8 +135,8 @@ const TableRow = ({ item }) => {
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="h-6 w-6"
+                    stroke="#000000"
+                    className="mr-2 h-6 w-6"
                   >
                     <path
                       strokeLinecap="round"
@@ -145,6 +160,13 @@ const TableRow = ({ item }) => {
             closeEditGroupModal={openEditGroupModal} 
           />
         )}
+
+        {isViewGroupOpen && (
+          <ViewGroup 
+            closeViewGroupModal={openViewGroupModal} 
+          />
+        )}
+
       </td>
     </tr>
   );
