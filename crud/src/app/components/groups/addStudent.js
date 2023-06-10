@@ -31,7 +31,7 @@ function AddStudent({ closeAddStudentModal }) {
         />
         <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
           <div className="flex items-center justify-between space-x-4">
-            <h1 className="text-xl font-medium text-gray-800">
+            <h1 className="text-xl font-bold text-gray-800">
               Add a Student
             </h1>
             <button

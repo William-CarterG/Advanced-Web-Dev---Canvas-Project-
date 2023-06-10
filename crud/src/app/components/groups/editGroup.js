@@ -1,4 +1,6 @@
 import React from 'react';
+import UploadFilesComponent from '../util/UploadFiles';
+import ColorSelectionComponent from '../util/ColorSelection';
 
 function EditGroup({ closeEditGroupModal }) {
     const toggleModelOpen = () => {
@@ -21,7 +23,7 @@ function EditGroup({ closeEditGroupModal }) {
 
             <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
               <div className="flex items-center justify-between space-x-4">
-                <h1 className="text-xl font-medium text-gray-800 ">Edit Group</h1>
+                <h1 className="text-xl font-bold text-gray-800 ">Edit Group</h1>
 
                 <button
                   onClick={toggleModelOpen}
@@ -49,19 +51,20 @@ function EditGroup({ closeEditGroupModal }) {
               </p>
 
               <form className="mt-5">
-                <div>
-                  <label
-                    htmlFor="Group name"
-                    className="block text-sm text-gray-700 capitalize dark:text-gray-200"
-                  >
-                    Group's Name
-                  </label>
-                  <input
-                    placeholder="Desarrollo Web Avanzado"
-                    type="text"
-                    className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
-                  />
+                <div className='mt-3 flex gap-4'>
+                  <ColorSelectionComponent name={"Background"}/>
+                  <ColorSelectionComponent name={"Text Font"}/>
                 </div>
+                <div className='mt-3'>
+                  <label
+                    htmlFor="Group logo.'"
+                    className="font-medium block text-sm text-gray-700 capitalize dark:text-gray-200"
+                  >
+                    Group Logo
+                  </label>
+                  <UploadFilesComponent />
+                </div>
+                
 
               </form>
             </div>

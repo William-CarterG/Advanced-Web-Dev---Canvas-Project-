@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function ColorSelectionComponent() {
+function ColorSelectionComponent( {name} ) {
     const [isOpen, setIsOpen] = useState(false);
     const colors = ['#2196F3', '#009688', '#9C27B0', '#FFEB3B', '#afbbc9', '#4CAF50', '#2d3748', '#F56565', '#ed64a6'];
     const [colorSelected, setColorSelected] = useState('#2196F3');
@@ -11,7 +11,7 @@ function ColorSelectionComponent() {
         <div className="mb-5">
             <div className="flex items-center">
             <div>
-                <label htmlFor="colorSelected" className="block font-medium mb-1">Select Color</label>
+                <label htmlFor="colorSelected" className="block font-medium mb-1">Select {name} Color</label>
                 <input
                 id="colorSelected"
                 type="text"
