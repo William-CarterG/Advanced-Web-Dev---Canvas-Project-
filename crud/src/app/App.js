@@ -9,8 +9,11 @@ import Groups from './components/groups/Groups';
 import GroupsTable from './components/groups/GroupsTable'
 import AddGroup from './components/groups/addGroup';
 
-import Evaluations from './components/Evaluations';
-import Tests from './components/Tests';
+import Evaluations from './components/evaluations/Evaluations';
+
+import Tests from './components/tests/Tests';
+import TestsTable from './components/tests/TestsTable';
+import AddTest from './components/tests/addTest';
 
 
 
@@ -58,7 +61,7 @@ function App() {
     users: ['Name', 'Roles'],
     groups: ['Group Name', 'Members'],
     evaluations: ['Evaluation Name', 'Status', 'Submission Deadline'],
-    tests: ['Name', 'N° of Questions', 'Creator']
+    tests: ['Name', 'N° of Questions']
   };
 
   // Fake data to fill user's table.
@@ -75,6 +78,24 @@ function App() {
     { name: 'Desarrollo Web Avanzado', members: 22},
     { name: 'Arquitectura de Computadores', members: 20},
     { name: 'Proyecto de Desarrollo de Software', members: 15},
+  ];
+
+  const fakeTestData = [
+    { name: 'Desarrollo Web Avanzado', count: 15},
+    { name: 'Arquitectura de Computadores', count: 20},
+    { name: 'Proyecto de Desarrollo de Software', count: 15},    
+    { name: 'Desarrollo Web Avanzado', count: 15},
+    { name: 'Arquitectura de Computadores', count: 20},
+    { name: 'Proyecto de Desarrollo de Software', count: 15},    
+    { name: 'Desarrollo Web Avanzado', count: 15},
+    { name: 'Arquitectura de Computadores', count: 20},
+    { name: 'Proyecto de Desarrollo de Software', count: 15},    
+    { name: 'Desarrollo Web Avanzado', count: 15},
+    { name: 'Arquitectura de Computadores', count: 20},
+    { name: 'Proyecto de Desarrollo de Software', count: 15},
+        { name: 'Desarrollo Web Avanzado', count: 15},
+    { name: 'Arquitectura de Computadores', count: 20},
+    { name: 'Proyecto de Desarrollo de Software', count: 15},
   ];
 
   return (
@@ -127,6 +148,18 @@ function App() {
           headers={tableHeaders[activeContainer]} 
         />
         <AddGroup 
+          container={activeContainer} 
+        />
+      </div>
+      )}
+
+      {activeContainer==="tests" && (
+      <div>
+        <TestsTable 
+          data={fakeTestData} 
+          headers={tableHeaders[activeContainer]} 
+        />
+        <AddTest 
           container={activeContainer} 
         />
       </div>
