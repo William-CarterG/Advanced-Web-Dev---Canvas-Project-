@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Homepage from './components/Homepage.js';
 import Questions from './components/Questions.js';
 import Finished from './components/Finished.js';
@@ -28,7 +28,7 @@ const App = ({indexValue}) => {
         "question_type": "multipleChoices",
         "difficulty": "Media",
         "text": "¿Donde se encuentra la universidad de los Andes?",
-        "correct_answer": "true",
+        "correct_answer": "Las Condes",
         "order": 2,
         "test": 1,
         "options": "Vitacura;La Dehesa;La Reina;Las Condes;Providencia",
@@ -49,11 +49,12 @@ const App = ({indexValue}) => {
   )
 
   let routeValue = ""
+  // eslint-disable-next-line
   if (questions.length == index){
     localStorage.setItem('state', 1);
     routeValue = "finished"
   } else {
-    if (index == -1){
+    if (index === -1){
       routeValue = "homepage"
     } else{
       routeValue = "questions"
@@ -83,10 +84,16 @@ const App = ({indexValue}) => {
           case "matrix":
             typeMessage = "Rellene las casillas.."
             break
+          default:
+            // do nothing
+          
         }
         return <Questions question={questions[index]} index={index} setIndex={setIndex} countOfQuestions={questions.length} description={typeMessage} setRoute={setRoute}/>;
       case 'finished':
-        return <Finished/>;
+        return <Finished index={questions.length}/>;
+      default:
+        // do nothing
+      
     }
   };
 

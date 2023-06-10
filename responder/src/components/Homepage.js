@@ -15,6 +15,7 @@ const Homepage = ({setRoute, setIndex, evaluations}) => {
             onClick={() => {
               setIndex(0)
               localStorage.setItem('index', 0);
+              localStorage.setItem('correct', 0);
               setRoute('questions')
             }}>Realizar Prueba</button> 
       </div>

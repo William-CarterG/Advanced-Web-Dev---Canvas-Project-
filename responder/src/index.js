@@ -10,7 +10,7 @@ let readyState = localStorage.getItem('state');
 if (indexValue === null) {
   indexValue = -1;
 } else {
-    if (readyState == null || readyState != "1"){
+    if (readyState === null || readyState !== "1"){
       indexValue = parseInt(indexValue) + 1;
     }
     localStorage.setItem('index', indexValue);
