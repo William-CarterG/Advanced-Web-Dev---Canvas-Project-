@@ -60,10 +60,10 @@ const App = ({indexValue, fullName, evaluation, questionsa, evToken, tokenState,
 
   return (
     <div>
-      <nav class="relative select-none bg-gray-700 flex items-stretch w-full h-16">
-        <div class="flex my-auto h-12 justify-between w-full">
+      <nav className="relative select-none bg-gray-700 flex items-stretch w-full h-16">
+        <div className="flex my-auto h-12 justify-between w-full">
           <div>
-            <img src={logo} alt="logo" class="App-logo w-16" />
+            <img src={logo} alt="logo" className="App-logo w-16" />
           </div>
           <div className='pr-5 my-auto text-white text-lg'>
             {fullName}

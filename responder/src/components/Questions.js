@@ -26,11 +26,11 @@ const Questions = ({question, index, setIndex, countOfQuestions, description, se
       };
       
     return (
-        <div class="flex items-center justify-center pt-5 px-5">
-            <div class="mx-auto w-full">
-                <div class="mb-5">
+        <div className="flex items-center justify-center pt-5 px-5">
+            <div className="mx-auto w-full">
+                <div className="mb-5">
                     <label
-                    class="flex text-justify mb-3 text-lg font-medium text-gray-700"
+                    className="flex text-justify mb-3 text-lg font-medium text-gray-700"
                     >
                     {question["text"]}
                     </label>

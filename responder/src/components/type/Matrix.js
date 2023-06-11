@@ -5,42 +5,42 @@ const Matrix = () => {
 
     return (
         <div>
-            <div class="grid space-y-4 overflow-x-auto">
+            <div className="grid space-y-4 overflow-x-auto">
                 <table>
-                    <thead class="bg-gray-50">
-                        <tr class="divide-x divide-gray-200">
+                    <thead className="bg-gray-50">
+                        <tr className="divide-x divide-gray-200">
                             <th></th>
-                            <th class="px-2 py-2 text-sm font-normal text-center text-gray-500">
+                            <th className="px-2 py-2 text-sm font-normal text-center text-gray-500">
                                 N x 0
                             </th>
-                            <th class="px-2 py-2 text-sm font-normal text-center text-gray-500">
+                            <th className="px-2 py-2 text-sm font-normal text-center text-gray-500">
                                 N x 1
                             </th>
-                            <th class="px-2 py-2 text-sm font-normal text-center text-gray-500">
+                            <th className="px-2 py-2 text-sm font-normal text-center text-gray-500">
                                 N / N
                             </th>
-                            <th class="px-2 py-2 text-sm font-normal text-center text-gray-500">
+                            <th className="px-2 py-2 text-sm font-normal text-center text-gray-500">
                                 0 / N
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="divide-x divide-gray-200">
-                            <td class="text-sm text-center px-2">0</td>
+                        <tr className="divide-x divide-gray-200">
+                            <td className="text-sm text-center px-2">0</td>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-700"}/>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-400"}/>
                         </tr>
-                        <tr class="divide-x divide-gray-200 bg-gray-50">
-                            <td class="text-sm text-center px-2">1</td>
+                        <tr className="divide-x divide-gray-200 bg-gray-50">
+                            <td className="text-sm text-center px-2">1</td>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-700"}/>
                         </tr>
-                        <tr class="divide-x divide-gray-200">
-                            <td class="text-sm text-center px-2">N</td>
+                        <tr className="divide-x divide-gray-200">
+                            <td className="text-sm text-center px-2">N</td>
                             <Choice status={"text-gray-700"}/>
                             <Choice status={"text-gray-400"}/>
                             <Choice status={"text-gray-400"}/>

@@ -12,25 +12,21 @@ root.render(
   </React.StrictMode>
 );
 
-
-
-
 const params = window.location.search;
 const urlParams = new URLSearchParams(params);
 const evToken = urlParams.get('ev_token');
 
-
 //localStorage.removeItem('tokenState');
 
 let tokenState = localStorage.getItem('tokenState');
-if (tokenState == null) {
+if (tokenState === null) {
   localStorage.setItem('tokenState', JSON.stringify({}));
   tokenState = {};
 } else {
   tokenState = JSON.parse(tokenState); // Convertir la cadena de texto a un objeto
 }
 
-if (tokenState[evToken] == undefined) {
+if (tokenState[evToken] === undefined) {
   tokenState[evToken] = { "index": null, "state": null, "correct": null };
 }
 
@@ -65,7 +61,7 @@ if (evToken) {
         startFetch(`tests/${fetchedevaluation["test_id"]}`, 'GET', null, function(data) {
           fetchedquestion = data["questions"];
           
-          if ( data["questions"].length == parseInt(tokenState[evToken]["index"])){
+          if ( data["questions"].length === parseInt(tokenState[evToken]["index"])){
             ended = 1
           }
 
