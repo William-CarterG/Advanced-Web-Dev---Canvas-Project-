@@ -217,7 +217,7 @@ function AddEvaluation() {
                     Create a new Evaluation, which you may include for an evaluation.
                   </p>
 
-                  <form onSubmit={handleEvaluationSubmit} className="mt-5">
+                  <form onSubmit={handleEvaluationGroupSubmit} className="mt-5">
                     <div onClick={e => e.preventDefault()}>
                       <label
                         htmlFor="Submission Deadline"
