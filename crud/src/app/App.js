@@ -60,7 +60,7 @@ function App() {
   const tableHeaders = {
     users: ['Name', 'Roles'],
     groups: ['Group Name', 'Members'],
-    evaluations: ['Evaluation Name', 'Status', 'Submission Deadline'],
+    evaluations: ['Evaluation Name', 'Test', 'Group', 'Submission Deadline'],
     tests: ['Name', 'N° of Questions']
   };
 
