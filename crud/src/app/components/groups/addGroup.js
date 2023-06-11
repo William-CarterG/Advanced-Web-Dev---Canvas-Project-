@@ -22,6 +22,9 @@ function AddGroup() {
 
   const toggleModelOpen = () => {
     setModelOpen(!modelOpen);
+    if(modelOpen){
+      setCurrentPage(1);
+    }
   };
 
   const handleGroupSubmit = (e) => {
