@@ -4,10 +4,6 @@ import React, { useState } from 'react';
 // creating a good part of this modal window. 
 function AddTest() {
   const [modelOpen, setModelOpen] = useState(false);
-  const [IsAdmin, setIsAdmin] = useState(false);
-  const [IsEvaluator, setIsEvaluator] = useState(false);
-  const [IsVisualizer, setIsVisualizer] = useState(false);
-
   const toggleModelOpen = () => {
     setModelOpen(!modelOpen);
   };
@@ -73,119 +69,7 @@ function AddTest() {
                 Create a new user for this project, and an email will be sent shortly.
               </p>
 
-              <form className="mt-5">
-                <div>
-                  <label
-                    htmlFor="user name"
-                    className="block text-sm text-gray-700 capitalize dark:text-gray-200"
-                  >
-                    Username
-                  </label>
-                  <input
-                    placeholder="John Doe"
-                    type="text"
-                    className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
-                  />
-                </div>
-
-                <div className="mt-4">
-                  <h1 className="text-xs font-medium text-gray-400 uppercase">Roles</h1>
-
-                  <div className="mt-4 space-y-5">
-                    <div
-                      className="flex items-center space-x-3 cursor-pointer"
-                      onClick={() => setIsAdmin(!IsAdmin)}
-                    >
-                      <div
-                        className={`relative w-10 h-5 transition duration-200 ease-linear rounded-full ${
-                          IsAdmin ? 'bg-blue-400' : 'bg-gray-300'
-                        }`}
-                      >
-                        <label
-                          htmlFor="show"
-                          className={`absolute left-0 w-5 h-5 mb-2 transition duration-100 ease-linear transform bg-white border-2 rounded-full cursor-pointer ${
-                            IsAdmin ? 'translate-x-5 bg-indigo-500' : 'translate-x-0 bg-gray-300'
-                          }`}
-                        ></label>
-                        <input
-                          type="checkbox"
-                          name="show"
-                          className="hidden w-full h-full rounded-full appearance-none active:outline-none focus:outline-none"
-                        />
-                      </div>
-
-                      <p className="text-gray-500">Manage users and their roles (Admin)</p>
-                    </div>
-
-                    <div
-                      className="flex items-center space-x-3 cursor-pointer"
-                      onClick={() => setIsEvaluator(!IsEvaluator)}
-                    >
-                      <div
-                        className={`relative w-10 h-5 transition duration-200 ease-linear rounded-full ${
-                          IsEvaluator ? 'bg-blue-400' : 'bg-gray-300'
-                        }`}
-                      >
-                        <label
-                          htmlFor="show"
-                          className={`absolute left-0 w-5 h-5 mb-2 transition duration-100 ease-linear transform bg-white border-2 rounded-full cursor-pointer ${
-                            IsEvaluator ? 'translate-x-5 bg-indigo-500' : 'translate-x-0 bg-gray-300'
-                          }`}
-                        ></label>
-                        <input
-                          type="checkbox"
-                          name="show"
-                          className="hidden w-full h-full rounded-full appearance-none active:outline-none focus:outline-none"
-                        />
-                      </div>
-
-                      <p className="text-gray-500">Manage groups, tests and evaluations (Evaluator)</p>
-                    </div>
-
-                    <div
-                      className="flex items-center space-x-3 cursor-pointer"
-                      onClick={() => setIsVisualizer(!IsVisualizer)}
-                    >
-                      <div
-                        className={`relative w-10 h-5 transition duration-200 ease-linear rounded-full ${
-                          IsVisualizer ? 'bg-blue-400' : 'bg-gray-300'
-                        }`}
-                      >
-                        <label
-                          htmlFor="show"
-                          className={`absolute left-0 w-5 h-5 mb-2 transition duration-100 ease-linear transform bg-white border-2 rounded-full cursor-pointer ${
-                            IsVisualizer ? 'translate-x-5 bg-gray-300' : 'translate-x-0 bg-gray-300'
-                          }`}
-                        ></label>
-                        <input
-                          type="checkbox"
-                          name="show"
-                          className="hidden w-full h-full rounded-full appearance-none active:outline-none focus:outline-none"
-                        />
-                      </div>
-
-                      <p className="text-gray-500">Access to results dashboards (Visualizer).</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex justify-end mt-6">
-                  <button
-                      onClick={ () => console.log("Added user.")}
-                      className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white 
-                      capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none 
-                      focus:ring focus:ring-opacity-50">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path
-                            fillRule="evenodd"
-                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      Create
-                  </button>
-                </div>
-              </form>
+            
             </div>
           </div>
         </div>
