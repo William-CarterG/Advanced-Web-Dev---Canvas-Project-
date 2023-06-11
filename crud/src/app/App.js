@@ -10,12 +10,12 @@ import GroupsTable from './components/groups/GroupsTable'
 import AddGroup from './components/groups/addGroup';
 
 import Evaluations from './components/evaluations/Evaluations';
+import EvaluationTable from './components/evaluations/EvaluationsTable';
+import AddEvaluation from './components/evaluations/addEvaluation';
 
 import Tests from './components/tests/Tests';
 import TestsTable from './components/tests/TestsTable';
 import AddTest from './components/tests/addTest';
-
-
 
 
 // Adds the 'pressed-button' class so button looks pressed.
@@ -80,6 +80,11 @@ function App() {
     { name: 'Proyecto de Desarrollo de Software', members: 15},
   ];
 
+  const fakeEvaluationData = [
+    { name: 'Desarrollo Web Avanzado - Proyecto 1', test: 'CSS & HTML', group: 'Desarrollo Web Avanzado', deadline: '22/04/23' },
+    { name: 'Arquitectura de Computadores - Proyecto 1', test: 'Puertas lógicas', group: 'Arquitectura de Computadores', deadline: '5/09/22'},
+  ];
+
   const fakeTestData = [
     { name: 'Desarrollo Web Avanzado', count: 15},
     { name: 'Arquitectura de Computadores', count: 20},
@@ -93,7 +98,7 @@ function App() {
     { name: 'Desarrollo Web Avanzado', count: 15},
     { name: 'Arquitectura de Computadores', count: 20},
     { name: 'Proyecto de Desarrollo de Software', count: 15},
-        { name: 'Desarrollo Web Avanzado', count: 15},
+    { name: 'Desarrollo Web Avanzado', count: 15},
     { name: 'Arquitectura de Computadores', count: 20},
     { name: 'Proyecto de Desarrollo de Software', count: 15},
   ];
@@ -150,6 +155,16 @@ function App() {
         <AddGroup 
           container={activeContainer} 
         />
+      </div>
+      )}
+
+      {activeContainer==="evaluations" && (
+      <div>
+        <EvaluationTable 
+          data={fakeEvaluationData} 
+          headers={tableHeaders[activeContainer]} 
+        />
+        <AddEvaluation />
       </div>
       )}
 
