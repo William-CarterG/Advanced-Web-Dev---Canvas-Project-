@@ -57,7 +57,7 @@ function ViewGroup({ closeViewGroupModal }) {
                 <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
                     <div className="flex items-center justify-between space-x-4">
                         <h1 className="text-xl font-bold text-gray-800">
-                        View Group Details
+                        Detalles de Grupos
                         </h1>
                         <button
                         onClick={toggleModelOpen}
@@ -80,16 +80,16 @@ function ViewGroup({ closeViewGroupModal }) {
                         </button>
                     </div>
                     <p className="mt-2 text-sm text-gray-500">
-                        See all the member details for this group. Press on the icon to delete a member.
+                        Ver todos los detalles de los miembros del grupo.
                     </p>
                     <StudentTableComponent
                         data={fakeUserData} 
-                        headers={['Name', 'Last Name', 'Email']} 
+                        headers={['Nombre', 'Apellido', 'Email']} 
                     />
                     <div className="flex justify-end mt-6">
                         <button onClick={goToNextPage}
                         className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
-                        Visual details
+                        Estilo Visual del Grupo
                         <svg className="ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h7"/></svg>
                         </button>
                     </div>
@@ -105,7 +105,7 @@ function ViewGroup({ closeViewGroupModal }) {
                 <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
                     <div className="flex items-center justify-between space-x-4">
                         <h1 className="text-xl font-bold text-gray-800">
-                        View Group Details
+                        Estilo Visual del Grupo
                         </h1>
                         <button
                         onClick={toggleModelOpen}
@@ -127,9 +127,7 @@ function ViewGroup({ closeViewGroupModal }) {
                         </svg>
                         </button>
                     </div>
-                    <p className="mt-2 text-sm text-gray-500">
-                        See the viusal styles of this group. You may modify them in 'Edit'.
-                    </p>
+                   
                     <form className="mt-5">
                         <div className='mt-3 flex gap-4'>
                             <ColorSelectionComponent name={"Background"}/>
@@ -139,7 +137,7 @@ function ViewGroup({ closeViewGroupModal }) {
                             <label htmlFor="Group logo.'"
                                 className="font-medium block text-sm text-gray-700 capitalize dark:text-gray-200"
                             >
-                                Group Logo
+                                Logo del grupo
                             </label>
                             <div>
                                 {editMode ? (
@@ -150,7 +148,7 @@ function ViewGroup({ closeViewGroupModal }) {
                                     className="mt-2 text-sm text-gray-500 hover:text-gray-700 focus:outline-none"
                                     href="*"
                                     >
-                                    Save
+                                    Guardar
                                     </button>
                                     </div>
                                 ) : (
@@ -164,7 +162,7 @@ function ViewGroup({ closeViewGroupModal }) {
                                     className="mt-2 text-sm text-gray-500 hover:text-gray-700 focus:outline-none"
                                     href="*"
                                     >
-                                    Edit
+                                    Editar
                                     </button>
                                 </>
                                 )}
@@ -177,7 +175,7 @@ function ViewGroup({ closeViewGroupModal }) {
                         <svg className="w-6 h-6 mr-1" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        Member Details
+                         Detalles del miembro
                         </button>
                     </div>
                 </div>

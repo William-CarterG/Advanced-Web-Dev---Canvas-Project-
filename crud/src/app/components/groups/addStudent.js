@@ -32,7 +32,7 @@ function AddStudent({ closeAddStudentModal }) {
         <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
           <div className="flex items-center justify-between space-x-4">
             <h1 className="text-xl font-bold text-gray-800">
-              Add a Student
+              Añadir un estudiante
             </h1>
             <button
               onClick={toggleModelOpen}
@@ -55,7 +55,7 @@ function AddStudent({ closeAddStudentModal }) {
             </button>
           </div>
           <p className="mt-2 text-sm text-gray-500">
-              Add a student that belongs to this group.
+            Añadir un estudiante que pertenezca a este grupo.
           </p>
           <form onSubmit={handleStudentSubmit} className="mt-5">
             <div>

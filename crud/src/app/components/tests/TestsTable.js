@@ -82,7 +82,7 @@ const TestTableComponent = ({ data, headers }) => {
   const fakeData = data;
   return (
     <div className="mt-10 flex flex-col h-[65vh] py-6">  
-      <div className="flex-grow rounded-2xl overflow-auto"> 
+      <div className="flex-grow rounded-2xl overflow-auto bg-white"> 
         <table className="relative w-full h-full border"> 
           <thead className="sticky top-0 px-6 py-3 bg-gray-50">
             <tr>

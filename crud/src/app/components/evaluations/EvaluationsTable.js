@@ -81,7 +81,7 @@ const TableRow = ({ item }) => {
                 <svg className="mr-2 w-6 h-6" fill="none" stroke="#000000" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
                 </svg>
-                  View Details
+                  Ver Detalles
                 </span>
               </div>
 
@@ -101,7 +101,7 @@ const TableRow = ({ item }) => {
                       d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                     />
                   </svg>
-                  Delete
+                  Borrar
                 </span>
               </div>
             </div>
@@ -121,15 +121,15 @@ const TableRow = ({ item }) => {
 const EvaluationTableComponent = ({ data, headers }) => {
   const fakeData = data;
   return (
-    <div className="mt-10 flex flex-col h-96 min-w-full py-6 align-middle">  
-      <div className="flex-grow rounded-2xl overflow-auto"> 
+    <div className="mt-10 flex flex-col h-[65vh] min-w-full py-6 align-middle">  
+      <div className="flex-grow rounded-2xl overflow-auto bg-white"> 
         <table className="relative w-full border"> 
           <thead className="sticky top-0 px-6 py-3 bg-gray-50">
             <tr>
               {headers.map((header, index) => (
               <th key={index}
                 scope="col"
-                className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                className="px-3 py-3.5 text-center text-lg font-semibold text-gray-900"
               >
                 {header}
               </th>

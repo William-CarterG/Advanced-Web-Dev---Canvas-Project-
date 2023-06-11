@@ -68,7 +68,7 @@ function AddGroup() {
             clipRule="evenodd"
           />
         </svg>
-        Create Group
+        Crear Grupo
       </button>
 
       {modelOpen && (
@@ -89,7 +89,7 @@ function AddGroup() {
             <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
               <div className="flex items-center justify-between space-x-4">
                 <h1 className="text-xl font-bold text-gray-800">
-                  Add New Group
+                  Añadir nuevo grupo
                 </h1>
 
                 <button
@@ -114,7 +114,7 @@ function AddGroup() {
               </div>
 
               <p className="mt-2 text-sm text-gray-500">
-                Create a new group, which you may include for an evaluation.
+                Crear un nuevo grupo, en el cual debes incluir una evaluacion.
               </p>
 
               <form onSubmit={handleGroupSubmit} className="mt-5">
@@ -123,7 +123,7 @@ function AddGroup() {
                     htmlFor="Group name"
                     className="font-medium block text-sm text-gray-700 capitalize dark:text-gray-200"
                   >
-                    Group's Name
+                    Nombre de Grupo
                   </label>
                   <input
                     placeholder="Desarrollo Web Avanzado"
@@ -139,14 +139,14 @@ function AddGroup() {
                     htmlFor="Group logo.'"
                     className="font-medium block text-sm text-gray-700 capitalize dark:text-gray-200"
                   >
-                    Group Logo
+                    Logo de Grupo
                   </label>
                   <UploadFilesComponent />
                 </div>
                 <div className="flex justify-end mt-6">
                   <button onClick={goToNextPage}
                   className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
-                    Next Page
+                    Siguiente Pagina
                     <svg className="ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h7"/></svg>
                   </button>
                 </div>
@@ -165,7 +165,7 @@ function AddGroup() {
             <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
               <div className="flex items-center justify-between space-x-4">
                 <h1 className="text-xl font-bold text-gray-800">
-                  Select Visual Style for the Group.
+                  Selecciona el estilo visual del grupo.
                 </h1>
                 <div className=''>
                   <button
@@ -200,7 +200,7 @@ function AddGroup() {
                 </div>
               </div>
               <p className="mt-2 text-sm text-gray-500">
-                  Select your settings to determine how you want your group to look.
+                  Selecciona las configuraciones que determinen como se vera un grupo.
               </p>
               <form onSubmit={handleVisualStyleSubmit} className="mt-5">
                 <ColorSelectionComponent name={"Background"}/>
@@ -208,7 +208,7 @@ function AddGroup() {
                 <div className="flex justify-end mt-6">
                   <button onClick={goToNextPage}
                   className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
-                    Next Page
+                    Siguiente Pagina
                     <svg className="ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h7"/></svg>
                   </button>
                 </div>
@@ -227,7 +227,7 @@ function AddGroup() {
             <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
               <div className="flex items-center justify-between space-x-4">
                 <h1 className="text-xl font-bold text-gray-800">
-                  Add a Student
+                  Añadir un estudiante
                 </h1>
                 <div className=''>
                   <button
@@ -262,14 +262,14 @@ function AddGroup() {
                 </div>
               </div>
               <p className="mt-2 text-sm text-gray-500">
-                  Add a student that belongs to this group.
+                  Añadir un estudiante que pertenezca a este grupo.
               </p>
               <form onSubmit={handleStudentSubmit} className="mt-5">
               <div className="flex mb-3 justifiy-between gap-2">
                 <div>
                   <div>
                     <label htmlFor="Student First Name" className="font-medium mt-2 block text-sm text-gray-700 dark:text-gray-200">
-                      First Name
+                      Nombre
                     </label>
                     <input
                       placeholder="John"
@@ -284,7 +284,7 @@ function AddGroup() {
                 <div>
                   <div>
                     <label htmlFor="Student Last Name" className="font-medium mt-2 block text-sm text-gray-700 dark:text-gray-200">
-                      Last Name
+                      Apellido
                     </label>
                     <input
                       placeholder="Doe"
@@ -328,7 +328,7 @@ function AddGroup() {
                         clipRule="evenodd"
                       />
                     </svg>
-                    Create
+                    Crear
                   </button>
                 </div>
               </form>

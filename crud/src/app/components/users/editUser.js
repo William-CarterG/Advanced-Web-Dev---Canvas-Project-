@@ -23,7 +23,7 @@ function EditUser({ closeEditUserModal, roles}) {
 
                 <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
                     <div className="flex items-center justify-between space-x-4">
-                        <h1 className="text-xl font-medium text-gray-800 ">Edit user</h1>
+                        <h1 className="text-xl font-medium text-gray-800 ">Editar usuario</h1>
 
                         <button
                         onClick={toggleModelOpen}
@@ -47,7 +47,7 @@ function EditUser({ closeEditUserModal, roles}) {
                     </div>
 
                     <p className="mt-2 text-sm text-gray-500 ">
-                        Here you can modify user roles.
+                        Aqui puedes modificar los roles.
                     </p>
 
                     <form className="mt-5">
@@ -78,7 +78,7 @@ function EditUser({ closeEditUserModal, roles}) {
                                         />
                                     </div>
 
-                                    <p className="text-gray-500">Manage users and their roles (Admin)</p>
+                                    <p className="text-gray-500">Administra usuarios, y sus roles (Admin)</p>
                                 </div>
 
                                 <div
@@ -103,7 +103,7 @@ function EditUser({ closeEditUserModal, roles}) {
                                     />
                                 </div>
 
-                                <p className="text-gray-500">Manage groups, tests and evaluations (Evaluator)</p>
+                                <p className="text-gray-500">Administra grupos, test y evaluaciones (Evaluador)</p>
                                 </div>
 
                                 <div
@@ -128,7 +128,7 @@ function EditUser({ closeEditUserModal, roles}) {
                                     />
                                 </div>
 
-                                <p className="text-gray-500">Access to results dashboards (Visualizer).</p>
+                                <p className="text-gray-500">Accede a los resultados por medio del dashboard (Visualizador).</p>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@ function EditUser({ closeEditUserModal, roles}) {
                             capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none 
                             focus:ring focus:ring-opacity-50">
                             
-                            Save
+                            Guardar
                         </button>
                         </div>
                     </form>

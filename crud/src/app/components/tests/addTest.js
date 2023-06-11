@@ -23,7 +23,7 @@ function AddTest() {
             clipRule="evenodd"
           />
         </svg>
-        Create Test
+        Crear Test
       </button>
 
       {modelOpen && (
@@ -42,7 +42,7 @@ function AddTest() {
 
             <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
               <div className="flex items-center justify-between space-x-4">
-                <h1 className="text-xl font-medium text-gray-800 ">Add new user</h1>
+                <h1 className="text-xl font-medium text-gray-800 ">Añadir nuevo usuario</h1>
 
                 <button
                   onClick={toggleModelOpen}
@@ -66,7 +66,7 @@ function AddTest() {
               </div>
 
               <p className="mt-2 text-sm text-gray-500 ">
-                Create a new user for this project, and an email will be sent shortly.
+                Crear un nuevo usuario para este proyecto, y un email se enviara pronto.
               </p>
 
             

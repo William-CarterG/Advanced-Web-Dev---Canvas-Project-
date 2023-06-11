@@ -27,7 +27,7 @@ function AddUser() {
             clipRule="evenodd"
           />
         </svg>
-        Create User
+        Crear Usuario
       </button>
 
       {modelOpen && (
@@ -46,7 +46,7 @@ function AddUser() {
 
             <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
               <div className="flex items-center justify-between space-x-4">
-                <h1 className="text-xl font-medium text-gray-800 ">Add new user</h1>
+                <h1 className="text-xl font-medium text-gray-800 ">Añadir nuevo usuario</h1>
 
                 <button
                   onClick={toggleModelOpen}
@@ -70,7 +70,7 @@ function AddUser() {
               </div>
 
               <p className="mt-2 text-sm text-gray-500 ">
-                Create a new user for this project, and an email will be sent shortly.
+                Crear un nuevo usuario para este proyecto, y un email se enviara pronto.
               </p>
 
               <form className="mt-5">
@@ -79,7 +79,7 @@ function AddUser() {
                     htmlFor="user name"
                     className="block text-sm text-gray-700 capitalize dark:text-gray-200"
                   >
-                    Username
+                    Usuario
                   </label>
                   <input
                     placeholder="John Doe"
@@ -114,7 +114,7 @@ function AddUser() {
                         />
                       </div>
 
-                      <p className="text-gray-500">Manage users and their roles (Admin)</p>
+                      <p className="text-gray-500">Administra usuarios, y sus roles (Admin)</p>
                     </div>
 
                     <div
@@ -139,7 +139,7 @@ function AddUser() {
                         />
                       </div>
 
-                      <p className="text-gray-500">Manage groups, tests and evaluations (Evaluator)</p>
+                      <p className="text-gray-500">Administra grupos, test y evaluaciones (Evaluador)</p>
                     </div>
 
                     <div
@@ -164,7 +164,7 @@ function AddUser() {
                         />
                       </div>
 
-                      <p className="text-gray-500">Access to results dashboards (Visualizer).</p>
+                      <p className="text-gray-500">Accede a los resultados por medio del dashboard (Visualizador).</p>
                     </div>
                   </div>
                 </div>
@@ -182,7 +182,7 @@ function AddUser() {
                             clipRule="evenodd"
                           />
                         </svg>
-                      Create
+                      Crear
                   </button>
                 </div>
               </form>

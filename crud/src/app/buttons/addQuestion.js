@@ -10,7 +10,7 @@ const AddQuestion = () => {
         className="mr-2 w-6 h-6"
         src={addQuestionImg}
       />
-      Add Questions
+      Añadir Pregunta
     </span>
   );
 };

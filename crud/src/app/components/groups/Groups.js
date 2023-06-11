@@ -6,7 +6,7 @@ function Groups({ onClick }) {
     }
     return (
     <button className="button menu-button" onClick={handleGroupsButtonClick}>
-        Manage Groups
+        Grupos
     </button>
     );
   }

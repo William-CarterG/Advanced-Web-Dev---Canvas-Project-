@@ -7,7 +7,7 @@ function Tests({ onClick }) {
   
     return (
         <button className="button menu-button" onClick={handleTestsButtonClick}>
-            Manage Tests
+            Tests
         </button>
     );
   }

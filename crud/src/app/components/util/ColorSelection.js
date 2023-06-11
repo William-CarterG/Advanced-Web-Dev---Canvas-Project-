@@ -11,7 +11,7 @@ function ColorSelectionComponent( {name} ) {
         <div className="mb-5">
             <div className="flex items-center">
             <div>
-                <label htmlFor="colorSelected" className="block font-medium mb-1">Select {name} Color</label>
+                <label htmlFor="colorSelected" className="block font-medium mb-1">Seleccionar color de {name} </label>
                 <input
                 id="colorSelected"
                 type="text"

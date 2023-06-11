@@ -64,7 +64,7 @@ const DragAndDrop = () => {
           />
         </svg>
         <p className="mt-2 text-sm text-gray-500">
-          Drag and drop your picture here or click to browse
+          Arrastra tus imagenes aqui, desde tu navegador.
         </p>
       </label>
       {uploadedFile ? (
