@@ -5,13 +5,14 @@ import Homepage from './components/Homepage.js';
 import Questions from './components/Questions.js';
 import Finished from './components/Finished.js';
 
-const App = ({indexValue, fullName, evaluation, questionsa}) => {
+const App = ({indexValue, fullName, evaluation, questionsa, evToken, tokenState, ended}) => {
   const [index, setIndex] = useState(indexValue);
 
   let routeValue = ""
   // eslint-disable-next-line
-  if (questionsa.length == index){
-    localStorage.setItem('state', 1);
+  if (ended == 1){
+    tokenState[evToken]["state"] = 1
+    localStorage.setItem('tokenState', JSON.stringify(tokenState));
     routeValue = "finished"
   } else {
     if (index === -1){
@@ -26,7 +27,9 @@ const App = ({indexValue, fullName, evaluation, questionsa}) => {
   const renderPage = () => {
     switch (route) {
       case 'homepage':
-        return <Homepage setRoute={setRoute} setIndex={setIndex} evaluations={evaluation}/>;
+        return <Homepage setRoute={setRoute} setIndex={setIndex} evaluations={evaluation} evToken={evToken} tokenState={tokenState}/>;
+      case 'finished':
+        return <Finished index={questionsa.length} evToken={evToken} tokenState={tokenState}/>;
       case 'questions':
         switch (questionsa[index]["question_type"]) {
           case "bools":
@@ -48,9 +51,7 @@ const App = ({indexValue, fullName, evaluation, questionsa}) => {
             // do nothing
           
         }
-        return <Questions question={questionsa[index]} index={index} setIndex={setIndex} countOfQuestions={questionsa.length} description={typeMessage} setRoute={setRoute}/>;
-      case 'finished':
-        return <Finished index={questionsa.length}/>;
+        return <Questions question={questionsa[index]} index={index} setIndex={setIndex} countOfQuestions={questionsa.length} description={typeMessage} setRoute={setRoute} evToken={evToken} tokenState={tokenState}/>;
       default:
         // do nothing
       

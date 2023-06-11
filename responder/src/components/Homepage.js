@@ -1,4 +1,4 @@
-const Homepage = ({setRoute, setIndex, evaluations}) => {
+const Homepage = ({setRoute, setIndex, evaluations, evToken, tokenState}) => {
   return (
     <div>
       <div class="flex max-w-4xl mx-auto  bg-white justify-center ">
@@ -14,8 +14,9 @@ const Homepage = ({setRoute, setIndex, evaluations}) => {
           <button class="py-3 px-4 bg-gray-700 text-gray-100 font-semibold"
             onClick={() => {
               setIndex(0)
-              localStorage.setItem('index', 0);
-              localStorage.setItem('correct', 0);
+              tokenState[evToken]["index"] = 0
+              tokenState[evToken]["correct"] = 0
+              localStorage.setItem('tokenState', JSON.stringify(tokenState));
               setRoute('questions')
             }}>Realizar Prueba</button> 
       </div>
