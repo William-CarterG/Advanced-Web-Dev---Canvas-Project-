@@ -7,7 +7,7 @@ const Bools = ({setSelect}) => {
 
     return (
         <div>
-            <div class="grid space-y-4">
+            <div className="grid space-y-4">
                 {Object.keys(options).map((key) => (
                     <React.Fragment key={key}>
                         <Choice setSelect={setSelect} text={options[key]} type={"bools"}/>

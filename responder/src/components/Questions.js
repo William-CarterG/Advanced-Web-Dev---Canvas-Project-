@@ -6,8 +6,7 @@ import Number from './type/Number.js';
 import Matrix from './type/Matrix.js';
 
 
-const Questions = ({question, index, setIndex, countOfQuestions, description, setRoute}) => {
-    console.log(question)
+const Questions = ({question, index, setIndex, countOfQuestions, description, setRoute, evToken, tokenState}) => {
     const [select, setSelect] = useState(null);
     const renderQuestion = () => {
         switch (question["question_type"]) {
@@ -27,11 +26,11 @@ const Questions = ({question, index, setIndex, countOfQuestions, description, se
       };
       
     return (
-        <div class="flex items-center justify-center pt-5 px-5">
-            <div class="mx-auto w-full">
-                <div class="mb-5">
+        <div className="flex items-center justify-center pt-5 px-5">
+            <div className="mx-auto w-full">
+                <div className="mb-5">
                     <label
-                    class="flex text-justify mb-3 text-lg font-medium text-gray-700"
+                    className="flex text-justify mb-3 text-lg font-medium text-gray-700"
                     >
                     {question["text"]}
                     </label>
@@ -46,19 +45,21 @@ const Questions = ({question, index, setIndex, countOfQuestions, description, se
                     className="w-2/3 rounded-lg bg-gray-700 py-3 px-8 text-base font-semibold text-white outline-none"
                     onClick={() => {
                         if (question["correct_answer"] === select){
-                            let correctValue = localStorage.getItem('correct');
-                            localStorage.setItem('correct', parseInt(correctValue) + 1);
+                            let correctValue = tokenState[evToken]["correct"];
+                            tokenState[evToken]["correct"] = parseInt(correctValue) + 1
+                            localStorage.setItem('tokenState', JSON.stringify(tokenState));
                         }
 
                         if (index+1 === countOfQuestions){
-                            localStorage.setItem('state', 1);
+                            tokenState[evToken]["state"] = 1
+                            localStorage.setItem('tokenState', JSON.stringify(tokenState));
                             setRoute('finished')
                         } else{
                             setIndex(index+1)
                             setRoute('questions')
                         }
-                        let indexValue = localStorage.getItem('index');
-                        localStorage.setItem('index', parseInt(indexValue) + 1);
+                        tokenState[evToken]["index"] = index + 1
+                        localStorage.setItem('tokenState', JSON.stringify(tokenState));
                     }}
                     >
                     Enviar

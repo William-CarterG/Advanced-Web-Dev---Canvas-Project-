@@ -1,18 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Waiting from './Waiting';
 import startFetch from './API';
 
-localStorage.removeItem('index');
-localStorage.removeItem('state');
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <Waiting/>
+  </React.StrictMode>
+);
 
 const params = window.location.search;
 const urlParams = new URLSearchParams(params);
 const evToken = urlParams.get('ev_token');
+
+//localStorage.removeItem('tokenState');
+
+let tokenState = localStorage.getItem('tokenState');
+if (tokenState === null) {
+  localStorage.setItem('tokenState', JSON.stringify({}));
+  tokenState = {};
+} else {
+  tokenState = JSON.parse(tokenState); // Convertir la cadena de texto a un objeto
+}
+
+if (tokenState[evToken] === undefined) {
+  tokenState[evToken] = { "index": null, "state": null, "correct": null };
+}
+
+let indexValue = tokenState[evToken]["index"]
+let readyState = tokenState[evToken]["state"]
+
+if (indexValue === null) {
+  indexValue = -1;
+} else {
+  if (readyState === null && readyState !== 1) {
+    indexValue = parseInt(indexValue) + 1;
+  }
+  tokenState[evToken]["index"] = indexValue
+  localStorage.setItem('tokenState', JSON.stringify(tokenState));
+}
+
 let fetchedevaluation
 let fetchedfullName
 let fetchedquestion
+let ended = 0
 if (evToken) {
   startFetch(`person-tests/?ev_token=${evToken}`, 'GET', null, function(data) {
     const personTest = data[0];
@@ -26,35 +60,17 @@ if (evToken) {
         fetchedfullName = data["name"] + " " + data["last_name"];
         startFetch(`tests/${fetchedevaluation["test_id"]}`, 'GET', null, function(data) {
           fetchedquestion = data["questions"];
-          const RootComponent = () => {
-            const [fullName, setFullName] = useState(null);
-            const [evaluation, setEvaluation] = useState({});
-            const [questions, setQuestions] = useState([]);
           
-            useEffect(() => {
-              const fetchedEvaluation = fetchedevaluation
-              setEvaluation(fetchedEvaluation);
-              
-              const fetchedFullName = fetchedfullName
-              setFullName(fetchedFullName);
-              
-              const fetchedQuestions = fetchedquestion
-              setQuestions(fetchedQuestions);
-          
-            }, []);
-            
-          
-            return (
-              <React.StrictMode>
-                <App indexValue={indexValue} fullName={fullName} evaluation={evaluation} questionsa={questions}/>
-              </React.StrictMode>
-            );
-          };
-          
-          ReactDOM.render(
-            <RootComponent />,
-            document.getElementById('root')
+          if ( data["questions"].length === parseInt(tokenState[evToken]["index"])){
+            ended = 1
+          }
+
+          root.render(
+            <React.StrictMode>
+              <App indexValue={indexValue} fullName={fetchedfullName} evaluation={fetchedevaluation} questionsa={fetchedquestion} evToken={evToken} tokenState={tokenState} ended={ended}/>
+            </React.StrictMode>
           );
+          
         });
 
 
@@ -64,15 +80,4 @@ if (evToken) {
   });
 }
 
-
-let indexValue = localStorage.getItem('index');
-let readyState = localStorage.getItem('state');
-if (indexValue === null) {
-  indexValue = -1;
-} else {
-  if (readyState === null || readyState !== "1") {
-    indexValue = parseInt(indexValue) + 1;
-  }
-  localStorage.setItem('index', indexValue);
-}
 
