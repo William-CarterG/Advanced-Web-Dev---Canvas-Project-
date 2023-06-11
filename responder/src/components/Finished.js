@@ -1,6 +1,5 @@
 const Finished = ({index}) => {
   let correctValue = parseInt(localStorage.getItem('correct'));
-  console.log(correctValue +"/"+ index)
   function calcularPorcentaje(dividendo, divisor) {
     var resultado = (dividendo / divisor) * 100;
     return resultado;

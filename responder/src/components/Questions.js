@@ -7,14 +7,14 @@ import Matrix from './type/Matrix.js';
 
 
 const Questions = ({question, index, setIndex, countOfQuestions, description, setRoute}) => {
-    
+    console.log(question)
     const [select, setSelect] = useState(null);
     const renderQuestion = () => {
         switch (question["question_type"]) {
-            case 'bools':
+            case 'Verdadero o Falso':
                 return <Bools setSelect={setSelect}/>;
-            case 'multipleChoices':
-                return <MultipleChoices setSelect={setSelect} options={question["options"].split(";")}/>;
+            case 'Alternativas':
+                return <MultipleChoices setSelect={setSelect} options={question["options"][0]["options"].split(";")}/>;
             case 'semiOpen':
                 return <SemiOpen />;
             case 'number':
