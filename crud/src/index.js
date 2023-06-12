@@ -4,14 +4,9 @@ import './index.css';
 import App from './app/App';
 import startFetch from './API';
 import Waiting from './Waiting';
+import Login from './login/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(
-  <React.StrictMode>
-    <Waiting />
-  </React.StrictMode>
-);
 
 const RootComponent = () => {
   const [groups, setGroups] = useState(null);
@@ -39,16 +34,41 @@ const RootComponent = () => {
 
   useEffect(() => {
     if (users && groups && evaluations && tests) {
-      ReactDOM.render(
+      root.render(
         <React.StrictMode>
-          <App users={users} setUsers={setUsers} groups={groups} setGroups={setGroups} evaluations={evaluations} setEvaluations={setEvaluations} tests={tests} setTests={setTests}/>
-        </React.StrictMode>,
-        document.getElementById('root')
+          <App users={users} groups={groups} evaluations={evaluations} tests={tests}/>
+        </React.StrictMode>
       );
     }
   }, [users, groups, evaluations, tests]);
 
-  return null;
+  return (
+    <Waiting />
+  );
 };
 
-root.render(<RootComponent />);
+function Index() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const toggleLoggedIn = () => {
+    setLoggedIn(!loggedIn);
+  };
+
+  useEffect(() => {
+    if (loggedIn) {
+      root.render(
+        <React.StrictMode>
+          <RootComponent />
+        </React.StrictMode>
+      );
+    }
+  }, [loggedIn]);
+
+  return (
+    <React.StrictMode>
+      {loggedIn ? <RootComponent /> : <Login toggleLoggedIn={toggleLoggedIn} />}
+    </React.StrictMode>
+  );
+}
+
+ReactDOM.render(<Index />, document.getElementById('root'));
