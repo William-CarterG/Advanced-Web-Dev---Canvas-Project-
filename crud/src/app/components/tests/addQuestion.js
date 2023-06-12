@@ -3,7 +3,7 @@ import QuestionTabs from './question/QuestionTabs';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function AddTestQuestion() {
+function AddTestQuestion( {toggleModelOpen} ) {
     const [modelOpen, setModelOpen] = useState(false);
     const [editingTestName, setEditingTestName] = useState(false);
     const [TestName, setTestName] = useState("Client-side Developing Tools");
@@ -12,10 +12,6 @@ function AddTestQuestion() {
         setEditingTestName(false);
         // Perform any additional save logic here if needed
     };
-
-    const toggleModelOpen = () => {
-        setModelOpen(!modelOpen);
-      };
 
     const handleTestDetails = (e) => {
     // Be careful with when you submit Test, because
@@ -38,7 +34,50 @@ function AddTestQuestion() {
             aria-hidden="true"
             />
             <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
-                <QuestionTabs />
+                <div className="flex items-center justify-between space-x-2">
+                    <h1 className="text-xl font-bold text-gray-800">
+                    Crear Pregunta
+                    </h1>
+
+                    <button
+                    onClick={toggleModelOpen}
+                    className="text-gray-600 focus:outline-none hover:text-gray-700"
+                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                    </svg>
+                    </button>
+                </div>
+                <p className="mb-2 text-sm text-gray-500 ">
+                    Acá puedes crear la pregunta y añadirla a tu prueba.
+                </p>
+                <QuestionTabs toggleMenu={toggleModelOpen}/>
+                <div className="flex justify-end mt-6">
+                    <button href="*"
+                    className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-m tracking-wide text-white 
+                    capitalize transition-colors duration-200 transform bg-indigo-500 rounded-md focus:outline-none 
+                    focus:ring focus:ring-opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                        fillRule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clipRule="evenodd"
+                        />
+                    </svg>
+                    Crear
+                    </button>
+                </div>
             </div>
         </div>
     </div>

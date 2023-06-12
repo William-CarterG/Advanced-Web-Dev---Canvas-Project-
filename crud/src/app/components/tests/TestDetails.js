@@ -10,6 +10,8 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
   const [editingTestName, setEditingTestName] = useState(false);
   const [TestName, setTestName] = useState(item.name);
 
+  const [modelOpen, setModelOpen] = useState(false);
+
   const handleTestNameSaveClick = () => {
     let body = {"name": TestName}
     startFetch(`tests/${item.id}/`, 'PATCH', JSON.stringify(body), function(data) {
@@ -40,8 +42,7 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
       aria-modal="true"
     >
       <div className="flex items-end justify-center min-h-screen px-4 text-center md:items-center sm:block sm:p-0">
-      <div
-        onClick={toggleModelOpen}
+      <div onClick={toggleModelOpen}
         className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40"
         aria-hidden="true"
       />
