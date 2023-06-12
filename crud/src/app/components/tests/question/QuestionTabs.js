@@ -124,7 +124,32 @@ const QuestionTabs = ({setChoices, setName, setDifficulty, setCorrect}) => {
                 </div>
               )}
             </div>
-
+            <div>
+              <label
+                  htmlFor="Test difficulty"
+                  className="font-bold block text-l text-gray-700 capitalize dark:text-gray-200"
+                >
+                  Dificultad
+              </label>
+              <div className="flex items-center">   
+                <input type="radio" id="true" name="answer" className="mr-2" onClick={() => setDifficulty(0)} />
+                <label htmlFor="answer" className="text-gray-700">
+                  Fácil
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input type="radio" id="false" name="answer" className="mr-2" onClick={() => setDifficulty(1)} />
+                <label htmlFor="false" className="text-gray-700">
+                  Media
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input type="radio" id="false" name="answer" className="mr-2" onClick={() => setDifficulty(2)} />
+                <label htmlFor="false" className="text-gray-700">
+                  Difícil
+                </label>
+              </div>
+            </div>
             <div>
               <h3 className="text-lg font-semibold mt-2 mb-2">Selecciona la respuesta verdadera</h3>
               <div className="flex items-center gap-4">
@@ -218,7 +243,32 @@ const QuestionTabs = ({setChoices, setName, setDifficulty, setCorrect}) => {
                   </div>
                 )}
               </div>
-
+              <div>
+                <label
+                    htmlFor="Test difficulty"
+                    className="font-bold block text-l text-gray-700 capitalize dark:text-gray-200"
+                  >
+                    Dificultad
+                </label>
+                <div className="flex items-center">   
+                  <input type="radio" id="true" name="answer" className="mr-2" onClick={() => setDifficulty(0)} />
+                  <label htmlFor="answer" className="text-gray-700">
+                    Fácil
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input type="radio" id="false" name="answer" className="mr-2" onClick={() => setDifficulty(1)} />
+                  <label htmlFor="false" className="text-gray-700">
+                    Media
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input type="radio" id="false" name="answer" className="mr-2" onClick={() => setDifficulty(2)} />
+                  <label htmlFor="false" className="text-gray-700">
+                    Difícil
+                  </label>
+                </div>
+                </div>
               <div>
             <label className="text-l font-semibold mt-2 mb-2">Escribe las alternativas (selecciona la correcta).</label>
             {alternatives.map((alternative, index) => (
