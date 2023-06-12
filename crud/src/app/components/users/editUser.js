@@ -149,7 +149,7 @@ function EditUser({ closeEditUserModal, groups, setUsers, id, item}) {
                                 if (IsVisualizer){
                                     groups.push("watcher")
                                 }
-                                
+                            
                                 console.log(item)
                                 let body = {"groups": groups}
                                 startFetch(`users/${id}/`, 'PATCH', JSON.stringify(body), function(data) {
@@ -157,6 +157,7 @@ function EditUser({ closeEditUserModal, groups, setUsers, id, item}) {
                                         setUsers(data);
                                     });
                                 });
+                                toggleModelOpen();
                                 
                             }}
                             className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white 
