@@ -16,27 +16,28 @@ const EditQuestionsTable = ( {item} ) => {
   const moveRowUp = (index) => {
     if (index > 0) {
       const updatedData = [...questionData];
-      const temp = updatedData[index - 1];
-      updatedData[index - 1] = updatedData[index];
-      updatedData[index] = temp;
+      const temp = updatedData[index - 1].id;
+      updatedData[index - 1].id = updatedData[index].id;
+      updatedData[index].id = temp;
       setQuestionData(updatedData);
     }
-  };
+  };  
 
   const moveRowDown = (index) => {
     if (index < questionData.length - 1) {
       const updatedData = [...questionData];
-      const temp = updatedData[index + 1];
-      updatedData[index + 1] = updatedData[index];
-      updatedData[index] = temp;
+      const temp = updatedData[index + 1].id;
+      updatedData[index + 1].id = updatedData[index].id;
+      updatedData[index].id = temp;
       setQuestionData(updatedData);
+      console.log(updatedData);
     }
   };
 
   const handleQuestionSorting = (e) => {
     console.log("POST request para orden de preguntas");
   };
-
+  
   return (
     <table className="relative w-full border">
         <thead className="sticky top-0 px-6 py-3 bg-gray-50">
