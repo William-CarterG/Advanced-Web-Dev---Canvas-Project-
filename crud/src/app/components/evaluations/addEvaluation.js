@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-function AddEvaluation() {
+function AddEvaluation({groups, tests}) {
+  console.log(groups)
   const [modelOpen, setModelOpen] = useState(false);
   const [EvaluationName, setEvaluationName] = useState('');
+  const [idGroup, setIdGroup] = useState('');
+  const [idTest, setIdTest] = useState('');
+  const [textValue, setTextValue] = useState('');
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1); // Get tomorrow's date
   const [selectedDate, setSelectedDate] = useState(tomorrow); // Initialize with tomorrow's date
@@ -35,7 +39,7 @@ function AddEvaluation() {
     setCurrentPage(1);
     toggleModelOpen();
     e.preventDefault();
-    console.log('Added Evaluation.');
+    console.log(EvaluationName,idGroup,idTest,textValue,selectedDate);
     // Additional logic for Evaluation submission
   };
 
@@ -136,13 +140,20 @@ function AddEvaluation() {
                       >
                         Test
                       </label>
-                      <input
-                        placeholder="CSS & HTML"
-                        type="text"
-                        //value={studentEmail}
-                        //onChange={(e) => setStudentEmail(e.target.value)}
-                        className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
-                      />
+                      <div className="dropdown">
+                        <select
+                          value={idTest}
+                          onChange={(e) => setIdTest(e.target.value)}
+                          className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
+                        >
+                          <option value="">Selecciona una opción</option>
+                          {tests.map((option, index) => (
+                            <option key={index} value={option.id}>
+                              {option.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
 
                     <div>
@@ -152,13 +163,20 @@ function AddEvaluation() {
                       >
                         Grupo
                       </label>
-                      <input
-                        placeholder="Desarrollo Web Avanzado"
-                        type="text"
-                        //value={studentEmail}
-                        //onChange={(e) => handleEvaluationGroupSubmit(e.target.value)}
-                        className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
-                      />
+                      <div className="dropdown">
+                        <select
+                          value={idGroup}
+                          onChange={(e) => setIdGroup(e.target.value)}
+                          className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
+                        >
+                          <option value="">Selecciona una opción</option>
+                          {groups.map((option, index) => (
+                            <option key={index} value={option.id}>
+                              {option.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
 
                     <div className="flex justify-end mt-6">
@@ -243,8 +261,8 @@ function AddEvaluation() {
                       </label>
                       <textarea
                       placeholder="Esta prueba trata sobre el contenido de CSS y HTML que hemos visto en clase. La prueba tendrá 5 preguntas en formato de Verdadero o Falso. ¡Buena suerte!"
-                      // value={textValue}
-                      // onChange={(e) => setTextValue(e.target.value)}
+                      value={textValue}
+                      onChange={(e) => setTextValue(e.target.value)}
                       className="block w-full h-44 px-4 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
                       />
                     </div>
