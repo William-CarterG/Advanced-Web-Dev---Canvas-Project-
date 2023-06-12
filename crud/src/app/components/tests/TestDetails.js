@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import startFetch from '../../../API';
+
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function ViewTest({ closeViewTestModal }) {
+function ViewTest({ closeViewTestModal, setTests, item }) {
   const [editingTestName, setEditingTestName] = useState(false);
   const [TestName, setTestName] = useState("Client-side Developing Tools");
 
   const handleTestNameSaveClick = () => {
+    let body = {"name": editingTestName}
+    startFetch(`tests/${item.id}/`, 'PATCH', JSON.stringify(body), function(data) {
+      startFetch(`tests/`, 'GET', null, function(data) {
+        setTests(data);
+      });
+    });
     setEditingTestName(false);
     // Perform any additional save logic here if needed
   };
@@ -21,7 +29,6 @@ function ViewTest({ closeViewTestModal }) {
       // Be careful with when you submit Test, because
       // there is a back button!!
       toggleModelOpen();
-      console.log("View test");
     };
 
     const questionHeaders = ["Pregunta", "Tipo"];
