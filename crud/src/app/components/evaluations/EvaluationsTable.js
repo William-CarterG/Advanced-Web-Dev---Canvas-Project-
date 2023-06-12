@@ -28,6 +28,18 @@ const TableRow = ({ item, setEvaluations }) => {
     });
   }
 
+  function formatDate(dateString){
+    const date = new Date(dateString);
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Month is zero-based, so we add 1
+    const year = date.getFullYear();
+
+    const formattedDate = `${day}/${month}/${year}`;
+
+    return formattedDate;
+  }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -45,8 +57,8 @@ const TableRow = ({ item, setEvaluations }) => {
   return (
     <tr key={item.name} className="border-b hover:bg-gray-50">
       <td className="p-4">{item.name}</td>
-      <td className="p-4">{item.created}</td>
-      <td className="p-4">{item.limit_date}</td>
+      <td className="p-4">{formatDate(item.created)}</td>
+      <td className="p-4">{formatDate(item.limit_date)}</td>
 
       <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
         {/*View Details, Add user, Edit, Delete menu */}
