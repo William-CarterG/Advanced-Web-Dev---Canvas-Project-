@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import UploadFilesComponent from '../util/UploadFiles';
 import ColorSelectionComponent from '../util/ColorSelection';
+import startFetch from '../../../API';
 
 function AddGroup() {
   const [modelOpen, setModelOpen] = useState(false);
@@ -34,6 +35,13 @@ function AddGroup() {
     setCurrentPage(1);
     toggleModelOpen();
     e.preventDefault();
+    let body = { "name": groupName}
+    startFetch(`courses/`, 'POST', JSON.stringify(body), function(data) {
+      body = { "name": studentName, "last_name":studentLastName, "mail":studentEmail}
+      startFetch(`courses/${data["id"]}/members/`, 'POST', JSON.stringify(body), function(data) {
+        console.log("Grupo creado con exito")
+      });
+    });
     console.log(groupName, studentName, studentLastName, studentEmail);
     // Additional logic for group submission
   };

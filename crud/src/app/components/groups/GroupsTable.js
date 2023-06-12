@@ -125,13 +125,13 @@ const TableRow = ({ item }) => {
         </div>
         {isAddStudentOpen && (
           <AddStudent
-            closeAddStudentModal={openAddStudentModal} 
+            closeAddStudentModal={openAddStudentModal} id={item.id} 
           />
         )}
 
         {isViewGroupOpen && (
           <ViewGroup 
-            closeViewGroupModal={openViewGroupModal} 
+            closeViewGroupModal={openViewGroupModal} id={item.id} 
           />
         )}
 

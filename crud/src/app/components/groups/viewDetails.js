@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,  useEffect } from 'react';
 import StudentTableComponent from './StudentTable';
 import ColorSelectionComponent from '../util/ColorSelection';
 import UploadFilesComponent from '../util/UploadFiles';
+import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function ViewGroup({ closeViewGroupModal }) {
+function ViewGroup({ closeViewGroupModal, id }) {
     const [editMode, setEditMode] = useState(false);
     const togglEditMode = () => {
         setEditMode(!editMode);
@@ -23,14 +24,16 @@ function ViewGroup({ closeViewGroupModal }) {
     const goToPreviousPage = () => {
         setCurrentPage(currentPage - 1);
     };
-    const fakeUserData = [
-        { name: 'John', lastname: 'Doe', email: 'johndoe@example.com' },
-        { name: 'Jane Smith', lastname: 'Doe', email: 'janesmith@example.com'},
-        { name: 'Michael Johnson', lastname: 'Doe', email: 'michaeljohnson@example.com'},
-        { name: 'Emily Davis', lastname: 'Doe', email: 'emilydavis@example.com' },
-        { name: 'Daniel Wilson', lastname: 'Doe', email: 'danielwilson@example.com' },
-        { name: 'Olivia Brown', lastname: 'Doe', email: 'oliviabrown@example.com' },
-      ];
+
+    const [students, setStudents] = useState([]);
+
+    useEffect(() => {
+        startFetch(`courses/${id}/members/`, 'GET', null, function(data) {
+            console.log(data)
+            setStudents(data);
+        });
+    }, []);
+    const fakeUserData = students;
     const toggleModelOpen = () => {
         closeViewGroupModal(); // Call the closeEditGroupModal function to close the modal
     };

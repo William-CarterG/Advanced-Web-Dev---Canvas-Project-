@@ -58,17 +58,17 @@ function App({users, groups, evaluations, tests}) {
   // Columns names desired for each table. Remember to modify CSS table when adding/deleting columns.
   const tableHeaders = {
     users: ['Nombre Completo', 'Roles'],
-    groups: ['Nombre de Grupo', 'Miembros'],
+    groups: ['Nombre de Grupo', 'N° de Miembros'],
     evaluations: ['Nombre de evaluacion', 'Test', 'Grupo', 'Fecha Limite'],
     tests: ['Nombre', 'N° de Preguntas']
   };
 
-  console.log(users)
   // Fake data to fill user's table.
   const fakeUserData = users;
 
   const fakeGroupData = groups;
 
+  console.log(evaluations)
   const fakeEvaluationData = evaluations;
 
   const fakeTestData = tests;

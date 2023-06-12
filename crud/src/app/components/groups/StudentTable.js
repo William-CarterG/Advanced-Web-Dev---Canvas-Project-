@@ -30,8 +30,8 @@ const StudentTableComponent = ({ data, headers }) => {
                     {fakeData.map((item) => (
                         <tr key={item.name} className="border-b hover:bg-gray-50">
                             <td className="p-4 text-center">{item.name}</td>
-                            <td className="p-4 text-center">{item.lastname}</td>
-                            <td className="p-4 text-center">{item.email}</td>      
+                            <td className="p-4 text-center">{item.last_name}</td>
+                            <td className="p-4 text-center">{item.mail}</td>      
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                             {/* Delete button */}
                             <div className="inline-block text-left">

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function AddStudent({ closeAddStudentModal }) {
+function AddStudent({ closeAddStudentModal, id }) {
   const [studentName, setStudentName] = useState('');
+  const [studentLastName, setStudentLastName] = useState('');
   const [studentEmail, setStudentEmail] = useState('');
   const toggleModelOpen = () => {
     closeAddStudentModal(); // Call the closeEditGroupModal function to close the modal
@@ -13,6 +15,10 @@ function AddStudent({ closeAddStudentModal }) {
     e.preventDefault();
     console.log('Added Student.');
     // Additional logic for student submission
+    let body = {"name": studentName, "last_name":studentLastName, "mail":studentEmail}
+    startFetch(`courses/${id}/members/`, 'POST', JSON.stringify(body), function(data) {
+      console.log("Estudiante añadido")
+    });
   };
 
   return (
@@ -66,10 +72,25 @@ function AddStudent({ closeAddStudentModal }) {
                 Student's name
               </label>
               <input
-                placeholder="John Doe"
+                placeholder="John"
                 type="text"
                 value={studentName}
                 onChange={(e) => setStudentName(e.target.value)}
+                className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="Student name"
+                className="mt-2 block text-sm text-gray-700 dark:text-gray-200"
+              >
+                Student's Last Name
+              </label>
+              <input
+                placeholder="Doe"
+                type="text"
+                value={studentLastName}
+                onChange={(e) => setStudentLastName(e.target.value)}
                 className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
               />
             </div>
