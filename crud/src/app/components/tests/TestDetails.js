@@ -8,10 +8,10 @@ import startFetch from '../../../API';
 // creating a good part of this modal window. 
 function ViewTest({ closeViewTestModal, setTests, item }) {
   const [editingTestName, setEditingTestName] = useState(false);
-  const [TestName, setTestName] = useState("Client-side Developing Tools");
+  const [TestName, setTestName] = useState(item.name);
 
   const handleTestNameSaveClick = () => {
-    let body = {"name": editingTestName}
+    let body = {"name": TestName}
     startFetch(`tests/${item.id}/`, 'PATCH', JSON.stringify(body), function(data) {
       startFetch(`tests/`, 'GET', null, function(data) {
         setTests(data);
