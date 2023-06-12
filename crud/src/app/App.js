@@ -31,9 +31,9 @@ function unpressedButtons() {
   });
 }
 
-function App() {
+function App({group}) {
   const [activeContainer, setActiveContainer] = useState('users');
-
+  console.log(group)
   useEffect(() => {
     // Function to handle button click and add the 'pressed' class.
     function handleClick(event) {
@@ -74,11 +74,7 @@ function App() {
     { name: 'Olivia Brown', email: 'oliviabrown@example.com', role: [3] },
   ];
 
-  const fakeGroupData = [
-    { name: 'Desarrollo Web Avanzado', members: 22},
-    { name: 'Arquitectura de Computadores', members: 20},
-    { name: 'Proyecto de Desarrollo de Software', members: 15},
-  ];
+  const fakeGroupData = group;
 
   const fakeEvaluationData = [
     { name: 'Desarrollo Web Avanzado - Proyecto 1', test: 'CSS & HTML', group: 'Desarrollo Web Avanzado', deadline: '22/04/23' },
