@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import QuestionTabs from './question/QuestionTabs';
+import startFetch from '../../../API';
+
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
@@ -10,7 +12,8 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
     const [choices, setChoices] = useState([]);
     const [correct, setCorrect] = useState([]);
     const [name, setName] = useState([]);
-    const [difficulty, setDifficulty] = useState([]);
+    const [difficulty, setDifficulty] = useState(1);
+    const [type, setType] = useState(1);
     const [formatedChoices, setFormatedChoices] = useState([]);
 
 
@@ -32,7 +35,13 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
             let parent = document.getElementById("option"+correct).parentNode
             realCorrect =(parent.childNodes[1].firstChild.value)
         }
-        console.log(formatedChoices, realCorrect ,name, difficulty, item.id)
+        let body = {"question_type":type,"difficulty":difficulty, "options":formatedChoices, "text": name, "correct_answer":realCorrect}
+        startFetch(`tests/${item.id}/questions/`, 'POST', JSON.stringify(body), function(data) {
+            startFetch(`tests/`, 'GET', null, function(data) {
+                setTests(data);
+            });
+        });
+        
         setEditingTestName(false);
         // Perform any additional save logic here if needed
     };
@@ -86,7 +95,7 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
                 <p className="mb-2 text-sm text-gray-500 ">
                     Acá puedes crear la pregunta y añadirla a tu prueba.
                 </p>
-                <QuestionTabs toggleMenu={toggleModelOpen} setChoices={setChoices} setDifficulty={setDifficulty} setName={setName} setCorrect={setCorrect} />
+                <QuestionTabs toggleMenu={toggleModelOpen} setChoices={setChoices} setDifficulty={setDifficulty} setName={setName} setCorrect={setCorrect} setType={setType} />
                 <div className="flex justify-end mt-6">
                     <button href="*"
                     className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-m tracking-wide text-white 

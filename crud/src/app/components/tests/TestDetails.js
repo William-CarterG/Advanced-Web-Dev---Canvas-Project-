@@ -143,7 +143,7 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
             </div>
           </div>
           {(isAddTestQuestionViewing && (
-              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)} setTests={setTests} id={item.id}/>
+              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)} setTests={setTests} item={item}/>
             ))}
         </div>
       </div>
