@@ -131,9 +131,11 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
         <TestsTable 
           data={fakeTestData} 
           headers={tableHeaders[activeContainer]} 
+          setTests = {setTests}
         />
         <AddTest 
           container={activeContainer} 
+          setTests={setTests}
         />
       </div>
       )}

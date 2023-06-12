@@ -4,11 +4,13 @@ import ViewTest from './TestDetails.js';
 import More from '../../buttons/more.js';
 import Delete from '../../buttons/delete.js';
 import AddQuestion from '../../buttons/addQuestion.js';
+import startFetch from '../../../API';
+
 
 // Credits to TailwindComponents user 'BrendaMorales97' for 
 // creating a good part of this table.
 
-const TableRow = ({ item }) => {
+const TableRow = ({ item, setTests }) => {
   // Component is being rendered twice, for some reason...
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
@@ -34,6 +36,11 @@ const TableRow = ({ item }) => {
   const deleteGroup = () => {
     toggleMenu();
     console.log("Se elimina la fila.")
+    startFetch(`tests/${item.id}/`, 'DELETE', null, function(data) {
+      startFetch(`tests/`, 'GET', null, function(data) {
+        setTests(data);
+      });
+    });
   }
 
   useEffect(() => {
@@ -90,7 +97,7 @@ const TableRow = ({ item }) => {
 };
 
 
-const TestTableComponent = ({ data, headers }) => {
+const TestTableComponent = ({ data, headers, setTests }) => {
   const fakeData = data;
   return (
     <div className="mt-10 flex flex-col h-[65vh] py-6">  
@@ -110,7 +117,7 @@ const TestTableComponent = ({ data, headers }) => {
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {fakeData.map((item) => (
-              <TableRow key={item.id} item={item} />
+              <TableRow key={item.id} item={item} setTests={setTests}/>
             ))}
           </tbody>
         </table>

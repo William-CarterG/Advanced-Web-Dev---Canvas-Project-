@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import startFetch from '../../../API';
+
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function AddTest() {
+function AddTest({setTests}) {
   const [modelOpen, setModelOpen] = useState(false);
+  const [testName, setTestName] = useState('');
+
   const toggleModelOpen = () => {
     setModelOpen(!modelOpen);
     if(modelOpen){
@@ -28,6 +32,13 @@ function AddTest() {
     // there is a back button!!
     setCurrentPage(1);
     toggleModelOpen();
+    e.preventDefault();
+    let body = { "name": testName}
+    startFetch(`tests/`, 'POST', JSON.stringify(body), function(data) {
+      startFetch(`tests/`, 'GET', null, function(data) {
+        setTests(data);
+      });
+    });
     console.log("Add test");
   };
 
@@ -106,6 +117,8 @@ function AddTest() {
                     placeholder="Prueba 1 - Client-side developer tools"
                     type="text"
                     className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40 capitalize" 
+                    value={testName}
+                    onChange={(e) => setTestName(e.target.value)}
                   />
                 </div>
                 <div className="flex justify-end mt-6">
