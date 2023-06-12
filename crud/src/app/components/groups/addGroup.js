@@ -9,7 +9,7 @@ function AddGroup({setGroups}) {
   const [studentName, setStudentName] = useState('');
   const [studentLastName, setStudentLastName] = useState('');
   const [studentEmail, setStudentEmail] = useState('');
-  // Assuming you have a state variable named 'currentPage' to track the current page
+
   const [currentPage, setCurrentPage] = useState(1);
 
   // Function to go to the next page
