@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import startFetch from '../../../API';
 import { start } from '@popperjs/core';
 
-const EditQuestionsTable = ({ item }) => {
+const EditQuestionsTable = ({ item, setTests }) => {
   const [questionData, setQuestionData] = useState([]);
 
   useEffect(() => {
@@ -15,6 +15,9 @@ const EditQuestionsTable = ({ item }) => {
     startFetch(`tests/${item.id}/questions/${question_id}`, 'DELETE', null, function(data) {
       startFetch(`tests/${item.id}/questions/`, 'GET', null, function(data) {
         setQuestionData(data);
+        startFetch(`tests/`, 'GET', null, function(data) {
+          setTests(data);
+        });
       });
     });
   };
