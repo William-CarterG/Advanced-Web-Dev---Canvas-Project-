@@ -1,16 +1,21 @@
 import React, {useEffect } from 'react';
 import startFetch from '../../../API';
 
-const StudentTableComponent = ({ data, headers, setGroups }) => {
+const StudentTableComponent = ({ data, headers, setGroups, groupId, setStudents }) => {
+    
     function deleteUser(id) {
-        console.log(123,id)
-        /*
-        startFetch(`courses/${id}/`, 'DELETE', null, function(data) {
-            startFetch(`courses/`, 'GET', null, function(data) {
-                setGroups(data);
+        console.log(groupId,id)
+
+        startFetch(`courses/${groupId}/members/${id}/`, 'DELETE', null, function(data) {
+            startFetch(`courses/${groupId}/members/`, 'GET', null, function(data) {
+                setStudents(data);
+                startFetch(`courses/`, 'GET', null, function(data) {
+                    setGroups(data);
+                });
             });
         });
-        */
+        
+        
     }
     const fakeData = data;
     return (
@@ -44,7 +49,7 @@ const StudentTableComponent = ({ data, headers, setGroups }) => {
                             {/* Delete button */}
                             <div className="inline-block text-left">
                                 <button
-                                onClick={deleteUser(item.id)}
+                                onClick={() => deleteUser(item.id)}
                                 type="button"
                                 className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
                                 id={`menu-button-${item.id}`}
