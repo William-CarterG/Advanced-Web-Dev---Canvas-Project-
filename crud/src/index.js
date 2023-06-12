@@ -36,7 +36,7 @@ const RootComponent = () => {
     if (users && groups && evaluations && tests) {
       root.render(
         <React.StrictMode>
-          <App users={users} groups={groups} evaluations={evaluations} tests={tests}/>
+          <App users={users} setUsers={setUsers} groups={groups} setGroups={setGroups} evaluations={evaluations} setEvaluations={setEvaluations} tests={tests} setTests={setTests}/>
         </React.StrictMode>
       );
     }
