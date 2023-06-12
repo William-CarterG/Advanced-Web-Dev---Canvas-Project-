@@ -213,6 +213,7 @@ function AddUser({setUsers}) {
                                 setUsers(data);
                             });
                         });
+                        toggleModelOpen();
                       }}
                       className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white 
                       capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none 
