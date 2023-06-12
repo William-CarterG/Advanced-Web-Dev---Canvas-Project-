@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import startFetch from '../../../API';
+import AddTestQuestion from './addQuestion';
 
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
@@ -10,7 +11,7 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
   const [editingTestName, setEditingTestName] = useState(false);
   const [TestName, setTestName] = useState(item.name);
 
-  const [modelOpen, setModelOpen] = useState(false);
+  const [isAddTestQuestionViewing, setIsAddTestQuestionViewing] = useState(false);
 
   const handleTestNameSaveClick = () => {
     let body = {"name": TestName}
@@ -159,7 +160,9 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
                       </tr>
                     </tbody>
                 </table>
-                <button className="mt-3 pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 bg:hover-gray-700 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
+                {/* Add Question button */}
+                <button onClick={() => setIsAddTestQuestionViewing(true)}
+                className="mt-3 pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 bg:hover-gray-700 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
                   <div className='flex items-center justify-center'>
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -168,7 +171,6 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
                 </button>
               </div>
             </div>
-
             <div className="flex justify-end mt-6">
               <button onClick={handleTestDetails}
               className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
@@ -177,7 +179,9 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
               </button>
             </div>
           </div>
-
+          {(isAddTestQuestionViewing && (
+              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)}/>
+            ))}
         </div>
       </div>
 

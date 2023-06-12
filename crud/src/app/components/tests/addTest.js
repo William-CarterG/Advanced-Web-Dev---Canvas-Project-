@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import startFetch from '../../../API';
+import AddTestQuestion from './addQuestion';
 
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
@@ -7,6 +8,7 @@ import startFetch from '../../../API';
 function AddTest({setTests}) {
   const [modelOpen, setModelOpen] = useState(false);
   const [testName, setTestName] = useState('');
+  const [isAddTestQuestionViewing, setIsAddTestQuestionViewing] = useState(false);
 
   const toggleModelOpen = () => {
     setModelOpen(!modelOpen);
@@ -214,7 +216,8 @@ function AddTest({setTests}) {
                           </tr>
                         </tbody>
                     </table>
-                    <button className="mt-3 pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 bg:hover-gray-700 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
+                    <button onClick={() => setIsAddTestQuestionViewing(true)} 
+                    className="mt-3 pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 bg:hover-gray-700 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
                       <div className='flex items-center justify-center'>
                         <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -224,7 +227,7 @@ function AddTest({setTests}) {
                     </button>
                   </div>
                 </div>
-
+                
                 <div className="flex justify-end mt-6">
                   <button href="*"
                   onClick={handleTestSubmit}
@@ -237,7 +240,9 @@ function AddTest({setTests}) {
                 </div>
               </div>
             )}
-            
+            {(isAddTestQuestionViewing && (
+              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)}/>
+            ))}
           </div>
 
         </div>
