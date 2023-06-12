@@ -89,6 +89,8 @@ function ViewGroup({ closeViewGroupModal, id, setGroups }) {
                         data={fakeUserData} 
                         headers={['Nombre', 'Apellido', 'Email']} 
                         setGroups={setGroups}
+                        groupId = {id}
+                        setStudents = {setStudents}
                     />
                     <div className="flex justify-end mt-6">
                         <button onClick={goToNextPage}
