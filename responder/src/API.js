@@ -25,3 +25,4 @@ function startFetch(URL,METHOD,BODY,callback) {
 }
 
 export default startFetch;
+

@@ -1,6 +1,6 @@
 async function fetchData(URL,METHOD,BODY) {
   try {
-    const response = await fetch(`http://localhost:8000/${URL}`, {
+    const response = await fetch(`http://35.223.95.177:8000/${URL}`, {
       method: METHOD,
       headers: {
         'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ async function fetchData(URL,METHOD,BODY) {
 
 async function deleteData(URL, METHOD) {
   try {
-    const response = await fetch(`http://localhost:8000/${URL}`, {
+    const response = await fetch(`http://35.223.95.177:8000/${URL}`, {
       method: METHOD,
     });
 
