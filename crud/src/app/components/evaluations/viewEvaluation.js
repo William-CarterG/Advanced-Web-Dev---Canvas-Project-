@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import startFetch from '../../../API';
+
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function ViewEvaluation({ closeViewEvaluationModal }) {
+function ViewEvaluation({ closeViewEvaluationModal, setEvaluations, item}) {
   const [editingEvaluationName, setEditingEvaluationName] = useState(false);
-  const [evaluationName, setEvaluationName] = useState("Desarrollo Web Avanzado - Prueba 1");
+  const [evaluationName, setEvaluationName] = useState(item.name);
 
   const handleEvaluationNameSaveClick = () => {
+    let body = {"name": evaluationName}
+    startFetch(`evaluations/${item.id}/`, 'PATCH', JSON.stringify(body), function(data) {
+      startFetch(`evaluations/`, 'GET', null, function(data) {
+        setEvaluations(data);
+      });
+    });
     setEditingEvaluationName(false);
     // Perform any additional save logic here if needed
   };
@@ -19,6 +27,12 @@ function ViewEvaluation({ closeViewEvaluationModal }) {
   const [editingSelectedDate, setEditingSelectedDate] = useState(false);
 
   const handleSelectedDateSaveClick = () => {
+    let body = {"limit_date": selectedDate}
+    startFetch(`evaluations/${item.id}/`, 'PATCH', JSON.stringify(body), function(data) {
+      startFetch(`evaluations/`, 'GET', null, function(data) {
+        setEvaluations(data);
+      });
+    });
     setEditingSelectedDate(false);
     // Perform any additional save logic here if needed
   };
@@ -27,6 +41,12 @@ function ViewEvaluation({ closeViewEvaluationModal }) {
   const [evaluationInstructions, setEvaluationInstructions] = useState("Esta prueba trata sobre el contenido de CSS y HTML que hemos visto en clase. La prueba tendrá 5 preguntas en formato de Verdadero o Falso. ¡Buena suerte!");
 
   const handleEvaluationInstructionsSaveClick = () => {
+    let body = {"general_instructions": evaluationInstructions}
+    startFetch(`evaluations/${item.id}/`, 'PATCH', JSON.stringify(body), function(data) {
+      startFetch(`evaluations/`, 'GET', null, function(data) {
+        setEvaluations(data);
+      });
+    });
     setEditingEvaluationInstructions(false);
     // Perform any additional save logic here if needed
   };

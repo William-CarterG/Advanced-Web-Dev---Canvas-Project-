@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ViewEvaluation from './viewEvaluation';
-
+import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'BrendaMorales97' for 
 // creating a good part of this table.
 
-const TableRow = ({ item }) => {
+const TableRow = ({ item, setEvaluations }) => {
   // Component is being rendered twice, for some reason...
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
@@ -21,7 +21,11 @@ const TableRow = ({ item }) => {
   };
 
   const deleteEvaluation = () => {
-    // TODO: Connection to back.
+    startFetch(`evaluations/${item.id}/`, 'DELETE', null, function(data) {
+      startFetch(`evaluations/`, 'GET', null, function(data) {
+        setEvaluations(data);
+      });
+    });
   }
 
   useEffect(() => {
@@ -108,7 +112,7 @@ const TableRow = ({ item }) => {
         </div>
         {isViewEvaluationOpen && (
           <ViewEvaluation 
-            closeViewEvaluationModal={openViewEvalationModal} 
+            closeViewEvaluationModal={openViewEvalationModal} setEvaluations={setEvaluations} id={item.id} item={item}
           />
         )}
       </td>
@@ -117,7 +121,7 @@ const TableRow = ({ item }) => {
 };
 
 
-const EvaluationTableComponent = ({ data, headers }) => {
+const EvaluationTableComponent = ({ data, headers, setEvaluations }) => {
   const fakeData = data;
   return (
     <div className="mt-10 flex flex-col h-[65vh] min-w-full py-6 align-middle">  
@@ -142,7 +146,7 @@ const EvaluationTableComponent = ({ data, headers }) => {
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {fakeData.map((item) => (
-              <TableRow key={item.id} item={item} />
+              <TableRow key={item.id} item={item} setEvaluations={setEvaluations} />
             ))}
           </tbody>
         </table>

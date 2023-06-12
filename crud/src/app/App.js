@@ -120,6 +120,7 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
         <EvaluationTable 
           data={fakeEvaluationData} 
           headers={tableHeaders[activeContainer]} 
+          setEvaluations={setEvaluations}
         />
         <AddEvaluation setEvaluations={setEvaluations} groups={groups} tests={tests} />
       </div>

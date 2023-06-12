@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import startFetch from '../../../API';
 
-function AddEvaluation({groups, tests}) {
-  console.log(groups)
+function AddEvaluation({groups, tests, setEvaluations}) {
   const [modelOpen, setModelOpen] = useState(false);
   const [EvaluationName, setEvaluationName] = useState('');
   const [idGroup, setIdGroup] = useState('');
@@ -39,13 +39,16 @@ function AddEvaluation({groups, tests}) {
     setCurrentPage(1);
     toggleModelOpen();
     e.preventDefault();
-    console.log(EvaluationName,idGroup,idTest,textValue,selectedDate);
-    // Additional logic for Evaluation submission
+    let body = {"name": EvaluationName, "limit_date":selectedDate, "general_instructions":textValue, "test": idTest, "group": idGroup}
+    startFetch(`evaluations/`, 'POST', JSON.stringify(body), function(data) {
+      startFetch(`evaluations/`, 'GET', null, function(data) {
+        setEvaluations(data);
+      });
+    });
   };
 
   const handleEvaluationGroupSubmit = (e) => {
     e.preventDefault();
-    console.log('Added Evaluation group.');
     // Additional logic for student submission
   };
 
