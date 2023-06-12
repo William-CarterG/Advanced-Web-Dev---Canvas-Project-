@@ -4,6 +4,7 @@ import ViewTest from './TestDetails.js';
 import More from '../../buttons/more.js';
 import Delete from '../../buttons/delete.js';
 import AddQuestion from '../../buttons/addQuestion.js';
+import AddTestQuestion from './addQuestion.js';
 import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'BrendaMorales97' for 
@@ -15,6 +16,7 @@ const TableRow = ({ item, setTests }) => {
   const menuRef = useRef(null);
   const [addTestVisible, setAddTestVisible] = useState(false);
   const [viewTestVisible, setViewTestVisible] = useState(false);
+  const [AddTestQuestionVisible, setAddTestQuestionVisible] = useState(false);
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
@@ -28,7 +30,7 @@ const TableRow = ({ item, setTests }) => {
 
   const addQuestion = () => {
     toggleMenu();
-    setAddTestVisible(!addTestVisible);
+    setAddTestQuestionVisible(!AddTestQuestionVisible);
     console.log("Se añade las preguntas.")
   };
 
@@ -85,7 +87,9 @@ const TableRow = ({ item, setTests }) => {
           {viewTestVisible && (
             <ViewTest closeViewTestModal={() => setViewTestVisible(!viewTestVisible)} setTests={setTests} item={item} />
           )}
-
+          {AddTestQuestionVisible && (
+            <AddTestQuestion />
+          )}
           {addTestVisible && (
             <addTest />
           )}
