@@ -13,8 +13,12 @@ const QuestionTabs = ({setChoices, setName, setDifficulty, setCorrect, setType})
   };
 
   const handleTabClick = (tab) => {
-    setType(tab)
     setSelectedTab(tab);
+    if (tab == "alternativaMultiple"){
+      setType(1)
+    } else{
+      setType(0)
+    }
   };
 
   const handleQuestionNameSaveClick = () => {

@@ -36,6 +36,7 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
             realCorrect =(parent.childNodes[1].firstChild.value)
         }
         let body = {"question_type":type,"difficulty":difficulty, "options":formatedChoices, "text": name, "correct_answer":realCorrect}
+        console.log(body)
         startFetch(`tests/${item.id}/questions/`, 'POST', JSON.stringify(body), function(data) {
             startFetch(`tests/`, 'GET', null, function(data) {
                 setTests(data);
