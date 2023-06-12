@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import startFetch from '../../../API';
 import AddTestQuestion from './addQuestion';
+import EditQuestionsTable from './editQuestionsTable';
 
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
@@ -121,62 +122,25 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
             
             <div className="flex flex-col h-96 min-w-full py-6 align-middle">  
               <div className="flex-grow rounded-2xl overflow-auto"> 
-                <table className="relative w-full border"> 
-                    <thead className="sticky top-0 px-6 py-3 bg-gray-50">
-                        <tr>
-                        {questionHeaders.map((header, index) => (
-                        <th key={index}
-                            scope="col"
-                            className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
-                        >
-                            {header}
-                        </th>
-                        ))}
-                        <th scope="col"
-                        className="relative py-3.5 pl-3 pr-4 sm:pr-6"
-                        >
-                            <span className="sr-only">Actions</span>
-                        </th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200 bg-white">
-                      <tr className="border-b hover:bg-gray-50">
-                        <td className="p-4 text-center">What is kind of element would you use to create a table in HTML.</td>
-                        <td className="p-4 text-center">Multiple Choice</td>      
-                        <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                          {/* Delete button */}
-                          <div className="inline-block text-left">
-                              <button
-                              type="button"
-                              className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
-                              aria-haspopup="true"
-                              >
-                              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                              </svg>
-                              </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                </table>
+                <EditQuestionsTable />
                 {/* Add Question button */}
-                <button onClick={() => setIsAddTestQuestionViewing(true)}
-                className="mt-3 pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 bg:hover-gray-700 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
-                  <div className='flex items-center justify-center'>
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                </button>
               </div>
             </div>
-            <div className="flex justify-end mt-6">
-              <button onClick={handleTestDetails}
-              className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
-                Guardar
-                <svg className="ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h7"/></svg>
-              </button>
+            <div className="flex justify-between mt-6">
+              <button onClick={() => setIsAddTestQuestionViewing(true)}
+                className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 bg:hover-gray-700 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
+                  <div className='flex items-center justify-center'>
+                    <svg className="w-6 h-6 mr-1" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Añadir Pregunta
+                  </div>
+                </button>
+                <button onClick={handleTestDetails}
+                className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
+                  Guardar
+                  <svg className="w-6 h-6 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h7"/></svg>
+                </button>
             </div>
           </div>
           {(isAddTestQuestionViewing && (
