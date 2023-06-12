@@ -27,7 +27,12 @@ function AddTestQuestion( {toggleModelOpen} ) {
     }, [choices]);
 
     const handleTestNameSaveClick = () => {
-        console.log(formatedChoices, name)
+        let realCorrect = correct
+        if (typeof(correct) == "number"){
+            let parent = document.getElementById("option"+correct).parentNode
+            realCorrect =(parent.childNodes[1].firstChild.value)
+        }
+        console.log(formatedChoices, realCorrect ,name, difficulty)
         setEditingTestName(false);
         // Perform any additional save logic here if needed
     };

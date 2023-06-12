@@ -22,8 +22,8 @@ const QuestionTabs = ({setChoices, setName, setDifficulty, setCorrect}) => {
   };
 
   const setOption = (index) => {
-    let parent = document.getElementById("option"+index).parentNode
-    setCorrect(parent.childNodes[1].firstChild.value)
+    setCorrect(index)
+
   };
 
   const handleAlternativeChange = (e, index) => {
