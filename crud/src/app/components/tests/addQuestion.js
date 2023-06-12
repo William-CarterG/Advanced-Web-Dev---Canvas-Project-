@@ -1,14 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import QuestionTabs from './question/QuestionTabs';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
 function AddTestQuestion( {toggleModelOpen} ) {
     const [modelOpen, setModelOpen] = useState(false);
+    const [delay, setDelay] = useState(0);
     const [editingTestName, setEditingTestName] = useState(false);
-    const [TestName, setTestName] = useState("Client-side Developing Tools");
+    const [choices, setChoices] = useState([]);
+    const [correct, setCorrect] = useState([]);
+    const [name, setName] = useState([]);
+    const [difficulty, setDifficulty] = useState([]);
+    const [formatedChoices, setFormatedChoices] = useState([]);
+
+
+    useEffect(() => {
+        console.log(choices)
+        let s = ""
+        for (let i in choices){
+            if (choices[i] != ""){
+                s += choices[i]+";"
+            }
+        }
+        let newStr = s.slice(0, s.length - 1);
+        setFormatedChoices(newStr)
+    }, [choices]);
 
     const handleTestNameSaveClick = () => {
+        console.log(formatedChoices, name)
         setEditingTestName(false);
         // Perform any additional save logic here if needed
     };
@@ -62,12 +81,13 @@ function AddTestQuestion( {toggleModelOpen} ) {
                 <p className="mb-2 text-sm text-gray-500 ">
                     Acá puedes crear la pregunta y añadirla a tu prueba.
                 </p>
-                <QuestionTabs toggleMenu={toggleModelOpen}/>
+                <QuestionTabs toggleMenu={toggleModelOpen} setChoices={setChoices} setDifficulty={setDifficulty} setName={setName} setCorrect={setCorrect} />
                 <div className="flex justify-end mt-6">
                     <button href="*"
                     className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-m tracking-wide text-white 
                     capitalize transition-colors duration-200 transform bg-indigo-500 rounded-md focus:outline-none 
-                    focus:ring focus:ring-opacity-50">
+                    focus:ring focus:ring-opacity-50"
+                    onClick={handleTestNameSaveClick}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                         <path
                         fillRule="evenodd"

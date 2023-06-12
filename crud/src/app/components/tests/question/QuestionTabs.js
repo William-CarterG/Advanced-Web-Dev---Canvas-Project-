@@ -1,24 +1,35 @@
 import React, { useState } from 'react';
 
-const QuestionTabs = () => {
+const QuestionTabs = ({setChoices, setName, setDifficulty, setCorrect}) => {
   const [selectedTab, setSelectedTab] = useState('verdaderoFalso');
   const [editingQuestionName, setEditingQuestionName] = useState(false);
   const [QuestionName, setQuestionName] = useState("¿Es la tierra redonda?");
   const [alternatives, setAlternatives] = useState([]);
 
 
+  const trueFalse = (bool) => {
+    setChoices(["Verdadero","Falso"])
+    setCorrect(bool)
+  };
+
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
 
   const handleQuestionNameSaveClick = () => {
-    console.log("Question name added.");
+    setName(QuestionName)
     setEditingQuestionName(false);
+  };
+
+  const setOption = (index) => {
+    let parent = document.getElementById("option"+index).parentNode
+    setCorrect(parent.childNodes[1].firstChild.value)
   };
 
   const handleAlternativeChange = (e, index) => {
     const updatedAlternatives = [...alternatives];
     updatedAlternatives[index] = e.target.value;
+    setChoices(updatedAlternatives)
     setAlternatives(updatedAlternatives);
   };
   
@@ -28,8 +39,14 @@ const QuestionTabs = () => {
   };
 
   const handleDeleteAlternative = (index) => {
-    let updatedAlternatives = alternatives.filter((_, i) => i != index);
+    let updatedAlternatives = [...alternatives];
+    updatedAlternatives[index]= ""; 
+    setChoices(updatedAlternatives)
     setAlternatives(updatedAlternatives);
+    let parentRow = document.getElementById("a"+index).parentElement
+    let row = document.getElementById("a"+index)
+    parentRow.removeChild(row)
+    
   };
   return (
     <div className="space-y-5">
@@ -112,13 +129,13 @@ const QuestionTabs = () => {
               <h3 className="text-lg font-semibold mt-2 mb-2">Selecciona la respuesta verdadera</h3>
               <div className="flex items-center gap-4">
                 <div className="flex items-center">
-                  <input type="radio" id="true" name="answer" className="mr-2" />
+                  <input type="radio" id="true" name="answer" className="mr-2" onClick={() => trueFalse("Verdadero")}/>
                   <label htmlFor="answer" className="text-gray-700">
                     Verdadero
                   </label>
                 </div>
                 <div className="flex items-center">
-                  <input type="radio" id="false" name="answer" className="mr-2" />
+                  <input type="radio" id="false" name="answer" className="mr-2" onClick={() => trueFalse("Falso")}/>
                   <label htmlFor="false" className="text-gray-700">
                     Falso
                   </label>
@@ -205,12 +222,12 @@ const QuestionTabs = () => {
               <div>
             <label className="text-l font-semibold mt-2 mb-2">Escribe las alternativas (selecciona la correcta).</label>
             {alternatives.map((alternative, index) => (
-              <div key={index} className="flex items-center gap-4">
-                <input type="radio" id={`option${index}`} name="answer" className="mr-2" />
+              <div key={index} className="flex items-center gap-4" id={`a${index}`}>
+                <input type="radio" id={`option${index}`} name="answer" className="mr-2" onClick={() => setOption(index)}/>
                 <label htmlFor={`option${index}`} className="text-gray-700">
                   <input
                     type="text"
-                    placeholder={`Opción ${index + 1}`}
+                    placeholder={`Escriba una opcion`}
                     className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
                     onChange={(e) => handleAlternativeChange(e, index)}
                   />
