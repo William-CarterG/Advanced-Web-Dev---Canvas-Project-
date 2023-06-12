@@ -5,7 +5,7 @@ import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
+function AddTestQuestion( {toggleModelOpen, setTests, item, setQuestionData} ) {
     const [modelOpen, setModelOpen] = useState(false);
     const [delay, setDelay] = useState(0);
     const [editingTestName, setEditingTestName] = useState(false);
@@ -35,20 +35,17 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
             let parent = document.getElementById("option"+correct).parentNode
             realCorrect =(parent.childNodes[1].firstChild.value)
         }
-        //formatedChoices
-        let body = {"question_type":type,"difficulty":difficulty, "text": name, "correct_answer":realCorrect}
-        
+        let body = {"question_type":type,"difficulty":difficulty, "options":formatedChoices, "text": name, "correct_answer":realCorrect}
+        console.log(body)
         startFetch(`tests/${item.id}/questions/`, 'POST', JSON.stringify(body), function(data) {
-            body = {"options": formatedChoices}
-            startFetch(`tests/${item.id}/questions/${data.id}/answer-options/`, 'POST', JSON.stringify(body), function(data) {
-                startFetch(`tests/`, 'GET', null, function(data) {
-                    setTests(data);
-                });
+            startFetch(`tests/`, 'GET', null, function(data) {
+                setTests(data);
+                setQuestionData(data);
             });
         });
-        
         setEditingTestName(false);
         // Perform any additional save logic here if needed
+        toggleModelOpen();
     };
 
     const handleTestDetails = (e) => {
