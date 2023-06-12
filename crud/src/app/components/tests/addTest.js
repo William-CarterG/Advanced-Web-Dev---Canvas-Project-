@@ -31,7 +31,7 @@ function AddTest() {
     console.log("Add test");
   };
 
-  const questionHeaders = ["Pregunta", "Tipo"]
+  const questionHeaders = ["Pregunta", "Tipo"];
   return (
     <div className='mt-4'>
       <button
