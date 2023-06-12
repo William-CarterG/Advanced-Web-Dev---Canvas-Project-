@@ -21,6 +21,7 @@ function AddStudent({ closeAddStudentModal, id, setGroups }) {
         setGroups(data);
       });
     });
+    toggleModelOpen();
   };
 
   return (

@@ -20,12 +20,22 @@ function ViewEvaluation({ closeViewEvaluationModal, setEvaluations, item}) {
     setEditingEvaluationName(false);
     // Perform any additional save logic here if needed
   };
+  
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+  
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Month is zero-based, so we add 1
+    const year = date.getFullYear();
+  
+    const formattedDate = new Date(year, month - 1, day); // Month is zero-based, so we subtract 1
+    console.log(formattedDate, dateString);
+    return formattedDate;
+  }
 
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1); // Get tomorrow's date
-  const [selectedDate, setSelectedDate] = useState(tomorrow); // Initialize with tomorrow's date
+  const minDate = new Date(item.limit_date);   // Shouldn't change. Should keep min posible date until database is updated.
+  const [selectedDate, setSelectedDate] = useState(formatDate(item.limit_date)); // Initialize with tomorrow's date
   const [editingSelectedDate, setEditingSelectedDate] = useState(false);
-
   const handleSelectedDateSaveClick = () => {
     let body = {"limit_date": selectedDate}
     startFetch(`evaluations/${item.id}/`, 'PATCH', JSON.stringify(body), function(data) {
@@ -243,7 +253,7 @@ function ViewEvaluation({ closeViewEvaluationModal, setEvaluations, item}) {
                   {editingSelectedDate ? (
                     <div>
                       <DatePicker
-                        minDate={tomorrow}
+                        minDate={minDate}
                         selected={selectedDate}
                         onChange={date => setSelectedDate(date)}
                         dateFormat="dd-MM-yyyy"
@@ -260,7 +270,7 @@ function ViewEvaluation({ closeViewEvaluationModal, setEvaluations, item}) {
                     <div className="flex items-center">
                       <div className="flex-grow">
                         <DatePicker
-                          minDate={tomorrow}
+                          minDate={minDate}
                           selected={selectedDate}
                           onChange={date => setSelectedDate(date)}
                           dateFormat="dd-MM-yyyy"
