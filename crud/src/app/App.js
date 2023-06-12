@@ -1,5 +1,8 @@
+import logo from '../logo.svg';
 import React, { useState, useEffect } from 'react';
 import './main.css';
+import '../App.css';
+
 
 import Users from './components/users/Users';
 import AddUser from './components/users/addUser';
@@ -76,9 +79,14 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
 
   return (
     <>
-      <h1  className='text-center pb-6'>Panel de Administracion</h1>
+      <div  className='justify-center text-center h-full pb-6 flex pr-20'>Panel de Administracion
+        <h1  className='justify-center text-center pt-4'>Panel de Administracion</h1>
+        <div className="flex items-center">
+          <img src={logo} alt="logo" className="App-logo w-28 mb-5" />   
+        </div>
+      </div>
     
-      <div className="mt-6 mb-8 md:flex md:items-center relative">  
+      <div className=" md:flex md:items-center relative">  
         <div className="inline-flex absolute left-1/2 transform -translate-x-1/2">
           <Users onClick={() => setActiveContainer('users')} />
           <Groups onClick={() => setActiveContainer('groups')} />

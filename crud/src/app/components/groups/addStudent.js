@@ -71,7 +71,7 @@ function AddStudent({ closeAddStudentModal, id, setGroups }) {
                 htmlFor="Student name"
                 className="mt-2 block text-sm text-gray-700 dark:text-gray-200"
               >
-                Student's name
+                Nombre del estudiante
               </label>
               <input
                 placeholder="John"
@@ -86,7 +86,7 @@ function AddStudent({ closeAddStudentModal, id, setGroups }) {
                 htmlFor="Student name"
                 className="mt-2 block text-sm text-gray-700 dark:text-gray-200"
               >
-                Student's Last Name
+                Apellido del estudiante
               </label>
               <input
                 placeholder="Doe"
@@ -101,7 +101,7 @@ function AddStudent({ closeAddStudentModal, id, setGroups }) {
                 htmlFor="Student email"
                 className="mt-2 block text-sm text-gray-700 dark:text-gray-200"
               >
-                Student's email
+                Email del estudiante
               </label>
               <input
                 placeholder="JohnDoe@example.com"
@@ -126,7 +126,7 @@ function AddStudent({ closeAddStudentModal, id, setGroups }) {
                     clipRule="evenodd"
                   />
                 </svg>
-                  Add
+                  Añadir
               </button>
             </div>
           </form>
