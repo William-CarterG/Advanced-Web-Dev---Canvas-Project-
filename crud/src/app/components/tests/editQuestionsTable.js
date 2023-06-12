@@ -8,9 +8,16 @@ const EditQuestionsTable = ({ item }) => {
   useEffect(() => {
     startFetch(`tests/${item.id}/questions`, 'GET', null, function (data) {
       setQuestionData(data);
-      console.log(data);
     });
   }, []);
+
+  function handleDeleteQuestion(question_id){
+    startFetch(`tests/${item.id}/questions/${question_id}`, 'DELETE', null, function(data) {
+      startFetch(`tests/${item.id}/questions/`, 'GET', null, function(data) {
+        setQuestionData(data);
+      });
+    });
+  };
 
   const moveRowUp = (index) => {
     if (index > 0) {
@@ -65,6 +72,9 @@ const EditQuestionsTable = ({ item }) => {
           <th className="relative py-3.5 pl-3 pr-4 sm:pr-6">
             <span className="sr-only">Actions</span>
           </th>
+          <th className="relative py-3.5 pl-3 pr-4 sm:pr-6">
+            <span className="sr-only">Delete</span>
+          </th>
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200 bg-white">
@@ -96,6 +106,28 @@ const EditQuestionsTable = ({ item }) => {
                   </svg>
                 </button>
               </div>
+              
+            </td>
+            <td>
+              <button
+                className="text-red-500 hover:text-red-700"
+                onClick={() => handleDeleteQuestion(question.id)}
+              >
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
             </td>
           </tr>
         ))}
