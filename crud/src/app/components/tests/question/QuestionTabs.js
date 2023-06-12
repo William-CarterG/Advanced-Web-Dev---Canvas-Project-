@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Choice from '../type/input/Choice';
 
 const QuestionTabs = ( {toggleMenu} ) => {
   const [selectedTab, setSelectedTab] = useState('verdaderoFalso');
@@ -49,7 +48,6 @@ const QuestionTabs = ( {toggleMenu} ) => {
       {selectedTab === 'verdaderoFalso' && (
         <div>
           {/* Content for Verdadero o Falso tab */}
-          {/* Add your content here */}
           <div className="p-4 bg-white rounded-lg shadow">
 
           <div className="flex flex-col gap-3">
@@ -118,7 +116,6 @@ const QuestionTabs = ( {toggleMenu} ) => {
       {selectedTab === 'alternativaMultiple' && (
         <div>
           {/* Content for Alternativa Múltiple tab */}
-          {/* Add your content here */}
         </div>
       )}
     </div>
