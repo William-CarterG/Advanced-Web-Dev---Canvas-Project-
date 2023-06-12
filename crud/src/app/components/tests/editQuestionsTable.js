@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import startFetch from '../../../API';
 
-const EditQuestionsTable = () => {
+const EditQuestionsTable = ( {item} ) => {
   const [questionData, setQuestionData] = useState([
     { question: 'What is kind of element would you use to create a table in HTML.', type: 'Multiple Choice' },
     { question: 'How much is 1+1', type: 'Multiple Choice' },
     { question: 'Does the CSS logo have any blue on it?', type: 'Bool' },
   ]);
-
+  useEffect(() => {
+    startFetch(`tests/${item.id}/questions`, 'GET', null, function(data) {
+      setQuestionData(data);
+      console.log(data);
+    });
+  }, []);
   const moveRowUp = (index) => {
     if (index > 0) {
       const updatedData = [...questionData];
@@ -27,12 +33,17 @@ const EditQuestionsTable = () => {
     }
   };
 
+  const handleQuestionSorting = (e) => {
+    console.log("POST request para orden de preguntas");
+  };
+
   return (
     <table className="relative w-full border">
         <thead className="sticky top-0 px-6 py-3 bg-gray-50">
             <tr>
-            <th className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Question</th>
-            <th className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Type</th>
+            <th className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Pregunta</th>
+            <th className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Tipo de Pregunta</th>
+            <th className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900">Dificultad</th>
             <th className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                 <span className="sr-only">Actions</span>
             </th>
@@ -40,9 +51,10 @@ const EditQuestionsTable = () => {
         </thead>
         <tbody className="divide-y divide-gray-200 bg-white">
             {questionData.map((question, index) => (
-            <tr key={index} className="border-b hover:bg-gray-50">
-                <td className="p-4 text-center">{question.question}</td>
-                <td className="p-4 text-center">{question.type}</td>
+            <tr key={`editQuestionTableRow-${question.id}`} className="border-b hover:bg-gray-50">
+                <td className="p-4 text-center">{question.text}</td>
+                <td className="p-4 text-center">{question.question_type}</td>
+                <td className="p-4 text-center">{question.difficulty}</td>
                 <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                 <div className="inline-block text-left">
                     <button

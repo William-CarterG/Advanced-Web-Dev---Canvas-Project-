@@ -122,7 +122,7 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
             
             <div className="flex flex-col h-96 min-w-full py-6 align-middle">  
               <div className="flex-grow rounded-2xl overflow-auto"> 
-                <EditQuestionsTable />
+                <EditQuestionsTable item={item}/>
                 {/* Add Question button */}
               </div>
             </div>
