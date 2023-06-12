@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const QuestionTabs = ({setChoices, setName, setDifficulty, setCorrect}) => {
+const QuestionTabs = ({setChoices, setName, setDifficulty, setCorrect, setType}) => {
   const [selectedTab, setSelectedTab] = useState('verdaderoFalso');
   const [editingQuestionName, setEditingQuestionName] = useState(false);
   const [QuestionName, setQuestionName] = useState("¿Es la tierra redonda?");
@@ -13,6 +13,7 @@ const QuestionTabs = ({setChoices, setName, setDifficulty, setCorrect}) => {
   };
 
   const handleTabClick = (tab) => {
+    setType(tab)
     setSelectedTab(tab);
   };
 

@@ -113,7 +113,7 @@ function AddTest({setTests, item}) {
                     htmlFor="Group name"
                     className="font-medium block text-sm text-gray-700 capitalize dark:text-gray-200"
                   >
-                    Nombre de Grupo
+                    Nombre de Prueba
                   </label>
                   <input
                     placeholder="Prueba 1 - Client-side developer tools"
@@ -241,7 +241,7 @@ function AddTest({setTests, item}) {
               </div>
             )}
             {(isAddTestQuestionViewing && (
-              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)} setTests={setTests} id={item.id}/>
+              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)} setTests={setTests} item={item}/>
             ))}
           </div>
 
