@@ -11,7 +11,6 @@ import EditQuestionsTable from './editQuestionsTable';
 function ViewTest({ closeViewTestModal, setTests, item }) {
   const [editingTestName, setEditingTestName] = useState(false);
   const [TestName, setTestName] = useState(item.name);
-
   const [isAddTestQuestionViewing, setIsAddTestQuestionViewing] = useState(false);
 
   const handleTestNameSaveClick = () => {
@@ -34,7 +33,7 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
       // there is a back button!!
       toggleModelOpen();
     };
-
+    
     const questionHeaders = ["Pregunta", "Tipo"];
     return (
       <div
@@ -144,7 +143,7 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
             </div>
           </div>
           {(isAddTestQuestionViewing && (
-              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)}/>
+              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)} setTests={setTests} id={item.id}/>
             ))}
         </div>
       </div>

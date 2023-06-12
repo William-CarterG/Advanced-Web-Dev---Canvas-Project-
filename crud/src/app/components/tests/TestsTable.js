@@ -88,7 +88,7 @@ const TableRow = ({ item, setTests }) => {
             <ViewTest closeViewTestModal={() => setViewTestVisible(!viewTestVisible)} setTests={setTests} item={item} />
           )}
           {AddTestQuestionVisible && (
-            <AddTestQuestion toggleModelOpen={() => setAddTestQuestionVisible(!AddTestQuestionVisible)}/>
+            <AddTestQuestion toggleModelOpen={() => setAddTestQuestionVisible(!AddTestQuestionVisible)} setTests={setTests} item={item}/>
           )}
           {addTestVisible && (
             <addTest />

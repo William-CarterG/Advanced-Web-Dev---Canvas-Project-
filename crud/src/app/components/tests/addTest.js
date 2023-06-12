@@ -5,7 +5,7 @@ import AddTestQuestion from './addQuestion';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function AddTest({setTests}) {
+function AddTest({setTests, item}) {
   const [modelOpen, setModelOpen] = useState(false);
   const [testName, setTestName] = useState('');
   const [isAddTestQuestionViewing, setIsAddTestQuestionViewing] = useState(false);
@@ -241,7 +241,7 @@ function AddTest({setTests}) {
               </div>
             )}
             {(isAddTestQuestionViewing && (
-              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)}/>
+              <AddTestQuestion toggleModelOpen={() => setIsAddTestQuestionViewing(!isAddTestQuestionViewing)} setTests={setTests} id={item.id}/>
             ))}
           </div>
 

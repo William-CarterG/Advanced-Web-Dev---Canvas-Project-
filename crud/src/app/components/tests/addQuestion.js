@@ -3,7 +3,7 @@ import QuestionTabs from './question/QuestionTabs';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function AddTestQuestion( {toggleModelOpen} ) {
+function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
     const [modelOpen, setModelOpen] = useState(false);
     const [delay, setDelay] = useState(0);
     const [editingTestName, setEditingTestName] = useState(false);
@@ -32,7 +32,7 @@ function AddTestQuestion( {toggleModelOpen} ) {
             let parent = document.getElementById("option"+correct).parentNode
             realCorrect =(parent.childNodes[1].firstChild.value)
         }
-        console.log(formatedChoices, realCorrect ,name, difficulty)
+        console.log(formatedChoices, realCorrect ,name, difficulty, item.id)
         setEditingTestName(false);
         // Perform any additional save logic here if needed
     };
