@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import startFetch from '../../../API';
 
-function EditUser({ closeEditUserModal, roles}) {
-    const [IsAdmin, setIsAdmin] = useState(roles.includes(1));
-    const [IsEvaluator, setIsEvaluator] = useState(roles.includes(2));
-    const [IsVisualizer, setIsVisualizer] = useState(roles.includes(3));
+function EditUser({ closeEditUserModal, groups, setUsers, id, item}) {
+    const [IsAdmin, setIsAdmin] = useState(groups.includes("admin"));
+    const [IsEvaluator, setIsEvaluator] = useState(groups.includes("evaluator"));
+    const [IsVisualizer, setIsVisualizer] = useState(groups.includes("watcher"));
 
     const toggleModelOpen = () => {
         closeEditUserModal(); // Call the closeEditUserModal function to close the modal
@@ -135,7 +136,29 @@ function EditUser({ closeEditUserModal, roles}) {
 
                         <div className="flex justify-end mt-6">
                         <button
-                            onClick={ () => console.log("Added user.")}
+                            onClick={ (e) => {
+                                e.preventDefault()
+                                console.log("Added user.")
+                                let groups = []
+                                if (IsAdmin){
+                                    groups.push("admin")
+                                }
+                                if (IsEvaluator){
+                                    groups.push("evaluator")
+                                }
+                                if (IsVisualizer){
+                                    groups.push("watcher")
+                                }
+                                
+                                console.log(item)
+                                let body = {"groups": groups}
+                                startFetch(`users/${id}/`, 'PATCH', JSON.stringify(body), function(data) {
+                                    startFetch(`users/`, 'GET', null, function(data) {
+                                        setUsers(data);
+                                    });
+                                });
+                                
+                            }}
                             className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white 
                             capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none 
                             focus:ring focus:ring-opacity-50">

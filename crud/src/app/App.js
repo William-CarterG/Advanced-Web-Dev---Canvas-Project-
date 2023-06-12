@@ -31,7 +31,7 @@ function unpressedButtons() {
   });
 }
 
-function App({users, groups, setGroups, evaluations, tests}) {
+function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, tests, setTests}) {
 
   const [activeContainer, setActiveContainer] = useState('users');
   useEffect(() => {
@@ -65,6 +65,7 @@ function App({users, groups, setGroups, evaluations, tests}) {
   };
 
   // Fake data to fill user's table.
+  console.log(users)
   const fakeUserData = users;
 
   const fakeGroupData = groups;
@@ -92,9 +93,11 @@ function App({users, groups, setGroups, evaluations, tests}) {
         <UserTable
           data={fakeUserData} 
           headers={tableHeaders[activeContainer]} 
+          setUsers = {setUsers}
         />
         <AddUser 
           container={activeContainer} 
+          setUsers = {setUsers}
         />
       </div>
       )}

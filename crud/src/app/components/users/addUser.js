@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function AddUser() {
+function AddUser({setUsers}) {
   const [modelOpen, setModelOpen] = useState(false);
   const [IsAdmin, setIsAdmin] = useState(false);
   const [IsEvaluator, setIsEvaluator] = useState(false);
   const [IsVisualizer, setIsVisualizer] = useState(false);
+  const [user, setUser] = useState('');
+  const [pass, setPass] = useState('');
+
 
   const toggleModelOpen = () => {
     setModelOpen(!modelOpen);
@@ -85,6 +89,24 @@ function AddUser() {
                     placeholder="John Doe"
                     type="text"
                     className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
+                    value={user}
+                    onChange={(e) => setUser(e.target.value)}
+                  />
+                </div>
+
+                <div className='mt-3'>
+                  <label
+                    htmlFor="user name"
+                    className="block text-sm text-gray-700 capitalize dark:text-gray-200"
+                  >
+                    Contraseña
+                  </label>
+                  <input
+                    placeholder="*****"
+                    type="password"
+                    className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
+                    value={pass}
+                    onChange={(e) => setPass(e.target.value)}
                   />
                 </div>
 
@@ -171,7 +193,27 @@ function AddUser() {
 
                 <div className="flex justify-end mt-6">
                   <button
-                      onClick={ () => console.log("Added user.")}
+                      onClick={ (e) => {
+                        e.preventDefault()
+                        console.log(IsAdmin,IsEvaluator,IsVisualizer,user,pass)
+                        let groups = []
+                        if (IsAdmin){
+                            groups.push("admin")
+                        }
+                        if (IsEvaluator){
+                            groups.push("evaluator")
+                        }
+                        if (IsVisualizer){
+                            groups.push("watcher")
+                        }
+                        
+                        let body = {"username":user,"password":pass,"groups": groups}
+                        startFetch(`users/`, 'POST', JSON.stringify(body), function(data) {
+                            startFetch(`users/`, 'GET', null, function(data) {
+                                setUsers(data);
+                            });
+                        });
+                      }}
                       className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white 
                       capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none 
                       focus:ring focus:ring-opacity-50">

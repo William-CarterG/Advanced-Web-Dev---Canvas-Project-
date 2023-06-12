@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import EditUser from './editUser';
+import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'BrendaMorales97' for 
 // creating a good part of this table.
 
-const TableRow = ({ item }) => {
+const TableRow = ({ item, setUsers }) => {
   // Component is being rendered twice, for some reason...
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
@@ -20,7 +21,11 @@ const TableRow = ({ item }) => {
   };
 
   const deleteUser = () => {
-    // TODO: Connection to back.
+    startFetch(`users/${item.id}/`, 'DELETE', null, function(data) {
+      startFetch(`users/`, 'GET', null, function(data) {
+        setUsers(data);
+      });
+    });
   }
 
   useEffect(() => {
@@ -46,7 +51,7 @@ const TableRow = ({ item }) => {
           <div class="grid grid-cols-3 gap-4 w-full">
             <div className='mx-auto'>
               {/* Admin User role */}
-              {item.groups.includes(1) ? (
+              {item.groups.includes("admin") ? (
                 // If it is Admin, show a green check.
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +83,7 @@ const TableRow = ({ item }) => {
             </div>
             <div className='mx-auto'>  
               {/* Evaluator User role */}
-              {item.groups.includes(2) ? (
+              {item.groups.includes("evaluator") ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 text-green-500"
@@ -108,7 +113,7 @@ const TableRow = ({ item }) => {
             </div>    
             <div className='mx-auto'>
               {/* Visualizer User role */}
-              {item.groups.includes(3) ? (
+              {item.groups.includes("watcher") ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 text-green-500"
@@ -217,7 +222,10 @@ const TableRow = ({ item }) => {
         {isEditUserOpen && (
           <EditUser 
             closeEditUserModal={openEditUserModal} 
-            roles={item.role} 
+            groups={item.groups} 
+            setUsers = {setUsers}
+            id = {item.id}
+            item = {item}
           />
         )}
       </td>
@@ -226,7 +234,7 @@ const TableRow = ({ item }) => {
 };
 
 
-const UserTableComponent = ({ data, headers }) => {
+const UserTableComponent = ({ data, headers, setUsers }) => {
 
   const fakeData = data;
   return (
@@ -258,7 +266,7 @@ const UserTableComponent = ({ data, headers }) => {
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {fakeData.map((item) => (
-              <TableRow key={item.id} item={item} />
+              <TableRow key={item.id} item={item} setUsers={setUsers} />
               
             ))}
           </tbody>
