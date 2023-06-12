@@ -4,6 +4,7 @@ async function fetchData(URL,METHOD,BODY) {
       method: METHOD,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem(`token_access`)}`
       },
       body: BODY,
     });
