@@ -36,7 +36,8 @@ const EditQuestionsTable = ({ item, setTests }) => {
       updatedData.forEach((question) => {
         orderList.push(question.id);
       });
-      let body = {'sorted_questions': orderList};
+      let body = JSON.stringify({'sorted_questions': orderList,});
+      console.log(body);
       startFetch(`tests/${item.id}/questions/change_questions_order/`, 'PATCH', body, function(data){
         console.log("Terminé de ordenar");
       });
@@ -58,13 +59,24 @@ const EditQuestionsTable = ({ item, setTests }) => {
       updatedData.forEach((question) => {
         orderList.push(question.id);
       });
-      let body = {'sorted_questions': orderList};
+      let body = JSON.stringify({'sorted_questions': orderList,});
       startFetch(`tests/${item.id}/questions/change_questions_order/`, 'PATCH', body, function(data){
         console.log("Terminé de ordenar");
       });
     }
   };
 
+  const handleTestDetails = (e) => {
+    // Be careful with when you submit Test, because
+    // there is a back button!!
+    startFetch(`tests/${item.id}/questions`, 'GET', null, function(data) {
+      console.log(data);
+
+      setQuestionData(data);
+      questionData.sort((a, b) => a - b);
+      
+    });
+  };
   return (
     <table className="relative w-full border">
       <thead className="sticky top-0 px-6 py-3 bg-gray-50">
@@ -135,6 +147,13 @@ const EditQuestionsTable = ({ item, setTests }) => {
           </tr>
         ))}
       </tbody>
+      <button onClick={handleTestDetails}
+                className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
+                  Cambiar Orden
+                  <svg className="w-6 h-6 ml-2" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+                  </svg>
+                </button>
     </table>
   );
 };

@@ -32,6 +32,10 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
       // Be careful with when you submit Test, because
       // there is a back button!!
       toggleModelOpen();
+      startFetch(`tests/`, 'GET', null, function(data) {
+        console.log(data);
+        setTests(data);
+      });
     };
     
     const questionHeaders = ["Pregunta", "Tipo"];
