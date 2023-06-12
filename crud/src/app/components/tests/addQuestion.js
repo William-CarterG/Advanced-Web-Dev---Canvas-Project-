@@ -35,11 +35,15 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
             let parent = document.getElementById("option"+correct).parentNode
             realCorrect =(parent.childNodes[1].firstChild.value)
         }
-        let body = {"question_type":type,"difficulty":difficulty, "options":formatedChoices, "text": name, "correct_answer":realCorrect}
-        console.log(body)
+        //formatedChoices
+        let body = {"question_type":type,"difficulty":difficulty, "text": name, "correct_answer":realCorrect}
+        
         startFetch(`tests/${item.id}/questions/`, 'POST', JSON.stringify(body), function(data) {
-            startFetch(`tests/`, 'GET', null, function(data) {
-                setTests(data);
+            body = {"options": formatedChoices}
+            startFetch(`tests/${item.id}/questions/${data.id}/answer-options/`, 'POST', JSON.stringify(body), function(data) {
+                startFetch(`tests/`, 'GET', null, function(data) {
+                    setTests(data);
+                });
             });
         });
         
