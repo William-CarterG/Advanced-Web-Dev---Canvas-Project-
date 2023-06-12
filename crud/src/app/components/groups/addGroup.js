@@ -6,6 +6,7 @@ function AddGroup() {
   const [modelOpen, setModelOpen] = useState(false);
   const [groupName, setGroupName] = useState('');
   const [studentName, setStudentName] = useState('');
+  const [studentLastName, setStudentLastName] = useState('');
   const [studentEmail, setStudentEmail] = useState('');
   // Assuming you have a state variable named 'currentPage' to track the current page
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +34,7 @@ function AddGroup() {
     setCurrentPage(1);
     toggleModelOpen();
     e.preventDefault();
-    console.log('Added Group.');
+    console.log(groupName, studentName, studentLastName, studentEmail);
     // Additional logic for group submission
   };
 
@@ -289,8 +290,8 @@ function AddGroup() {
                     <input
                       placeholder="Doe"
                       type="text"
-                      value={studentName}
-                      onChange={(e) => setStudentName(e.target.value)}
+                      value={studentLastName}
+                      onChange={(e) => setStudentLastName(e.target.value)}
                       className="block w-12/12 px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
                     />
                   </div>

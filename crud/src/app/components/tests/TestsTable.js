@@ -48,7 +48,7 @@ const TableRow = ({ item }) => {
   return (
     <tr key={item.name} className="border-b h-16 hover:bg-gray-50">
       <td> {item.name} </td>
-      <td> {item.count} </td>
+      <td> {item.questions_count} </td>
 
       <td>
         {/*View Details, Add user, Edit, Delete menu */}
@@ -83,7 +83,7 @@ const TestTableComponent = ({ data, headers }) => {
   return (
     <div className="mt-10 flex flex-col h-[65vh] py-6">  
       <div className="flex-grow rounded-2xl overflow-auto bg-white"> 
-        <table className="relative w-full h-full border"> 
+        <table className="relative w-full border"> 
           <thead className="sticky top-0 px-6 py-3 bg-gray-50">
             <tr>
               {headers.map((header, index) => (

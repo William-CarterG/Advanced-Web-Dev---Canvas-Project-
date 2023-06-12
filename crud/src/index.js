@@ -14,24 +14,38 @@ root.render(
 );
 
 const RootComponent = () => {
-  const [group, setGroup] = useState(null);
+  const [groups, setGroups] = useState(null);
+  const [evaluations, setEvaluations] = useState(null);
+  const [users, setUsers] = useState(null);
+  const [tests, setTests] = useState(null);
 
   useEffect(() => {
     startFetch(`courses/`, 'GET', null, function(data) {
-      console.log(data);
-      setGroup(data);
+      setGroups(data);
+    });
+
+    startFetch(`evaluations/`, 'GET', null, function(data) {
+      setEvaluations(data);
+    });
+
+    startFetch(`users/`, 'GET', null, function(data) {
+      setUsers(data);
+    });
+
+    startFetch(`tests/`, 'GET', null, function(data) {
+      setTests(data);
     });
   }, []);
 
   useEffect(() => {
-    if (group) {
+    if (users && groups && evaluations && tests) {
       root.render(
         <React.StrictMode>
-          <App group={group} />
+          <App users={users} groups={groups} evaluations={evaluations} tests={tests}/>
         </React.StrictMode>
       );
     }
-  }, [group]);
+  }, [users, groups, evaluations, tests]);
 
   return null;
 };

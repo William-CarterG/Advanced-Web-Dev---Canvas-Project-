@@ -39,14 +39,14 @@ const TableRow = ({ item }) => {
 
   return (
     <tr key={item.name} className="border-b hover:bg-gray-50">
-      <td className="p-4">{item.name}</td>
+      <td className="p-4">{item.username}</td>
       {/* User roles*/}
       <td className="whitespace-nowrap px-3 py-4 text-sm ">
         <span className="flex justify-center">
           <div class="grid grid-cols-3 gap-4 w-full">
             <div className='mx-auto'>
               {/* Admin User role */}
-              {item.role.includes(1) ? (
+              {item.groups.includes(1) ? (
                 // If it is Admin, show a green check.
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ const TableRow = ({ item }) => {
             </div>
             <div className='mx-auto'>  
               {/* Evaluator User role */}
-              {item.role.includes(2) ? (
+              {item.groups.includes(2) ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 text-green-500"
@@ -108,7 +108,7 @@ const TableRow = ({ item }) => {
             </div>    
             <div className='mx-auto'>
               {/* Visualizer User role */}
-              {item.role.includes(3) ? (
+              {item.groups.includes(3) ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 text-green-500"

@@ -31,9 +31,8 @@ function unpressedButtons() {
   });
 }
 
-function App({group}) {
+function App({users, groups, evaluations, tests}) {
   const [activeContainer, setActiveContainer] = useState('users');
-  console.log(group)
   useEffect(() => {
     // Function to handle button click and add the 'pressed' class.
     function handleClick(event) {
@@ -60,44 +59,19 @@ function App({group}) {
   const tableHeaders = {
     users: ['Nombre Completo', 'Roles'],
     groups: ['Nombre de Grupo', 'Miembros'],
-    evaluations: ['Nombre de evaluacion', 'Test', 'Gropo', 'Tiempo de entrega'],
+    evaluations: ['Nombre de evaluacion', 'Test', 'Grupo', 'Fecha Limite'],
     tests: ['Nombre', 'N° de Preguntas']
   };
 
+  console.log(users)
   // Fake data to fill user's table.
-  const fakeUserData = [
-    { name: 'John Doe', email: 'johndoe@example.com', role: [1,2,3] },
-    { name: 'Jane Smith', email: 'janesmith@example.com', role: [1,2] },
-    { name: 'Michael Johnson', email: 'michaeljohnson@example.com', role: [1,3] },
-    { name: 'Emily Davis', email: 'emilydavis@example.com', role: [2,3] },
-    { name: 'Daniel Wilson', email: 'danielwilson@example.com', role: [2] },
-    { name: 'Olivia Brown', email: 'oliviabrown@example.com', role: [3] },
-  ];
+  const fakeUserData = users;
 
-  const fakeGroupData = group;
+  const fakeGroupData = groups;
 
-  const fakeEvaluationData = [
-    { name: 'Desarrollo Web Avanzado - Proyecto 1', test: 'CSS & HTML', group: 'Desarrollo Web Avanzado', deadline: '22/04/23' },
-    { name: 'Arquitectura de Computadores - Proyecto 1', test: 'Puertas lógicas', group: 'Arquitectura de Computadores', deadline: '5/09/22'},
-  ];
+  const fakeEvaluationData = evaluations;
 
-  const fakeTestData = [
-    { name: 'Desarrollo Web Avanzado', count: 15},
-    { name: 'Arquitectura de Computadores', count: 20},
-    { name: 'Proyecto de Desarrollo de Software', count: 15},    
-    { name: 'Desarrollo Web Avanzado', count: 15},
-    { name: 'Arquitectura de Computadores', count: 20},
-    { name: 'Proyecto de Desarrollo de Software', count: 15},    
-    { name: 'Desarrollo Web Avanzado', count: 15},
-    { name: 'Arquitectura de Computadores', count: 20},
-    { name: 'Proyecto de Desarrollo de Software', count: 15},    
-    { name: 'Desarrollo Web Avanzado', count: 15},
-    { name: 'Arquitectura de Computadores', count: 20},
-    { name: 'Proyecto de Desarrollo de Software', count: 15},
-    { name: 'Desarrollo Web Avanzado', count: 15},
-    { name: 'Arquitectura de Computadores', count: 20},
-    { name: 'Proyecto de Desarrollo de Software', count: 15},
-  ];
+  const fakeTestData = tests;
 
   return (
     <>
