@@ -69,7 +69,7 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
   const fakeUserData = users;
 
   const fakeGroupData = groups;
-
+  
   const fakeEvaluationData = evaluations;
 
   const fakeTestData = tests;
@@ -121,7 +121,7 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
           data={fakeEvaluationData} 
           headers={tableHeaders[activeContainer]} 
         />
-        <AddEvaluation />
+        <AddEvaluation setEvaluations={setEvaluations} groups={groups} tests={tests} />
       </div>
       )}
 
