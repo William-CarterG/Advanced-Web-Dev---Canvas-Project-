@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Details from '../../buttons/details.js';
+import ViewTest from './TestDetails.js';
 import More from '../../buttons/more.js';
 import Delete from '../../buttons/delete.js';
 import AddQuestion from '../../buttons/addQuestion.js';
@@ -11,6 +12,8 @@ const TableRow = ({ item }) => {
   // Component is being rendered twice, for some reason...
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
+  const [addTestVisible, setAddTestVisible] = useState(false);
+  const [viewTestVisible, setViewTestVisible] = useState(false);
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
@@ -18,11 +21,13 @@ const TableRow = ({ item }) => {
 
   const testDetails = () => {
     toggleMenu();
+    setViewTestVisible(!viewTestVisible);
     console.log("Se visualizan los detalles.")
   };
 
   const addQuestion = () => {
     toggleMenu();
+    setAddTestVisible(!addTestVisible);
     console.log("Se añade las preguntas.")
   };
 
@@ -70,6 +75,13 @@ const TableRow = ({ item }) => {
                 <Delete />
               </div>
             </div>
+          )}
+          {viewTestVisible && (
+            <ViewTest closeViewTestModal={() => setViewTestVisible(!viewTestVisible)} />
+          )}
+
+          {addTestVisible && (
+            <addTest />
           )}
         </div>
       </td>
