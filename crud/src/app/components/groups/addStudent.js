@@ -3,7 +3,7 @@ import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function AddStudent({ closeAddStudentModal, id }) {
+function AddStudent({ closeAddStudentModal, id, setGroups }) {
   const [studentName, setStudentName] = useState('');
   const [studentLastName, setStudentLastName] = useState('');
   const [studentEmail, setStudentEmail] = useState('');
@@ -17,7 +17,9 @@ function AddStudent({ closeAddStudentModal, id }) {
     // Additional logic for student submission
     let body = {"name": studentName, "last_name":studentLastName, "mail":studentEmail}
     startFetch(`courses/${id}/members/`, 'POST', JSON.stringify(body), function(data) {
-      console.log("Estudiante añadido")
+      startFetch(`courses/`, 'GET', null, function(data) {
+        setGroups(data);
+      });
     });
   };
 

@@ -1,8 +1,16 @@
 import React, {useEffect } from 'react';
+import startFetch from '../../../API';
 
-const StudentTableComponent = ({ data, headers }) => {
-    const deleteUser = () => {
-        // TODO: Connection to back.
+const StudentTableComponent = ({ data, headers, setGroups }) => {
+    function deleteUser(id) {
+        console.log(123,id)
+        /*
+        startFetch(`courses/${id}/`, 'DELETE', null, function(data) {
+            startFetch(`courses/`, 'GET', null, function(data) {
+                setGroups(data);
+            });
+        });
+        */
     }
     const fakeData = data;
     return (
@@ -36,7 +44,7 @@ const StudentTableComponent = ({ data, headers }) => {
                             {/* Delete button */}
                             <div className="inline-block text-left">
                                 <button
-                                onClick={deleteUser}
+                                onClick={deleteUser(item.id)}
                                 type="button"
                                 className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
                                 id={`menu-button-${item.id}`}

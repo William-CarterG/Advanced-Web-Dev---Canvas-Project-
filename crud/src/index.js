@@ -39,10 +39,11 @@ const RootComponent = () => {
 
   useEffect(() => {
     if (users && groups && evaluations && tests) {
-      root.render(
+      ReactDOM.render(
         <React.StrictMode>
-          <App users={users} groups={groups} evaluations={evaluations} tests={tests}/>
-        </React.StrictMode>
+          <App users={users} groups={groups} setGroups={setGroups} evaluations={evaluations} tests={tests}/>
+        </React.StrictMode>,
+        document.getElementById('root')
       );
     }
   }, [users, groups, evaluations, tests]);

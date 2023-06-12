@@ -6,7 +6,7 @@ import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
-function ViewGroup({ closeViewGroupModal, id }) {
+function ViewGroup({ closeViewGroupModal, id, setGroups }) {
     const [editMode, setEditMode] = useState(false);
     const togglEditMode = () => {
         setEditMode(!editMode);
@@ -88,6 +88,7 @@ function ViewGroup({ closeViewGroupModal, id }) {
                     <StudentTableComponent
                         data={fakeUserData} 
                         headers={['Nombre', 'Apellido', 'Email']} 
+                        setGroups={setGroups}
                     />
                     <div className="flex justify-end mt-6">
                         <button onClick={goToNextPage}

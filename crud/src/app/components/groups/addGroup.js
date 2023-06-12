@@ -3,7 +3,7 @@ import UploadFilesComponent from '../util/UploadFiles';
 import ColorSelectionComponent from '../util/ColorSelection';
 import startFetch from '../../../API';
 
-function AddGroup() {
+function AddGroup({setGroups}) {
   const [modelOpen, setModelOpen] = useState(false);
   const [groupName, setGroupName] = useState('');
   const [studentName, setStudentName] = useState('');
@@ -39,7 +39,9 @@ function AddGroup() {
     startFetch(`courses/`, 'POST', JSON.stringify(body), function(data) {
       body = { "name": studentName, "last_name":studentLastName, "mail":studentEmail}
       startFetch(`courses/${data["id"]}/members/`, 'POST', JSON.stringify(body), function(data) {
-        console.log("Grupo creado con exito")
+        startFetch(`courses/`, 'GET', null, function(data) {
+          setGroups(data);
+        });
       });
     });
     console.log(groupName, studentName, studentLastName, studentEmail);

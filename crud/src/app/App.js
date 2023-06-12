@@ -31,7 +31,8 @@ function unpressedButtons() {
   });
 }
 
-function App({users, groups, evaluations, tests}) {
+function App({users, groups, setGroups, evaluations, tests}) {
+
   const [activeContainer, setActiveContainer] = useState('users');
   useEffect(() => {
     // Function to handle button click and add the 'pressed' class.
@@ -59,7 +60,7 @@ function App({users, groups, evaluations, tests}) {
   const tableHeaders = {
     users: ['Nombre Completo', 'Roles'],
     groups: ['Nombre de Grupo', 'N° de Miembros'],
-    evaluations: ['Nombre de evaluacion', 'Test', 'Grupo', 'Fecha Limite'],
+    evaluations: ['Nombre de evaluacion', 'Fecha de Creacion', 'Fecha Limite'],
     tests: ['Nombre', 'N° de Preguntas']
   };
 
@@ -68,7 +69,6 @@ function App({users, groups, evaluations, tests}) {
 
   const fakeGroupData = groups;
 
-  console.log(evaluations)
   const fakeEvaluationData = evaluations;
 
   const fakeTestData = tests;
@@ -104,9 +104,10 @@ function App({users, groups, evaluations, tests}) {
         <GroupsTable 
           data={fakeGroupData} 
           headers={tableHeaders[activeContainer]} 
+          setGroups={setGroups}
         />
         <AddGroup 
-          container={activeContainer} 
+          container={activeContainer} setGroups={setGroups}
         />
       </div>
       )}

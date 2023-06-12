@@ -41,8 +41,7 @@ const TableRow = ({ item }) => {
   return (
     <tr key={item.name} className="border-b hover:bg-gray-50">
       <td className="p-4">{item.name}</td>
-      <td className="p-4">{item.test}</td>
-      <td className="p-4">{item.group}</td>
+      <td className="p-4">{item.created}</td>
       <td className="p-4">{item.limit_date}</td>
 
       <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

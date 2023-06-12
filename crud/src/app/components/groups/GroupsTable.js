@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AddStudent from './addStudent';
 import ViewGroup from './viewDetails';
+import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'BrendaMorales97' for 
 // creating a good part of this table.
 
-const TableRow = ({ item }) => {
+const TableRow = ({ item, setGroups }) => {
   // Component is being rendered twice, for some reason...
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
@@ -27,7 +28,11 @@ const TableRow = ({ item }) => {
   };
 
   const deleteGroup = () => {
-    // TODO: Connection to back.
+    startFetch(`courses/${item.id}/`, 'DELETE', null, function(data) {
+      startFetch(`courses/`, 'GET', null, function(data) {
+        setGroups(data);
+      });
+    });
   }
 
   useEffect(() => {
@@ -125,13 +130,13 @@ const TableRow = ({ item }) => {
         </div>
         {isAddStudentOpen && (
           <AddStudent
-            closeAddStudentModal={openAddStudentModal} id={item.id} 
+            closeAddStudentModal={openAddStudentModal} id={item.id} setGroups={setGroups}
           />
         )}
 
         {isViewGroupOpen && (
           <ViewGroup 
-            closeViewGroupModal={openViewGroupModal} id={item.id} 
+            closeViewGroupModal={openViewGroupModal} id={item.id} setGroups={setGroups}
           />
         )}
 
@@ -141,7 +146,7 @@ const TableRow = ({ item }) => {
 };
 
 
-const GroupTableComponent = ({ data, headers }) => {
+const GroupTableComponent = ({ data, headers, setGroups }) => {
   const fakeData = data;
   return (
     <div className="mt-10 flex flex-col h-[65vh] min-w-full py-6 align-middle">  
@@ -166,7 +171,7 @@ const GroupTableComponent = ({ data, headers }) => {
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {fakeData.map((item) => (
-              <TableRow key={item.id} item={item} />
+              <TableRow key={item.id} item={item} setGroups={setGroups}/>
               
             ))}
           </tbody>
