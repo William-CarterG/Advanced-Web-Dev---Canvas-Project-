@@ -138,7 +138,6 @@ function EditUser({ closeEditUserModal, groups, setUsers, id, item}) {
                         <button
                             onClick={ (e) => {
                                 e.preventDefault()
-                                console.log("Added user.")
                                 let groups = []
                                 if (IsAdmin){
                                     groups.push("admin")
@@ -150,7 +149,6 @@ function EditUser({ closeEditUserModal, groups, setUsers, id, item}) {
                                     groups.push("watcher")
                                 }
                             
-                                console.log(item)
                                 let body = {"groups": groups}
                                 startFetch(`users/${id}/`, 'PATCH', JSON.stringify(body), function(data) {
                                     startFetch(`users/`, 'GET', null, function(data) {

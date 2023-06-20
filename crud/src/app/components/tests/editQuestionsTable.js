@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import startFetch from '../../../API';
-import { start } from '@popperjs/core';
 
 const EditQuestionsTable = ({ item, setTests }) => {
   const [questionData, setQuestionData] = useState([]);
@@ -9,7 +8,7 @@ const EditQuestionsTable = ({ item, setTests }) => {
     startFetch(`tests/${item.id}/questions`, 'GET', null, function (data) {
       setQuestionData(data);
     });
-  }, []);
+  }, [item.id]); //aqui hice un cambio para que no tirara error
 
   function handleDeleteQuestion(question_id){
     startFetch(`tests/${item.id}/questions/${question_id}`, 'DELETE', null, function(data) {
@@ -31,15 +30,12 @@ const EditQuestionsTable = ({ item, setTests }) => {
       updatedData[index] = temp;
       updatedData[index].order = index + 1;
       setQuestionData(updatedData);
-      console.log("New order:", item.id);
       let orderList = []
       updatedData.forEach((question) => {
         orderList.push(question.id);
       });
       let body = JSON.stringify({'sorted_questions': orderList,});
-      console.log(body);
       startFetch(`tests/${item.id}/questions/change_questions_order/`, 'PATCH', body, function(data){
-        console.log("Terminé de ordenar");
       });
     }
   };
@@ -54,14 +50,12 @@ const EditQuestionsTable = ({ item, setTests }) => {
       updatedData[index] = temp;
       updatedData[index].order = index + 1;
       setQuestionData(updatedData);
-      console.log("New order:", item.id);
       let orderList = []
       updatedData.forEach((question) => {
         orderList.push(question.id);
       });
       let body = JSON.stringify({'sorted_questions': orderList,});
       startFetch(`tests/${item.id}/questions/change_questions_order/`, 'PATCH', body, function(data){
-        console.log("Terminé de ordenar");
       });
     }
   };
@@ -70,8 +64,6 @@ const EditQuestionsTable = ({ item, setTests }) => {
     // Be careful with when you submit Test, because
     // there is a back button!!
     startFetch(`tests/${item.id}/questions`, 'GET', null, function(data) {
-      console.log(data);
-
       setQuestionData(data);
       questionData.sort((a, b) => a - b);
       

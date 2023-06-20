@@ -6,9 +6,6 @@ import startFetch from '../../../API';
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
 function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
-    const [modelOpen, setModelOpen] = useState(false);
-    const [delay, setDelay] = useState(0);
-    const [editingTestName, setEditingTestName] = useState(false);
     const [choices, setChoices] = useState([]);
     const [correct, setCorrect] = useState([]);
     const [name, setName] = useState([]);
@@ -18,10 +15,9 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
 
 
     useEffect(() => {
-        console.log(choices)
         let s = ""
         for (let i in choices){
-            if (choices[i] != ""){
+            if (choices[i] !== ""){
                 s += choices[i]+";"
             }
         }
@@ -47,18 +43,8 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
             });
         });
         
-        setEditingTestName(false);
-        // Perform any additional save logic here if needed
     };
 
-    const handleTestDetails = (e) => {
-    // Be careful with when you submit Test, because
-    // there is a back button!!
-    toggleModelOpen();
-    console.log("View test");
-    };
-
-    const questionHeaders = ["Pregunta", "Tipo"];
     return (
     <div
     className="fixed inset-0 z-50 overflow-y-auto"

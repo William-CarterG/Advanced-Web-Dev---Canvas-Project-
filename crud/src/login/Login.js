@@ -13,7 +13,7 @@ const Login = ({ toggleLoggedIn }) => {
       return;
     }
 
-    fetch('http://localhost:8000/api/token/', {
+    fetch('http://35.223.95.177:8000/api/token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,46 +47,46 @@ const Login = ({ toggleLoggedIn }) => {
   };
 
   return (
-    <div className="">
-      <h1 className="text-5xl font-bold mb-6">Login</h1>
-      <div className="mt-12">
-        <form  className="max-w-md mx-auto">
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-700 font-bold mb-2 text-white">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              required
-              className="w-full px-4 py-2 border rounded"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700 font-bold mb-2 text-white">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              required
-              className="w-full px-4 py-2 border rounded"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-[#1d232e] hover:bg-gray-900 text-white font-bold py-4 px-6 rounded"
-            onClick={handleLogin}
-          >
-            Login
-          </button>
-        </form>
+    <div className="h-[100vh]">
+      <div className='mt-48'>
+        <h1 className="text-5xl font-bold mb-6">Login</h1>
+        <div className="mt-12">
+          <form  className="max-w-md mx-auto">
+            <div className="mb-4">
+              <label htmlFor="username" className="block font-bold mb-2 text-white">
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                required
+                className="w-full px-4 py-2 border rounded"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="password" className="block font-bold mb-2 text-white">
+                Password
+              </label>
+              <input
+                type="password"
+                required
+                className="w-full px-4 py-2 border rounded"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-[#1d232e] hover:bg-gray-900 text-white font-bold py-4 px-6 rounded"
+              onClick={handleLogin}
+            >
+              Login
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -29,7 +29,6 @@ function ViewEvaluation({ closeViewEvaluationModal, setEvaluations, item}) {
     const year = date.getFullYear();
   
     const formattedDate = new Date(year, month - 1, day); // Month is zero-based, so we subtract 1
-    console.log(formattedDate, dateString);
     return formattedDate;
   }
 

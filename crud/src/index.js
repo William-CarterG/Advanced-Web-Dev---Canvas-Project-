@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './app/App';
 import startFetch from './API';
@@ -71,4 +71,8 @@ function Index() {
   );
 }
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <Index />,
+  </React.StrictMode>
+);

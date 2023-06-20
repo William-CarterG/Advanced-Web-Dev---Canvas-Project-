@@ -25,10 +25,8 @@ function AddTest({setTests, item}) {
         setTests(data);
       });
     });
-    console.log("Add test");
   };
 
-  const questionHeaders = ["Pregunta", "Tipo"];
   return (
     <div className='mt-4'>
       <button

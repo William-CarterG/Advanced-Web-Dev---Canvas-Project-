@@ -24,10 +24,8 @@ async function deleteData(URL, METHOD) {
     });
 
     if (response.ok) {
-      // Verificar si la respuesta tiene un cuerpo vacío
       if (response.status === 204) {
-        // Respuesta vacía, devolver un valor predeterminado
-        return ;{} // Puedes cambiar esto según tus necesidades
+        return; 
       }
 
       const data = await response.json();
@@ -43,7 +41,7 @@ async function deleteData(URL, METHOD) {
 
 function startFetch(URL,METHOD,BODY,callback) {
 
-    if (METHOD == "DELETE"){
+    if (METHOD === "DELETE"){
       deleteData(URL,METHOD).then((data) => {
         callback(data);
       });

@@ -13,7 +13,6 @@ function AddStudent({ closeAddStudentModal, id, setGroups }) {
 
   const handleStudentSubmit = (e) => {
     e.preventDefault();
-    console.log('Added Student.');
     // Additional logic for student submission
     let body = {"name": studentName, "last_name":studentLastName, "mail":studentEmail}
     startFetch(`courses/${id}/members/`, 'POST', JSON.stringify(body), function(data) {

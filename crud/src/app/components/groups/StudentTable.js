@@ -4,7 +4,6 @@ import startFetch from '../../../API';
 const StudentTableComponent = ({ data, headers, setGroups, groupId, setStudents }) => {
     
     function deleteUser(id) {
-        console.log(groupId,id)
 
         startFetch(`courses/${groupId}/members/${id}/`, 'DELETE', null, function(data) {
             startFetch(`courses/${groupId}/members/`, 'GET', null, function(data) {

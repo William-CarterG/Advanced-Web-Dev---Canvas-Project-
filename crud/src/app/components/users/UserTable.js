@@ -48,7 +48,7 @@ const TableRow = ({ item, setUsers }) => {
       {/* User roles*/}
       <td className="whitespace-nowrap px-3 py-4 text-sm ">
         <span className="flex justify-center">
-          <div class="grid grid-cols-3 gap-4 w-full">
+          <div className="grid grid-cols-3 gap-4 w-full">
             <div className='mx-auto'>
               {/* Admin User role */}
               {item.groups.includes("admin") ? (
@@ -178,7 +178,7 @@ const TableRow = ({ item, setUsers }) => {
               tabIndex="-1"
             >
               <div className="" onClick={openEditUserModal} role="none">
-                <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
+                <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 px-4 py-2 text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -198,7 +198,7 @@ const TableRow = ({ item, setUsers }) => {
               </div>
 
               <div className="" onClick={deleteUser} role="none">
-                <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 block px-4 py-2 text-sm">
+                <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 px-4 py-2 text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -251,7 +251,7 @@ const UserTableComponent = ({ data, headers, setUsers }) => {
               >
                 {header}
                 {header === "Roles" && (
-                  <div class="grid grid-cols-3 ">
+                  <div className="grid grid-cols-3 ">
                     <div>Admin</div>
                     <div>Evaluador</div>
                     <div>Visualizador</div>

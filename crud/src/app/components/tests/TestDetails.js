@@ -33,7 +33,6 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
       // there is a back button!!
       toggleModelOpen();
       startFetch(`tests/`, 'GET', null, function(data) {
-        console.log(data);
         setTests(data);
       });
     };

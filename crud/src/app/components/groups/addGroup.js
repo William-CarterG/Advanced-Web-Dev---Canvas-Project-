@@ -44,21 +44,7 @@ function AddGroup({setGroups}) {
         });
       });
     });
-    console.log(groupName, studentName, studentLastName, studentEmail);
     // Additional logic for group submission
-  };
-
-  const handleVisualStyleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Added Visual Style.');
-    // Additional logic for student submission
-  };
-
-
-  const handleStudentSubmit = (e) => {
-    e.preventDefault();
-    console.log('Added Student.');
-    // Additional logic for student submission
   };
 
   return (
@@ -128,7 +114,7 @@ function AddGroup({setGroups}) {
                 Crear un nuevo grupo, en el cual debes incluir una evaluacion.
               </p>
 
-              <form onSubmit={handleGroupSubmit} className="mt-5">
+              <div className="mt-5">
                 <div>
                   <label
                     htmlFor="Group name"
@@ -161,7 +147,7 @@ function AddGroup({setGroups}) {
                     <svg className="ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h7"/></svg>
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         )}
@@ -213,7 +199,7 @@ function AddGroup({setGroups}) {
               <p className="mt-2 text-sm text-gray-500">
                   Selecciona las configuraciones que determinen como se vera un grupo.
               </p>
-              <form onSubmit={handleVisualStyleSubmit} className="mt-5">
+              <div className="mt-5">
                 <ColorSelectionComponent name={"Background"}/>
                 <ColorSelectionComponent name={"Text Font"}/>
                 <div className="flex justify-end mt-6">
@@ -223,7 +209,7 @@ function AddGroup({setGroups}) {
                     <svg className="ml-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h7"/></svg>
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         )}
@@ -275,7 +261,7 @@ function AddGroup({setGroups}) {
               <p className="mt-2 text-sm text-gray-500">
                   Añadir un estudiante que pertenezca a este grupo.
               </p>
-              <form onSubmit={handleStudentSubmit} className="mt-5">
+              <form className="mt-5">
               <div className="flex mb-3 justifiy-between gap-2">
                 <div>
                   <div>

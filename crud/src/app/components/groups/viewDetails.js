@@ -29,19 +29,12 @@ function ViewGroup({ closeViewGroupModal, id, setGroups }) {
 
     useEffect(() => {
         startFetch(`courses/${id}/members/`, 'GET', null, function(data) {
-            console.log(data)
             setStudents(data);
         });
-    }, []);
+    }, [id]); //aqui agregue id para evitar un error
     const fakeUserData = students;
     const toggleModelOpen = () => {
         closeViewGroupModal(); // Call the closeEditGroupModal function to close the modal
-    };
-
-    const handleStudentSubmit = (e) => {
-        e.preventDefault();
-        console.log('Added Student.');
-        // Additional logic for student submission
     };
 
     return (

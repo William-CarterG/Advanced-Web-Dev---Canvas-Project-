@@ -29,7 +29,6 @@ const DragAndDrop = () => {
     const files = e.dataTransfer.files;
     if (files && files.length > 0) {
       const file = files[0];
-      console.log('Dropped file:', file);
       setUploadedFile(file);
     }
   };
@@ -95,7 +94,6 @@ const DragAndDrop = () => {
         className="hidden"
         onChange={(e) => {
           const file = e.target.files[0];
-          console.log('Selected file:', file);
           setUploadedFile(file);
         }}
       />

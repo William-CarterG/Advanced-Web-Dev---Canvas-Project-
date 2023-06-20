@@ -14,7 +14,7 @@ const TableRow = ({ item, setTests }) => {
   // Component is being rendered twice, for some reason...
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
-  const [addTestVisible, setAddTestVisible] = useState(false);
+  const [addTestVisible] = useState(false);
   const [viewTestVisible, setViewTestVisible] = useState(false);
   const [AddTestQuestionVisible, setAddTestQuestionVisible] = useState(false);
 
@@ -25,18 +25,15 @@ const TableRow = ({ item, setTests }) => {
   const testDetails = () => {
     toggleMenu();
     setViewTestVisible(!viewTestVisible);
-    console.log("Se visualizan los detalles.")
   };
 
   const addQuestion = () => {
     toggleMenu();
     setAddTestQuestionVisible(!AddTestQuestionVisible);
-    console.log("Se añade las preguntas.")
   };
 
   const deleteGroup = () => {
     toggleMenu();
-    console.log("Se elimina la fila.")
     startFetch(`tests/${item.id}/`, 'DELETE', null, function(data) {
       startFetch(`tests/`, 'GET', null, function(data) {
         setTests(data);

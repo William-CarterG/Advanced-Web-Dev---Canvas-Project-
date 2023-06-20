@@ -68,7 +68,6 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
   };
 
   // Fake data to fill user's table.
-  console.log(users)
   const fakeUserData = users;
 
   const fakeGroupData = groups;

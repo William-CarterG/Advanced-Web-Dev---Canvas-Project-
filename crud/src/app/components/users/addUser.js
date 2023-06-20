@@ -195,7 +195,6 @@ function AddUser({setUsers}) {
                   <button
                       onClick={ (e) => {
                         e.preventDefault()
-                        console.log(IsAdmin,IsEvaluator,IsVisualizer,user,pass)
                         let groups = []
                         if (IsAdmin){
                             groups.push("admin")
