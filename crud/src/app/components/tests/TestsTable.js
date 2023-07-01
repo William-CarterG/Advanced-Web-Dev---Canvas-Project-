@@ -4,7 +4,7 @@ import ViewTest from './TestDetails.js';
 import More from '../../buttons/more.js';
 import Delete from '../../buttons/delete.js';
 import AddQuestion from '../../buttons/addQuestion.js';
-import AddTestQuestion from './addQuestion.js';
+import AddTestQuestion from './question/crud/addQuestion.js';
 import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'BrendaMorales97' for 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import QuestionTabs from './question/QuestionTabs';
-import startFetch from '../../../API';
+import QuestionTabs from '../util/QuestionTabs';
+import startFetch from '../../../../../API';
 
 
 // Credits to TailwindComponents user 'khatabwedaa' for 

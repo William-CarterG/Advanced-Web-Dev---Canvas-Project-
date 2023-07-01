@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import startFetch from '../../../API';
-import EditTestQuestion from './editQuestion';
+import startFetch from '../../../../API';
+import EditTestQuestion from './crud/editQuestion';
 
-const EditQuestionsTable = ({ item, setTests }) => {
+const QuestionsTable = ({ item, setTests }) => {
   const [questionData, setQuestionData] = useState([]);
   const [draggedItem, setDraggedItem] = useState(null);
   const [isEditTestQuestionViewing, setIsEditTestQuestionViewing] = useState(false);
@@ -202,4 +202,4 @@ const EditQuestionsTable = ({ item, setTests }) => {
   );
 };
 
-export default EditQuestionsTable;
+export default QuestionsTable;

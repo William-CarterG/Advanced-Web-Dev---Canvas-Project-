@@ -18,7 +18,7 @@ import AddEvaluation from './components/evaluations/addEvaluation';
 
 import Tests from './components/tests/nav-button/Tests';
 import TestsTable from './components/tests/TestsTable';
-import AddTest from './components/tests/addTest';
+import AddTest from './components/tests/tests-crud/addTest';
 
 
 // Adds the 'pressed-button' class so button looks pressed.

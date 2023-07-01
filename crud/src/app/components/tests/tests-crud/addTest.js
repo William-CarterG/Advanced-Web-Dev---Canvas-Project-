@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import startFetch from '../../../API';
-import AddTestQuestion from './addQuestion';
+import startFetch from '../../../../API';
+import AddTestQuestion from '../question/crud/addQuestion';
 
 
 // Credits to TailwindComponents user 'khatabwedaa' for 

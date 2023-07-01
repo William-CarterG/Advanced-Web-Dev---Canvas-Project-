@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import startFetch from '../../../API';
-import AddTestQuestion from './addQuestion';
-import EditQuestionsTable from './editQuestionsTable';
+import AddTestQuestion from './question/crud/addQuestion';
+import QuestionsTable from './question/QuestionsTable';
 
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
@@ -122,7 +122,7 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
             
             <div className="flex flex-col h-96 min-w-full py-6 align-middle">  
               <div className="flex-grow rounded-2xl overflow-auto"> 
-                <EditQuestionsTable item={item} setTests={setTests}/>
+                <QuestionsTable item={item} setTests={setTests}/>
                 {/* Add Question button */}
               </div>
             </div>
