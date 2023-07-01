@@ -3,12 +3,18 @@ import { Combobox } from "@headlessui/react";
 
 const countries = [
     { name: "" },
-    { name: "Chile" },
-    { name: "Argentina" },
-    { name: "Uruguay" },
-    { name: "Peru" },
-    { name: "Brasil" },
-    { name: "Paraguay" },
+    { name: "Enero" },
+    { name: "Febrero" },
+    { name: "Marzo" },
+    { name: "Abril" },
+    { name: "Mayo" },
+    { name: "Junio" },
+    { name: "Julio" },
+    { name: "Agosto" },
+    { name: "Septiembre" },
+    { name: "Octubre" },
+    { name: "Noviembre" },
+    { name: "Diciembre" }
   ];
 
 const SemiOpen = () => {
@@ -39,7 +45,7 @@ const SemiOpen = () => {
                             onChange={(event) => setQuery(event.target.value)}
                         />
                     </div>
-                    <Combobox.Options className="absolute mt-1 max-h-32 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg">
+                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg">
                         {filteredCountries.length === 0 && query !== "" ? (
                         <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                             No se encuentra nada.
