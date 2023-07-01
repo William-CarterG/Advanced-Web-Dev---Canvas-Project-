@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import startFetch from '../../../API';
 import AddTestQuestion from './addQuestion';
@@ -37,10 +36,9 @@ function ViewTest({ closeViewTestModal, setTests, item }) {
       });
     };
     
-    const questionHeaders = ["Pregunta", "Tipo"];
     return (
       <div
-      className="fixed inset-0 z-50 overflow-y-auto"
+      className="fixed inset-0 z-50 overflow-hidden"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
