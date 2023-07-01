@@ -4,9 +4,9 @@ import './main.css';
 import '../App.css';
 
 
-import Users from './components/users/Users';
-import AddUser from './components/users/addUser';
-import UserTable from './components/users/UserTable';
+import Users from './components/users/button/Users';
+import AddUser from './components/users/crud/addUser';
+import UsersTable from './components/users/UsersTable';
 
 import Groups from './components/groups/Groups';
 import GroupsTable from './components/groups/GroupsTable'
@@ -97,7 +97,7 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
       {/* When a button is clicked, it displays the information corresponding to it. */}
       {activeContainer==="users" && (
       <div>
-        <UserTable
+        <UsersTable
           data={fakeUserData} 
           headers={tableHeaders[activeContainer]} 
           setUsers = {setUsers}

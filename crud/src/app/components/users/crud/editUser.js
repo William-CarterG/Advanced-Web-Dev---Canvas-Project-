@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import startFetch from '../../../API';
+import startFetch from '../../../../API';
 
 function EditUser({ closeEditUserModal, groups, setUsers, id, item}) {
     const [IsAdmin, setIsAdmin] = useState(groups.includes("admin"));

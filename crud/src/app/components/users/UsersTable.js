@@ -1,27 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import EditUser from './editUser';
+import EditUser from './crud/editUser';
 import startFetch from '../../../API';
 
 // Credits to TailwindComponents user 'BrendaMorales97' for 
 // creating a good part of this table.
 
-const TableRow = ({ item, setUsers }) => {
+const TableRow = ({ user, setUsers }) => {
   // Component is being rendered twice, for some reason...
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
   const [isEditUserOpen, setIsEditUserOpen] = useState(false);
 
-  const toggleMenu = () => {
+  // Closes side menu.
+  const handleToggleMenu = () => {
     setOpenMenu(!openMenu);
   };
 
+  // Opens modal to edit user.
   const openEditUserModal = () => {
-    toggleMenu();
+    handleToggleMenu();
     setIsEditUserOpen(!isEditUserOpen);
   };
 
   const deleteUser = () => {
-    startFetch(`users/${item.id}/`, 'DELETE', null, function(data) {
+    startFetch(`users/${user.id}/`, 'DELETE', null, function(data) {
       startFetch(`users/`, 'GET', null, function(data) {
         setUsers(data);
       });
@@ -43,15 +45,15 @@ const TableRow = ({ item, setUsers }) => {
   }, []);
 
   return (
-    <tr key={item.name} className="border-b hover:bg-gray-50">
-      <td className="p-4">{item.username}</td>
+    <tr key={user.name} className="border-b hover:bg-gray-50">
+      <td className="p-4">{user.username}</td>
       {/* User roles*/}
       <td className="whitespace-nowrap px-3 py-4 text-sm ">
         <span className="flex justify-center">
           <div className="grid grid-cols-3 gap-4 w-full">
             <div className='mx-auto'>
               {/* Admin User role */}
-              {item.groups.includes("admin") ? (
+              {user.groups.includes("admin") ? (
                 // If it is Admin, show a green check.
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +85,7 @@ const TableRow = ({ item, setUsers }) => {
             </div>
             <div className='mx-auto'>  
               {/* Evaluator User role */}
-              {item.groups.includes("evaluator") ? (
+              {user.groups.includes("evaluator") ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 text-green-500"
@@ -113,7 +115,7 @@ const TableRow = ({ item, setUsers }) => {
             </div>    
             <div className='mx-auto'>
               {/* Visualizer User role */}
-              {item.groups.includes("watcher") ? (
+              {user.groups.includes("watcher") ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 text-green-500"
@@ -146,13 +148,13 @@ const TableRow = ({ item, setUsers }) => {
       </td>
 
       <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-        {/* Edit and delete menu */}
+        {/* Edit and delete side menu */}
         <div className="inline-block text-left" ref={menuRef}>
           <button
-            onClick={toggleMenu}
+            onClick={handleToggleMenu}
             type="button"
-            className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
-            id={`menu-button-${item.id}`}
+            className="flex users-center text-gray-400 hover:text-gray-600 focus:outline-none"
+            id={`menu-button-${user.id}`}
             aria-expanded={openMenu}
             aria-haspopup="true"
           >
@@ -174,11 +176,11 @@ const TableRow = ({ item, setUsers }) => {
               className="origin-top-right absolute right-16 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
               role="menu"
               aria-orientation="vertical"
-              aria-labelledby={`menu-button-${item.id}`}
+              aria-labelledby={`menu-button-${user.id}`}
               tabIndex="-1"
             >
               <div className="" onClick={openEditUserModal} role="none">
-                <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 px-4 py-2 text-sm">
+                <span className="flex users-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 px-4 py-2 text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -198,7 +200,7 @@ const TableRow = ({ item, setUsers }) => {
               </div>
 
               <div className="" onClick={deleteUser} role="none">
-                <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 px-4 py-2 text-sm">
+                <span className="flex users-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 px-4 py-2 text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -222,10 +224,10 @@ const TableRow = ({ item, setUsers }) => {
         {isEditUserOpen && (
           <EditUser 
             closeEditUserModal={openEditUserModal} 
-            groups={item.groups} 
+            groups={user.groups} 
             setUsers = {setUsers}
-            id = {item.id}
-            item = {item}
+            id = {user.id}
+            user = {user}
           />
         )}
       </td>
@@ -236,7 +238,7 @@ const TableRow = ({ item, setUsers }) => {
 
 const UserTableComponent = ({ data, headers, setUsers }) => {
 
-  const fakeData = data;
+  const userData = data;
   return (
     <div className="mt-10 flex flex-col h-[65vh] min-w-full py-6 align-middle">  
       <div className="flex-grow rounded-2xl overflow-auto bg-white"> 
@@ -265,9 +267,8 @@ const UserTableComponent = ({ data, headers, setUsers }) => {
           </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {fakeData.map((item) => (
-              <TableRow key={item.id} item={item} setUsers={setUsers} />
-              
+            {userData.map((user) => (
+              <TableRow key={user.id} user={user} setUsers={setUsers} />     
             ))}
           </tbody>
         </table>
