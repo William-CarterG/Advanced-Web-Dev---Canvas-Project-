@@ -1,5 +1,5 @@
-import React, {useEffect } from 'react';
-import startFetch from '../../../API';
+import React from 'react';
+import startFetch from '../../../../API';
 
 const StudentTableComponent = ({ data, headers, setGroups, groupId, setStudents }) => {
     

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import UploadFilesComponent from '../util/UploadFiles';
-import ColorSelectionComponent from '../util/ColorSelection';
-import startFetch from '../../../API';
+import UploadFilesComponent from '../../util/UploadFiles';
+import ColorSelectionComponent from '../../util/ColorSelection';
+import startFetch from '../../../../API';
 
 function AddGroup({setGroups}) {
   const [modelOpen, setModelOpen] = useState(false);

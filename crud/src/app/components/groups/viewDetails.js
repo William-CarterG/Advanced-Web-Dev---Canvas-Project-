@@ -1,5 +1,5 @@
 import React, { useState,  useEffect } from 'react';
-import StudentTableComponent from './StudentTable';
+import StudentTableComponent from './students/StudentTable';
 import ColorSelectionComponent from '../util/ColorSelection';
 import UploadFilesComponent from '../util/UploadFiles';
 import startFetch from '../../../API';

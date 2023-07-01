@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import AddStudent from './addStudent';
+import AddStudent from './students/crud/addStudent';
 import ViewGroup from './viewDetails';
 import startFetch from '../../../API';
 

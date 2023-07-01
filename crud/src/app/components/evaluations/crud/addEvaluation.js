@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import startFetch from '../../../API';
+import startFetch from '../../../../API';
 
 function AddEvaluation({groups, tests, setEvaluations}) {
   const [modelOpen, setModelOpen] = useState(false);

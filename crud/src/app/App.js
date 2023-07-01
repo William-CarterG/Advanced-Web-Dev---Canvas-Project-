@@ -8,13 +8,13 @@ import Users from './components/users/button/Users';
 import AddUser from './components/users/crud/addUser';
 import UsersTable from './components/users/UsersTable';
 
-import Groups from './components/groups/Groups';
+import Groups from './components/groups/button/Groups';
 import GroupsTable from './components/groups/GroupsTable'
-import AddGroup from './components/groups/addGroup';
+import AddGroup from './components/groups/crud/addGroup';
 
-import Evaluations from './components/evaluations/Evaluations';
+import Evaluations from './components/evaluations/button/Evaluations';
 import EvaluationTable from './components/evaluations/EvaluationsTable';
-import AddEvaluation from './components/evaluations/addEvaluation';
+import AddEvaluation from './components/evaluations/crud/addEvaluation';
 
 import Tests from './components/tests/nav-button/Tests';
 import TestsTable from './components/tests/TestsTable';
