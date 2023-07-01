@@ -16,7 +16,7 @@ import Evaluations from './components/evaluations/Evaluations';
 import EvaluationTable from './components/evaluations/EvaluationsTable';
 import AddEvaluation from './components/evaluations/addEvaluation';
 
-import Tests from './components/tests/Tests';
+import Tests from './components/tests/nav-button/Tests';
 import TestsTable from './components/tests/TestsTable';
 import AddTest from './components/tests/addTest';
 
