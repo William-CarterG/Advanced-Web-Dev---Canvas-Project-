@@ -1,11 +1,15 @@
 {
   "name": "dashboard",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "dependencies": {
+    "@cubejs-client/core": "^0.31.0",
+    "@headlessui/react": "^1.7.15",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "chart.js": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -36,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "parcel": "^2.6.2",
     "tailwindcss": "^3.3.2"
   }
 }
