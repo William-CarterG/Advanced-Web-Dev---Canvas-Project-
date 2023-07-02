@@ -57,6 +57,12 @@ function HorizontalChart() {
               display: true,
               text: 'Respuestas'
             }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Estados'
+            }
           }
         }
       },

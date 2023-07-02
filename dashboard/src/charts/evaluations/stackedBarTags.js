@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 
 
 
-function StackedBar() {
+function StackedBarTags() {
   const labels = ["Facil", "Medio", "Dificil"];
 
   const canvasRef = useRef(null);
@@ -15,12 +15,12 @@ function StackedBar() {
       datasets: [
         {
           label: 'Menor o igual al 50% correcto',
-          data: [10,15,25],
+          data: [25,2,15],
           backgroundColor: 'rgb(255, 99, 132)',
         },
         {
           label: 'Sobre el 50% correcto',
-          data: [20,15,5],
+          data: [5,28,15],
           backgroundColor: 'rgb(54, 162, 235)',
         }
       ]
@@ -42,7 +42,7 @@ function StackedBar() {
             stacked: true,
             title: {
               display: true,
-              text: 'Dificultad'
+              text: 'Etiquetas'
             }
           },
           y: {
@@ -70,4 +70,4 @@ function StackedBar() {
   );
 }
 
-export default StackedBar;
+export default StackedBarTags;

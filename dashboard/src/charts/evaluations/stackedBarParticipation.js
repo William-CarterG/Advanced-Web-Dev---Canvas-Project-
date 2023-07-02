@@ -3,8 +3,8 @@ import Chart from 'chart.js/auto';
 
 
 
-function StackedBar() {
-  const labels = ["Facil", "Medio", "Dificil"];
+function StackedBarParticipation() {
+  const labels = [""];
 
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
@@ -14,13 +14,13 @@ function StackedBar() {
       labels: labels,
       datasets: [
         {
-          label: 'Menor o igual al 50% correcto',
-          data: [10,15,25],
+          label: 'Sin empezar',
+          data: [10],
           backgroundColor: 'rgb(255, 99, 132)',
         },
         {
-          label: 'Sobre el 50% correcto',
-          data: [20,15,5],
+          label: 'Terminaron',
+          data: [20],
           backgroundColor: 'rgb(54, 162, 235)',
         }
       ]
@@ -35,21 +35,20 @@ function StackedBar() {
       type: 'bar',
       data: data,
       options: {
-
+        maintainAspectRatio: false,
+        indexAxis: 'y',
         responsive: true,
         scales: {
           x: {
-            stacked: true,
-            title: {
-              display: true,
-              text: 'Dificultad'
-            }
-          },
-          y: {
-            stacked: true,
             title: {
               display: true,
               text: 'Respuestas'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Estados'
             }
           }
         }
@@ -70,4 +69,4 @@ function StackedBar() {
   );
 }
 
-export default StackedBar;
+export default StackedBarParticipation;

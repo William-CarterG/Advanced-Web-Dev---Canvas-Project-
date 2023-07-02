@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 
 
 
-function StackedBar() {
+function StackedBarDifficulty() {
   const labels = ["Facil", "Medio", "Dificil"];
 
   const canvasRef = useRef(null);
@@ -70,4 +70,4 @@ function StackedBar() {
   );
 }
 
-export default StackedBar;
+export default StackedBarDifficulty;

@@ -27,6 +27,7 @@ function PaintedBars() {
       type: 'line',
       data: data,
       options: {
+        maintainAspectRatio: false,
         responsive: true,
         plugins: {
           tooltip: {
@@ -48,6 +49,12 @@ function PaintedBars() {
               text: 'Porcentaje de correctitud'
             }
           },
+          y: {
+            title: {
+              display: true,
+              text: 'Resultados'
+            }
+          }
         }
       }
     });
@@ -60,7 +67,7 @@ function PaintedBars() {
   }, []);
 
   return (
-    <div className='h-[25vh] w-full'>
+    <div className='h-[23.5vh] w-full'>
       <canvas ref={canvasRef}></canvas>
     </div>
   );

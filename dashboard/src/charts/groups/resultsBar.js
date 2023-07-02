@@ -1,33 +1,36 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-
-
-function StackedBar() {
-  const labels = ["Facil", "Medio", "Dificil"];
-
+function ResultBar() {
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
 
   useEffect(() => {
+
     const data = {
-      labels: labels,
+      labels: [1,2,3,4,5,6,7],
       datasets: [
         {
-          label: 'Menor o igual al 50% correcto',
-          data: [10,15,25],
-          backgroundColor: 'rgb(255, 99, 132)',
+          label: 'Correcto',
+          data: [1,2,3,4,5,6,7],
+          backgroundColor: 'rgb(54, 162, 235)',
+          borderWidth: 1,
+          borderRadius: 2,
+          borderSkipped: false,
         },
         {
-          label: 'Sobre el 50% correcto',
-          data: [20,15,5],
-          backgroundColor: 'rgb(54, 162, 235)',
+          label: 'Incorrecto',
+          data: [5,12,5,7,1,2,2],
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderWidth: 1,
+          borderRadius: 2,
+          borderSkipped: false,
         }
       ]
     };
 
     if (chartRef.current) {
-      chartRef.current.destroy();
+      chartRef.current.destroy(); 
     }
 
     const ctx = canvasRef.current.getContext('2d');
@@ -35,18 +38,21 @@ function StackedBar() {
       type: 'bar',
       data: data,
       options: {
-
+        maintainAspectRatio: false,
         responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+        },
         scales: {
           x: {
-            stacked: true,
             title: {
               display: true,
-              text: 'Dificultad'
+              text: 'Numero de la pregunta'
             }
           },
           y: {
-            stacked: true,
             title: {
               display: true,
               text: 'Respuestas'
@@ -64,10 +70,10 @@ function StackedBar() {
   }, []);
 
   return (
-    <div className='h-[25vh]'>
+    <div className='h-[25vh] w-full'>
       <canvas ref={canvasRef}></canvas>
     </div>
   );
 }
 
-export default StackedBar;
+export default ResultBar;

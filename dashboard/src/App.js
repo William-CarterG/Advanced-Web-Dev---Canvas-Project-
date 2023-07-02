@@ -210,8 +210,8 @@ function App() {
                 </nav>
             </div>
             
-            <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
-                <div className="px-6 pt-5 2xl:container">
+            <div className="ml-auto mt-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%]">
+                <div className="px-6 py-5 2xl:container">
                     {renderDashboard()}
                 </div>
             </div>
