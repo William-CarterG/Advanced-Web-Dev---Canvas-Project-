@@ -35,16 +35,16 @@ const SemiOpen = () => {
     return (
         <div>
             <Combobox value={selected} onChange={setSelected}>
-                <div className="relative mt-1">
+                <div className="relative mt-1 text-3xl">
                     <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md border-2">
                         <Combobox.Input
-                            className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 "
+                            className="w-full border-none py-2 pl-3 pr-10 text-3xl leading-5 text-gray-900 "
                             displayValue={(person) => person.name}
                             placeholder="Escriba su respuesta.."
                             onChange={(event) => setQuery(event.target.value)}
                         />
                     </div>
-                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg">
+                    <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-3xl shadow-lg">
                         {filteredCountries.length === 0 && query !== "" ? (
                         <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                             No se encuentra nada.

@@ -1,9 +1,12 @@
 import ResultBar from './charts/groups/resultsBar';
 import Table from './charts/groups/table';
+import SemiOpen from './charts/groups/comboBox';
 
 
-function Groups() {
+function Groups({ groupData, setGroupData }) {
   return (
+    <>
+      {groupData !== "" ? (
     <div className="grid gap-3 grid-cols-1 lg:grid-cols-3 lg:grid-rows-3">
 
       <div className='py-2 px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
@@ -14,7 +17,7 @@ function Groups() {
         <div className='flex flex-col justify-between'>
           <div className='pt-2'>
               <p className='text-xl'> Evaluaciones del Grupo.</p>
-              <Table color={"bg-[#c9cbcf]"}/>
+              <Table color={"bg-gray-500"}/>
           </div>
         </div>
       </div>
@@ -59,6 +62,18 @@ function Groups() {
           <p className='text-7xl my-5'>Etiqueta D</p>
       </div>
     </div>
+    ) : (
+      <div className='flex flex-col justify-center h-[93vh] text-gray-600 rounded-xl border border-gray-200'>
+        <div className='mx-auto w-2/3'>
+          <p className='text-9xl mb-10'>Seleccione el grupo.</p>
+        </div>
+        <div className="mx-auto w-2/3 my-10">
+          <SemiOpen/>
+          <button className="py-4 px-8 mt-10 rounded-xl border-black border font-bold" onClick={() => setGroupData("data")}>Enviar</button>  
+        </div>
+      </div>
+    )}
+  </>
   );
 }
 

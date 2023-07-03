@@ -8,18 +8,21 @@ import { useState } from "react";
 
 function App() {
 
-    const [generalButton, setGeneralButton] = useState("bg-gradient-to-r from-sky-600 to-cyan-400 text-white font-bold");
+    const [generalButton, setGeneralButton] = useState("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold");
     const [evaluationsButton, setEvaluationsButton] = useState("");
     const [groupsButton, setGroupsButton] = useState("");
-    const [route, setRoute] = useState('general')
+    const [route, setRoute] = useState('general');
+    const [evaluationData, setEvaluationData] = useState('');
+    const [groupData, setGroupData] = useState('');
+
     const renderDashboard = () => {
       switch (route) {
           case 'general':
               return <General />;
           case 'evaluations':
-              return <Evaluations />;
+              return <Evaluations evaluationData={evaluationData} setEvaluationData={setEvaluationData}/>;
           case 'groups':
-              return <Groups />;
+              return <Groups groupData={groupData} setGroupData={setGroupData}/>;
           default:
               // do nothing
       }
@@ -46,7 +49,7 @@ function App() {
                             aria-label="dashboard"
                             className={`relative px-4 py-3 flex items-center space-x-4 rounded-xl group hover:font-bold ${generalButton}`}
                             onClick={() => {
-                                setGeneralButton("bg-gradient-to-r from-sky-600 to-cyan-400 text-white font-bold")
+                                setGeneralButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                 setEvaluationsButton("")
                                 setGroupsButton("")
                                 setRoute('general')
@@ -74,8 +77,10 @@ function App() {
                                     className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group hover:font-bold ${evaluationsButton}`}
                                     onClick={() => {
                                         setGeneralButton("")
-                                        setEvaluationsButton("bg-gradient-to-r from-sky-600 to-cyan-400 text-white font-bold")
-                                        setGroupsButton("")
+                                        setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
+                                        setGroupsButton("") 
+
+                                        setEvaluationData("")
                                         setRoute('evaluations')
                                     }}
                                     >
@@ -103,7 +108,9 @@ function App() {
                                     onClick={() => {
                                         setGeneralButton("")
                                         setEvaluationsButton("")
-                                        setGroupsButton("bg-gradient-to-r from-sky-600 to-cyan-400 text-white font-bold")
+                                        setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
+
+                                        setGroupData("")
                                         setRoute('groups')
                                     }}
                                     >
