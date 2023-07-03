@@ -5,17 +5,8 @@ import Papa from 'papaparse';
 // Allowed extensions for input file
 const allowedExtensions = ['csv'];
 
-// Mapping of column names to display order
-const columnOrder = {
-  NOMBRE: 0,
-  APELLIDO: 1,
-  EMAIL: 2,
-};
-
 function AddStudentFromFile({ id, setStudents }) {
   const [file, setFile] = useState(null);
-  const [orderedColumns, setOrderedColumns] = useState([]);
-  const [data, setData] = useState([]);
   const [error, setError] = useState('');
 
   const handleFileChange = (e) => {
@@ -36,16 +27,13 @@ function AddStudentFromFile({ id, setStudents }) {
       reader.onload = async ({ target }) => {
         const csv = Papa.parse(target.result, { header: true });
         const parsedData = csv?.data;
-        const columns = Object.keys(parsedData[0]);
-        setOrderedColumns(Object.keys(columnOrder));
 
-        parsedData.map((row) => {
+        parsedData.forEach((row) => {
           let body = { name: row['NOMBRE'], last_name: row['APELLIDO'], mail: row['EMAIL'] };
           console.log(JSON.stringify(body));
           startFetch(`courses/${id}/members/`, 'POST', JSON.stringify(body), function (data) {});
         });
 
-        setData(parsedData);
 
         startFetch(`courses/${id}/members/`, 'GET', null, function (data) {
           setStudents(data);
