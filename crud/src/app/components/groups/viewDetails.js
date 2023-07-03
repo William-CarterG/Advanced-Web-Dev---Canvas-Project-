@@ -97,7 +97,7 @@ function ViewGroup({ closeViewGroupModal, id, setGroups }) {
                     </div>
                 </div>
             </div>
-        )};
+        )}
         {currentPage === 2 && (
             <div className="flex items-end justify-center min-h-screen px-4 text-center md:items-center sm:block sm:p-0">
                 <div onClick={toggleModelOpen}
