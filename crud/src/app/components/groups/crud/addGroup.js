@@ -35,7 +35,7 @@ function AddGroup({setGroups}) {
     setCurrentPage(1);
     toggleModelOpen();
     e.preventDefault();
-    let body = { "name": groupName}
+    let body = { "name": groupName } // Add visual styles for the group
     startFetch(`courses/`, 'POST', JSON.stringify(body), function(data) {
       body = { "name": studentName, "last_name":studentLastName, "mail":studentEmail}
       startFetch(`courses/${data["id"]}/members/`, 'POST', JSON.stringify(body), function(data) {
