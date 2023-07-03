@@ -4,7 +4,6 @@ import startFetch from '../../../../API';
 const StudentTableComponent = ({ data, headers, setGroups, groupId, setStudents }) => {
     
     function deleteUser(id) {
-
         startFetch(`courses/${groupId}/members/${id}/`, 'DELETE', null, function(data) {
             startFetch(`courses/${groupId}/members/`, 'GET', null, function(data) {
                 setStudents(data);
@@ -16,7 +15,7 @@ const StudentTableComponent = ({ data, headers, setGroups, groupId, setStudents 
         
         
     }
-    const fakeData = data;
+    const studentData = data;
     return (
         <div className="flex flex-col h-96 min-w-full py-6 align-middle">  
         <div className="flex-grow rounded-2xl overflow-auto"> 
@@ -39,7 +38,7 @@ const StudentTableComponent = ({ data, headers, setGroups, groupId, setStudents 
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                    {fakeData.map((item) => (
+                    {studentData.map((item) => (
                         <tr key={item.name} className="border-b hover:bg-gray-50">
                             <td className="p-4 text-center">{item.name}</td>
                             <td className="p-4 text-center">{item.last_name}</td>

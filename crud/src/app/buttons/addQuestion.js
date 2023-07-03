@@ -9,6 +9,7 @@ const AddQuestion = () => {
       <img
         className="mr-2 w-6 h-6"
         src={addQuestionImg}
+        alt=''
       />
       Añadir Pregunta
     </span>

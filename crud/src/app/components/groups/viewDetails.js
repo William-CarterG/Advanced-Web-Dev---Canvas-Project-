@@ -3,6 +3,7 @@ import StudentTableComponent from './students/StudentTable';
 import ColorSelectionComponent from '../util/ColorSelection';
 import UploadFilesComponent from '../util/UploadFiles';
 import startFetch from '../../../API';
+import AddStudentFromFile from './students/crud/addStudentFromFile';
 
 // Credits to TailwindComponents user 'khatabwedaa' for 
 // creating a good part of this modal window. 
@@ -85,7 +86,9 @@ function ViewGroup({ closeViewGroupModal, id, setGroups }) {
                         groupId = {id}
                         setStudents = {setStudents}
                     />
-                    <div className="flex justify-end mt-6">
+                    
+                    <div className="flex justify-between mt-6">
+                        <AddStudentFromFile id={id} setStudents={setStudents}/>
                         <button onClick={goToNextPage}
                         className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
                         Estilo Visual del Grupo
