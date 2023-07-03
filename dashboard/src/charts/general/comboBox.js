@@ -1,42 +1,48 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {Combobox} from "@headlessui/react";
 
-const countries = [
-    {
-        name: "Enero"
-    }, {
-        name: "Febrero"
-    }, {
-        name: "Marzo"
-    }, {
-        name: "Abril"
-    }, {
-        name: "Mayo"
-    }, {
-        name: "Junio"
-    }, {
-        name: "Julio"
-    }, {
-        name: "Agosto"
-    }, {
-        name: "Septiembre"
-    }, {
-        name: "Octubre"
-    }, {
-        name: "Noviembre"
-    }, {
-        name: "Diciembre"
-    }
-];
+const SemiOpen = ({ values, setNewMountEvaluations }) => {
 
-const SemiOpen = () => {
+    let countries = [
+        {
+            name: "Enero", amount: values[0]
+        }, {
+            name: "Febrero", amount: values[1]
+        }, {
+            name: "Marzo", amount: values[2]
+        }, {
+            name: "Abril", amount: values[3]
+        }, {
+            name: "Mayo", amount: values[4]
+        }, {
+            name: "Junio", amount: values[5]
+        }, {
+            name: "Julio", amount: values[6]
+        }, {
+            name: "Agosto", amount: values[7]
+        }, {
+            name: "Septiembre", amount: values[8]
+        }, {
+            name: "Octubre", amount: values[9]
+        }, {
+            name: "Noviembre", amount: values[10]
+        }, {
+            name: "Diciembre", amount: values[11]
+        }
+    ];
 
-    const [selected,setSelected] = useState("");
+    const [selected,setSelected] = useState(countries[6]);
     const [query,setQuery] = useState("");
 
     const filteredCountries = query === ""
         ? countries
         : countries.filter((person) => person.name.toLowerCase().replace(/\s+/g, "").includes(query.toLowerCase().replace(/\s+/g, "")));
+
+
+    useEffect(() => {
+        console.log(selected)
+        setNewMountEvaluations(selected["amount"])
+        }, [selected]);
 
     return (
         <div>

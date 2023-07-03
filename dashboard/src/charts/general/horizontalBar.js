@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import Chart from 'chart.js/auto';
 
-function HorizontalChart() {
+function HorizontalChart({values}) {
     const canvasRef = useRef(null);
     const chartRef = useRef(null);
 
@@ -11,15 +11,15 @@ function HorizontalChart() {
             datasets: [
                 {
                     label: 'Respondiendo',
-                    data: [15],
+                    data: [values[0]],
                     backgroundColor: 'rgb(255, 99, 132)'
                 }, {
                     label: 'Respondido',
-                    data: [20],
+                    data: [values[1]],
                     backgroundColor: 'rgb(54, 162, 235)'
                 }, {
                     label: 'No respondido',
-                    data: [10],
+                    data: [values[2]],
                     backgroundColor: 'rgb(201, 203, 207)'
                 }
             ]
@@ -77,7 +77,7 @@ function HorizontalChart() {
                     .destroy();
             }
         };
-    }, []);
+    }, [values]);
 
     return (
         <div className='h-[25vh]'>
