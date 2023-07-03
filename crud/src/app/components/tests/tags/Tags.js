@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const tagsList = ['Science', 'Physics'];
+const tagsList = ['Ciencia', 'Física'];
 
 const Tags = () => {
   const [tagInput, setTagInput] = useState('');
@@ -46,20 +46,22 @@ const Tags = () => {
       <input
         type="text"
         className="flex-grow p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-[#1d232e]"
-        placeholder="Enter a tag"
+        placeholder="Ingresa una etiqueta"
         value={tagInput}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
       {tagInput && filteredSuggestions.length > 0 && (
-        <div className="bg-white w-full">
+        <div className="bg-white w-full max-h-16 overflow-y-auto">
           {filteredSuggestions.map((tag, index) => (
-            <div
-              key={index}
-              className="flex items-center border border-gray-300 rounded-lg bg-teal-100 px-2 py-1 cursor-pointer hover:bg-teal-200"
-              onClick={() => addTag(tag)}
-            >
-              <span>{tag}</span>
+            <div>
+                <div
+                key={index}
+                className="flex items-center border border-gray-300 rounded-lg bg-teal-100 px-2 py-1 cursor-pointer hover:bg-teal-200"
+                onClick={() => addTag(tag)}
+                >
+                <span>{tag}</span>
+                </div>
             </div>
           ))}
         </div>
