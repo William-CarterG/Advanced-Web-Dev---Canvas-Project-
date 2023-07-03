@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Tags from '../../tags/Tags';
 
 const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType }) => {
   const [selectedTab, setSelectedTab] = useState('verdaderoFalso');
@@ -257,6 +258,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
           </select>
         </div>
       </div>
+      <Tags />
     </div>
   );
 };
