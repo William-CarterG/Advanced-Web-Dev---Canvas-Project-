@@ -68,18 +68,18 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
   };
 
   // Fake data to fill user's table.
-  const fakeUserData = users;
+  const userData = users;
 
-  const fakeGroupData = groups;
+  const groupData = groups;
   
-  const fakeEvaluationData = evaluations;
+  const evaluationData = evaluations;
 
-  const fakeTestData = tests;
+  const testData = tests;
 
   return (
     <>
-      <div  className='justify-center text-center h-full pb-6 flex pr-20'>Panel de Administracion
-        <h1  className='justify-center text-center pt-4'>Panel de Administracion</h1>
+      <div className='justify-center text-center h-full pb-6 flex pr-20'>Panel de Administracion
+        <h1 className='justify-center text-center pt-4'>Panel de Administracion</h1>
         <div className="flex items-center">
           <img src={logo} alt="logo" className="App-logo w-28 mb-5" />   
         </div>
@@ -98,7 +98,7 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
       {activeContainer==="users" && (
       <div>
         <UsersTable
-          data={fakeUserData} 
+          data={userData} 
           headers={tableHeaders[activeContainer]} 
           setUsers = {setUsers}
         />
@@ -112,7 +112,7 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
       {activeContainer==="groups" && (
       <div>
         <GroupsTable 
-          data={fakeGroupData} 
+          data={groupData} 
           headers={tableHeaders[activeContainer]} 
           setGroups={setGroups}
         />
@@ -125,7 +125,7 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
       {activeContainer==="evaluations" && (
       <div>
         <EvaluationTable 
-          data={fakeEvaluationData} 
+          data={evaluationData} 
           headers={tableHeaders[activeContainer]} 
           setEvaluations={setEvaluations}
         />
@@ -136,7 +136,7 @@ function App({users, setUsers, groups, setGroups, evaluations, setEvaluations, t
       {activeContainer==="tests" && (
       <div>
         <TestsTable 
-          data={fakeTestData} 
+          data={testData} 
           headers={tableHeaders[activeContainer]} 
           setTests = {setTests}
         />
