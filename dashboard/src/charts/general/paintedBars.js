@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import Chart from 'chart.js/auto';
 
-function PaintedBars() {
+function PaintedBars({ values }) {
     const canvasRef = useRef(null);
     const chartRef = useRef(null);
 
@@ -23,19 +23,7 @@ function PaintedBars() {
             datasets: [
                 {
                     label: 'personas',
-                    data: [
-                        10,
-                        20,
-                        30,
-                        33,
-                        40,
-                        56,
-                        68,
-                        55,
-                        50,
-                        32,
-                        8
-                    ],
+                    data: values,
                     backgroundColor: 'rgb(255, 99, 132)',
                     fill: true
                 }
@@ -94,7 +82,7 @@ function PaintedBars() {
                     .destroy();
             }
         };
-    }, []);
+    }, [values]);
 
     return (
         <div className='h-[23.5vh] w-full'>
