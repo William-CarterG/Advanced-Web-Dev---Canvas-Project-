@@ -1,49 +1,25 @@
 import React, {useEffect, useRef} from 'react';
 import Chart from 'chart.js/auto';
 
-function ResultBar() {
+function ResultBar({ values }) {
     const canvasRef = useRef(null);
     const chartRef = useRef(null);
 
     useEffect(() => {
 
         const data = {
-            labels: [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7
-            ],
+            labels: values["questionsNumbers"],
             datasets: [
                 {
                     label: 'Correcto',
-                    data: [
-                        1,
-                        2,
-                        3,
-                        4,
-                        5,
-                        6,
-                        7
-                    ],
+                    data: values["correct"],
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderWidth: 1,
                     borderRadius: 2,
                     borderSkipped: false
                 }, {
                     label: 'Incorrecto',
-                    data: [
-                        5,
-                        12,
-                        5,
-                        7,
-                        1,
-                        2,
-                        2
-                    ],
+                    data: values["incorrect"],
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderWidth: 1,
                     borderRadius: 2,
@@ -96,7 +72,7 @@ function ResultBar() {
                     .destroy();
             }
         };
-    }, []);
+    }, [values]);
 
     return (
         <div className='h-[25vh] w-full'>

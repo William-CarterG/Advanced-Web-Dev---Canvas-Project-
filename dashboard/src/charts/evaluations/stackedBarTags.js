@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import Chart from 'chart.js/auto';
 
-function StackedBarTags() {
+function StackedBarTags( {values} ) {
 
     const canvasRef = useRef(null);
     const chartRef = useRef(null);
@@ -14,15 +14,11 @@ function StackedBarTags() {
             datasets: [
                 {
                     label: 'Menor o igual al 50% correcto',
-                    data: [
-                        25, 2, 15
-                    ],
+                    data: values["over"],
                     backgroundColor: 'rgb(255, 99, 132)'
                 }, {
                     label: 'Sobre el 50% correcto',
-                    data: [
-                        5, 28, 15
-                    ],
+                    data: values["less"],
                     backgroundColor: 'rgb(54, 162, 235)'
                 }
             ]
@@ -69,7 +65,7 @@ function StackedBarTags() {
                     .destroy();
             }
         };
-    }, []);
+    }, [values]);
 
     return (
         <div className='h-[25vh]'>

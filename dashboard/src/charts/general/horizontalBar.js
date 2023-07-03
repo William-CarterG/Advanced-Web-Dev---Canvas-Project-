@@ -11,15 +11,15 @@ function HorizontalChart({values}) {
             datasets: [
                 {
                     label: 'Respondiendo',
-                    data: [values[0]],
+                    data: [values["answering"]],
                     backgroundColor: 'rgb(255, 99, 132)'
                 }, {
                     label: 'Respondido',
-                    data: [values[1]],
+                    data: [values["answered"]],
                     backgroundColor: 'rgb(54, 162, 235)'
                 }, {
                     label: 'No respondido',
-                    data: [values[2]],
+                    data: [values["notAnswer"]],
                     backgroundColor: 'rgb(201, 203, 207)'
                 }
             ]

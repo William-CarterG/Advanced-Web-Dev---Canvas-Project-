@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import Chart from 'chart.js/auto';
 
-function StackedBarParticipation() {
+function StackedBarParticipation( {values} ) {
 
     const canvasRef = useRef(null);
     const chartRef = useRef(null);
@@ -12,11 +12,11 @@ function StackedBarParticipation() {
             datasets: [
                 {
                     label: 'Sin empezar',
-                    data: [10],
+                    data: values["ended"],
                     backgroundColor: 'rgb(255, 99, 132)'
                 }, {
                     label: 'Terminaron',
-                    data: [20],
+                    data: values["noEnded"],
                     backgroundColor: 'rgb(54, 162, 235)'
                 }
             ]
@@ -62,7 +62,7 @@ function StackedBarParticipation() {
                     .destroy();
             }
         };
-    }, []);
+    }, [values]);
 
     return (
         <div className='h-[25vh]'>

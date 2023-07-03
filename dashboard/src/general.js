@@ -8,8 +8,8 @@ import Loading from "./loading";
 
 function General() {
     const [values, setValues] = useState({});
-    const [newHorizontalBar, setNewHorizontalBar] = useState([15, 20, 12]);
-    const [newActiveEvaluations, setActiveEvaluations] = useState(135);
+    const [newHorizontalBar, setNewHorizontalBar] = useState({answering:15, answered:20, notAnswer:12});
+    const [newActiveEvaluations, setNewActiveEvaluations] = useState(135);
     const [newDailyAnswers, setNewDailyAnswers] = useState(542);
     const [newPaintedBars, setNewPaintedBars] = useState([10, 20, 30, 33, 40, 56, 68, 55, 50, 32, 8]);
     const [newAskedVsTotal, setNewAskedVsTotal] = useState(80);

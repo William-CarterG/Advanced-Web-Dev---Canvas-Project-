@@ -7,6 +7,30 @@ import SemiOpen from './charts/evaluations/comboBox';
 import Loading from "./loading";
 
 function Evaluations({evaluationData, setEvaluationData}) {
+    const [values, setValues] = useState({});
+    const [newParticipationInEvaluation, setNewParticipationInEvaluation] = useState({ended: [10], noEnded: [20]});
+    const [newDifficultyInEvaluation, setNewDifficultyInEvaluation] = useState({over: [10, 15, 25], less: [20, 15, 5]});
+    const [newTagsInEvaluation, setNewTagsInEvaluation] = useState({over: [25, 2, 15], less: [5, 28, 15]});
+    const [newBestQuestion, setNewBestQuestion] = useState(2);
+    const [newWorstQuestion, setNewWorstQuestion] = useState(4);
+    const [newMeanOfActualEvaluation, setNewMeanOfActualEvaluation] = useState(77);
+    const [newMeanOfHistoricalEvaluations, setNewMeanOfHistoricalEvaluations] = useState(82);
+    const [newPorcentualDistribution, setNewPorcentualDistribution] = useState({questionsNumbers:[1,2,3,4,5,6,7], correct:[1,8,3,4,5,6,7], incorrect:[5,2,5,7,1,2,2]});
+
+    useEffect(() => {
+        setValues(prevValues => ({
+          ...prevValues,
+            "participationInEvaluation": newParticipationInEvaluation,
+            "difficultyInEvaluation": newDifficultyInEvaluation,
+            "tagsInEvaluation": newTagsInEvaluation,
+            "bestQuestion": newBestQuestion,
+            "worstQuestion": newWorstQuestion,
+            "meanOfActualEvaluation": newMeanOfActualEvaluation,
+            "meanOfHistoricalEvaluations": newMeanOfHistoricalEvaluations,
+            "porcentualDistribution": newPorcentualDistribution
+        }));
+    }, [newParticipationInEvaluation, newDifficultyInEvaluation, newTagsInEvaluation, newBestQuestion, newWorstQuestion, newMeanOfActualEvaluation, newMeanOfHistoricalEvaluations, newPorcentualDistribution]);
+
     const [isActiveEvaluation,setIsActiveEvaluation] = useState(false);
     const [isHistoricalEvaluation,setIsHistoricalEvaluation] = useState(false);
     const [option,setOption] = useState("");
@@ -16,13 +40,11 @@ function Evaluations({evaluationData, setEvaluationData}) {
             setWaitingState(false);
         }, 2000);
     }, []);
-
     const activeEvaluationChange = () => {
         setIsActiveEvaluation(!isActiveEvaluation);
         setIsHistoricalEvaluation(false);
         setOption("active");
     };
-
     const historicalEvaluationChange = () => {
         setIsHistoricalEvaluation(!isHistoricalEvaluation);
         setIsActiveEvaluation(false);
@@ -41,43 +63,43 @@ function Evaluations({evaluationData, setEvaluationData}) {
                         <div
                             className='py-2 px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <p className='text-xl'>Participacion de la evaluacion.</p>
-                            <StackedBarParticipation/>
-                        </div>
-                        <div
-                            className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
-                            <p className='text-xl'>Pregunta con mejor promedio de resultado.</p>
-                            <p className='text-5xl my-5'>Pregunta nº2</p>
-                        </div>
-                        <div
-                            className="py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
-                            <p className='text-xl'>Resultados segun la dificultad de la pregunta.</p>
-                            <StackedBarDifficulty/>
+                            <StackedBarParticipation values={values["participationInEvaluation"]}/>
                         </div>
                         <div
                             className="py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
                             <p className='text-xl'>Resultados segun la etiqueta de la pregunta.</p>
-                            <StackedBarTags/>
+                            <StackedBarTags values={values["tagsInEvaluation"]}/>
+                        </div>
+                        <div
+                            className="py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
+                            <p className='text-xl'>Resultados segun la dificultad de la pregunta.</p>
+                            <StackedBarDifficulty values={values["difficultyInEvaluation"]}/>
+                        </div>
+                        <div
+                            className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
+                            <p className='text-xl'>Pregunta con mejor promedio de resultado.</p>
+                            <p className='text-5xl my-5'>Pregunta nº{values["bestQuestion"]}</p>
                         </div>
                         <div
                             className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <p className='text-xl'>Pregunta con peor promedio de resultado.</p>
-                            <p className='text-5xl my-5'>Pregunta nº4</p>
+                            <p className='text-5xl my-5'>Pregunta nº{values["worstQuestion"]}</p>
                         </div>
                         <div
                             className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <div>
                                 <p className='text-xl'>Promedio de la evaluacion actual.</p>
-                                <p className='text-5xl my-5'>77%</p>
+                                <p className='text-5xl my-5'>{values["meanOfActualEvaluation"]}%</p>
                             </div>
                             <div>
                                 <p className='text-xl'>Promedio de todas las evaluaciones historicas.</p>
-                                <p className='text-5xl my-5'>82%</p>
+                                <p className='text-5xl my-5'>{values["meanOfHistoricalEvaluations"]}%</p>
                             </div>
                         </div>
                         <div
                             className='py-2 px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <p className='text-xl'>Distribucion porcentual de los resultados.</p>
-                            <ResultBar/>
+                            <ResultBar values={values["porcentualDistribution"]}/>
                         </div>
                     </div>
                 )
