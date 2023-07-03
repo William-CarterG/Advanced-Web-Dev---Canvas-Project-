@@ -28,12 +28,13 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
     const handleTestNameSaveClick = () => {
         let realCorrect = correct
         if (typeof(correct) == "number"){
-            let parent = document.getElementById("option"+correct).parentNode
+            let parent = document.getElementById(`a${correct}`).parentNode
             realCorrect =(parent.childNodes[1].firstChild.value)
         }
+        
         //formatedChoices
         let body = {"question_type":type,"difficulty":difficulty, "text": name, "correct_answer":realCorrect}
-        
+        console.log(body)
         startFetch(`tests/${item.id}/questions/`, 'POST', JSON.stringify(body), function(data) {
             body = {"options": formatedChoices}
             startFetch(`tests/${item.id}/questions/${data.id}/answer-options/`, 'POST', JSON.stringify(body), function(data) {

@@ -147,6 +147,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
               </button>
             </div>
           ))}
+          {alternatives.length < 6 && (
           <button
             onClick={handleAddAlternative}
             className="flex items-center ml-2 mb-5 mt-1"
@@ -168,6 +169,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
             </svg>
             Agregar Alternativa
           </button>
+          )}   
         </div>
       );
     } else if (selectedTab === 'verdaderoFalso') {
@@ -177,6 +179,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
             <input
               type="radio"
               onChange={() => handleOptionSelection(0)}
+              value={'Verdadero'}
               className="w-4 h-4 mr-2"
               checked={0 === correctChoice}
             />
@@ -186,6 +189,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
             <input
               type="radio"
               onChange={() => handleOptionSelection(1)}
+              value={'Falso'}
               className="w-4 h-4 mr-2"
               checked={1 === correctChoice}
             />
@@ -239,7 +243,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
           {renderAlternatives()}
         </div>
         <div className="ml-10">
-          <label htmlFo="difficulty" className="mr-2 mb-2 block text-gray-600">
+          <label htmlFor="difficulty" className="mr-2 mb-2 block text-gray-600">
             Dificultad:
           </label>
           <select
