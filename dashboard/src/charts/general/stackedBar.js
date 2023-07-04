@@ -2,10 +2,8 @@ import React, {useEffect, useRef} from 'react';
 import Chart from 'chart.js/auto';
 
 function StackedBar({ values }) {
-
     const canvasRef = useRef(null);
     const chartRef = useRef(null);
-
     useEffect(() => {
         const data = {
             labels: [
@@ -14,16 +12,32 @@ function StackedBar({ values }) {
             datasets: [
                 {
                     label: 'Incorrectas',
-                    data: values["incorrect"],
+                    data: [
+                        values[0]["incorrect"],
+                        values[1]["incorrect"],
+                        values[2]["incorrect"]
+                      ],                    
                     backgroundColor: 'rgb(255, 99, 132)'
-                }, {
+                    }, {
                     label: 'Correctas',
-                    data: values["correct"],
+                    data: [
+                        values[0]["correct"],
+                        values[1]["correct"],
+                        values[2]["correct"]
+                      ],                    
                     backgroundColor: 'rgb(54, 162, 235)'
+                },
+                {
+                    label: 'No enviado',
+                    data: [
+                        values[0]["noSended"],
+                        values[1]["noSended"],
+                        values[2]["noSended"]
+                    ],                     
+                    backgroundColor: 'rgb(107, 114, 128)'
                 }
             ]
         };
-
         if (chartRef.current) {
             chartRef
                 .current
@@ -65,7 +79,7 @@ function StackedBar({ values }) {
                     .destroy();
             }
         };
-    }, []); // Agregamos 'labels' al arreglo de dependencias
+    }, [values]);
 
     return (
         <div className='lg:h-[25vh] h-[35vh]'>

@@ -16,16 +16,16 @@ function Table({ values, color }) {
                     </thead>
                     <tbody className="text-gray-700">
                         <tr>
-                            <td className="text-left py-2 px-4">{values[1]["name"]}</td>
-                            <td className="text-left py-2 px-4">{values[1]["amount"]}</td>
+                            <td className="text-left py-2 px-4">{values[0]["clave"]}</td>
+                            <td className="text-left py-2 px-4">{values[0]["valor"]}</td>
                         </tr>
                         <tr className="bg-gray-100">
-                            <td className="text-left py-2 px-4">{values[2]["name"]}</td>
-                            <td className="text-left py-2 px-4">{values[2]["amount"]}</td>
+                            <td className="text-left py-2 px-4">{values[1]["clave"]}</td>
+                            <td className="text-left py-2 px-4">{values[1]["valor"]}</td>
                         </tr>
                         <tr>
-                            <td className="text-left py-2 px-4">{values[3]["name"]}</td>
-                            <td className="text-left py-2 px-4">{values[3]["amount"]}</td>
+                            <td className="text-left py-2 px-4">{values[2]["clave"]}</td>
+                            <td className="text-left py-2 px-4">{values[2]["valor"]}</td>
                         </tr>
                     </tbody>
                 </table>

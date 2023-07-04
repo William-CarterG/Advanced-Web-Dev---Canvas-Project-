@@ -43,7 +43,6 @@ function Evaluations({evaluationData, setEvaluationData}) {
     const [waitingState,setWaitingState] = useState(true);
     useEffect(() => {
         startFetch(`evaluations/`, 'GET', null, function(data) {
-            console.log(data)
             setWaitingState(false);
         });
     }, []);

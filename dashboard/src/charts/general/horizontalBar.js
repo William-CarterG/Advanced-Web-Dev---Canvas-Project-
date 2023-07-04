@@ -10,15 +10,15 @@ function HorizontalChart({ values,axis,desc }) {
             labels: [""],
             datasets: [
                 {
-                    label: 'Respondiendo',
+                    label: 'Comenzados',
                     data: [values["answering"]],
                     backgroundColor: 'rgb(255, 99, 132)'
                 }, {
-                    label: 'Respondido',
+                    label: 'Finalizados',
                     data: [values["answered"]],
                     backgroundColor: 'rgb(54, 162, 235)'
                 }, {
-                    label: 'No respondido',
+                    label: 'Sin empezar',
                     data: [values["notAnswer"]],
                     backgroundColor: 'rgb(201, 203, 207)'
                 }

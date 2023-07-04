@@ -2,7 +2,6 @@ import {useState, useEffect} from "react";
 import {Combobox} from "@headlessui/react";
 
 const SemiOpen = ({ values, setNewMountEvaluations }) => {
-
     let countries = [
         {
             name: "Enero", amount: values[0]
@@ -40,9 +39,12 @@ const SemiOpen = ({ values, setNewMountEvaluations }) => {
 
 
     useEffect(() => {
-        console.log(selected)
         setNewMountEvaluations(selected["amount"])
         }, [selected]);
+
+    useEffect(() => {
+        setNewMountEvaluations(countries[6]["amount"])
+        }, [values]);
 
     return (
         <div>

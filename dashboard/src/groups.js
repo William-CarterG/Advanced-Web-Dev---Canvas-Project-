@@ -3,9 +3,12 @@ import ResultBar from './charts/groups/resultsBar';
 import Table from './charts/groups/table';
 import SemiOpen from './charts/groups/comboBox';
 import Loading from "./loading";
+import startFetch from "./API";
 
 function Groups({groupData, setGroupData}) {
-    const [values, setValues] = useState({});
+    const [values, setValues] = useState({});    
+    const [allGroups, setAllGroups] = useState(null);
+    const [selected,setSelected] = useState("");
     const [newPorcentualDistribution, setNewPorcentualDistribution] = useState({questionsNumbers:[1,2,3,4,5,6,7], correct:[1,2,3,4,5,6,7], incorrect:[5,12,5,7,1,2,2]});
     const [newGroupEvaluations, setNewGroupEvaluations] = useState({1: {name:"Matematicas Conicas", amount:-1}, 2:{name:"Mecanica", amount:-1}, 3:{name:"Pensamiento Critico", amount:-1}});
     const [newMoreActive, setNewMoreActive] = useState({1: {name:"Juan Perez", amount:3}, 2:{name:"John Doe", amount:3}, 3:{name:"Andrew Leiva", amount:3}});
@@ -33,9 +36,10 @@ function Groups({groupData, setGroupData}) {
 
     const [waitingState,setWaitingState] = useState(true);
     useEffect(() => {
-        setTimeout(() => {
+        startFetch(`courses/`, 'GET', null, function(data) {
+            setAllGroups(Object.values(data))
             setWaitingState(false);
-        }, 2000);
+        });
     }, []);
     
     return (
@@ -77,7 +81,7 @@ function Groups({groupData, setGroupData}) {
                                 <div className='pt-2'>
                                     <p className='text-xl'>
                                         Alumnos menos activos.</p>
-                                    <Table headers={["Alumnos","Evaluaciones hechas"]}  values={values["lessActive"]} color={"bg-[#36a2eb]"}/>
+                                    <Table headers={["Alumnos","Evaluaciones hechas"]}  values={values["lessActive"]} color={"bg-[#ff6384]"}/>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +102,7 @@ function Groups({groupData, setGroupData}) {
                                 <div>
                                     <p className='text-xl'>
                                         Alumnos con mejores resultados.</p>
-                                    <Table headers={["Alumnos","Promedio porcentual de resultados"]}  values={values["bestAnswers"]} color={"bg-[#ff6384]"}/>
+                                    <Table headers={["Alumnos","Promedio porcentual de resultados"]}  values={values["bestAnswers"]} color={"bg-[#36a2eb]"}/>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +124,7 @@ function Groups({groupData, setGroupData}) {
                             <p className='lg:text-9xl  text-2xl lg:mb-10 mt-10'>Seleccione el grupo.</p>
                         </div>
                         <div className="mx-auto w-2/3 my-10">
-                            <SemiOpen/>
+                            <SemiOpen data={allGroups} selected={selected} setSelected={setSelected}/>
                             <button
                                 className="lg:py-4 lg:px-8 lg:mt-10 py-2 px-4 mt-10 rounded-xl border-black border font-bold"
                                 onClick={() => {
