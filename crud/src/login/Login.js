@@ -13,7 +13,7 @@ const Login = ({ toggleLoggedIn }) => {
       return;
     }
 
-    fetch('http://localhost:8000/api/token/', {
+    fetch('http://35.223.95.177:8000/api/token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

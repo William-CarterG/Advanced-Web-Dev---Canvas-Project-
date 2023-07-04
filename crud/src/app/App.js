@@ -25,7 +25,7 @@ function App({ users, setUsers, groups, setGroups, evaluations, setEvaluations, 
   const [activeContainer, setActiveContainer] = useState('users');
 
   useEffect(() => {
-    startFetch(`/users/?search=${localStorage.getItem('username')}`, 'GET', null, function (data) {
+    startFetch(`users/?search=${localStorage.getItem('username')}`, 'GET', null, function (data) {
       setUserRoles(data[0].groups);
     });
   }, []);
@@ -45,7 +45,6 @@ function App({ users, setUsers, groups, setGroups, evaluations, setEvaluations, 
   const groupData = groups;
   const evaluationData = evaluations;
   const testData = tests;
-
   return (
     <>
       <div className='justify-center text-center h-full pb-6 flex pr-20'>Panel de Administracion
