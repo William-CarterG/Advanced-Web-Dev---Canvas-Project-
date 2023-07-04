@@ -10,27 +10,23 @@ function Groups({groupData, setGroupData}) {
     const [allGroups, setAllGroups] = useState(null);
     const [selected,setSelected] = useState("");
     const [newPorcentualDistribution, setNewPorcentualDistribution] = useState({questionsNumbers:[1,2,3,4,5,6,7], correct:[1,2,3,4,5,6,7], incorrect:[5,12,5,7,1,2,2]});
-    const [newGroupEvaluations, setNewGroupEvaluations] = useState({1: {name:"Matematicas Conicas", amount:-1}, 2:{name:"Mecanica", amount:-1}, 3:{name:"Pensamiento Critico", amount:-1}});
-    const [newMoreActive, setNewMoreActive] = useState({1: {name:"Juan Perez", amount:3}, 2:{name:"John Doe", amount:3}, 3:{name:"Andrew Leiva", amount:3}});
-    const [newLessActive, setNewLessActive] = useState({1: {name:"Mathew Ñuñez", amount:0}, 2:{name:"Joe Dae", amount:0}, 3:{name:"Thomas Zie", amount:0}});
+    const [newGroupEvaluations, setNewGroupEvaluations] = useState({1: {participant_name:"Matematicas Conicas", finished_tests:-1}, 2:{participant_name:"Mecanica", finished_tests:-1}, 3:{participant_name:"Pensamiento Critico", finished_tests:-1}});
+    const [newActive, setNewActive] = useState({1: {participant_name:"Juan Perez", finished_tests:3}, 2:{participant_name:"John Doe", finished_tests:3}, 3:{participant_name:"Andrew Leiva", finished_tests:3}});
     const [newBestTag, setNewBestTag] = useState("A");
     const [newWorstTag, setNewWorstTag] = useState("D");
-    const [newBestAnswers, setNewBestAnswers] = useState({1: {name:"Juan Perez", amount:82}, 2:{name:"Andrew Leiva", amount:73}, 3:{name:"John Doe", amount:58}});
-    const [newWorstAnswers, setNewWorstAnswers] = useState({1: {name:"Mathew Ñuñez", amount:0}, 2:{name:"Joe Dae", amount:0}, 3:{name:"Thomas Zie", amount:0}});
+    const [newAnswers, setNewAnswers] = useState({1: {participant_name:"Juan Perez", finished_tests:82}, 2:{participant_name:"Andrew Leiva", finished_tests:73}, 3:{participant_name:"John Doe", finished_tests:58}});
 
     useEffect(() => {
         setValues(prevValues => ({
             ...prevValues,
             "porcentualDistribution": newPorcentualDistribution,
             "groupEvaluations": newGroupEvaluations,
-            "moreActive": newMoreActive,
-            "lessActive": newLessActive,
+            "Active": newActive,
             "bestTag": newBestTag,
             "worstTag": newWorstTag,
-            "bestAnswers": newBestAnswers,
-            "worstAnswers": newWorstAnswers
+            "Answers": newAnswers,
         }));
-    }, [newPorcentualDistribution, newGroupEvaluations, newMoreActive, newLessActive, newBestTag, newWorstTag, newBestAnswers, newWorstAnswers]);
+    }, [newPorcentualDistribution, newGroupEvaluations, newActive, newBestTag, newWorstTag, newAnswers]);
 
 
 
@@ -54,34 +50,27 @@ function Groups({groupData, setGroupData}) {
 
                         <div
                             className='py-2 px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
-                            <p className='text-xl'>
-                                Distribucion porcentual de los resultados.</p>
-                            <ResultBar values={values["porcentualDistribution"]}/>
+                                <div className="mx-8">
+                                    <p className='text-xl'>
+                                        Distribucion porcentual de los resultados.</p>
+                                    <ResultBar values={values["porcentualDistribution"]}/>
+                                </div>
                         </div>
                         <div className='px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <div className='flex flex-col justify-between'>
                                 <div className='pt-2'>
                                     <p className='text-xl'>
                                         Evaluaciones del Grupo.</p>
-                                    <Table headers={["Evaluaciones",""]} values={values["groupEvaluations"]} color={"bg-gray-500"}/>
+                                    <Table headers={["Evaluaciones",""]} values={values["groupEvaluations"]} color={"bg-gray-500"} buttonColor={" hidden "}/>
                                 </div>
                             </div>
                         </div>
-                        <div className='px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
+                        <div className='px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <div className='flex flex-col justify-between'>
                                 <div className='pt-2'>
-                                    <p className='text-xl'>
-                                        Alumnos mas activos.</p>
-                                    <Table headers={["Alumnos","Evaluaciones hechas"]} values={values["moreActive"]} color={"bg-[#36a2eb]"}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
-                            <div className='flex flex-col justify-between'>
-                                <div className='pt-2'>
-                                    <p className='text-xl'>
-                                        Alumnos menos activos.</p>
-                                    <Table headers={["Alumnos","Evaluaciones hechas"]}  values={values["lessActive"]} color={"bg-[#ff6384]"}/>
+                                    <p className='text-xl lg:text-3xl'>
+                                        Alumnos mas/menos activos.</p>
+                                    <Table headers={["Alumnos","Evaluaciones hechas"]} values={values["Active"]} color={"bg-[#36a2eb]"} buttonColor={" bg-[#3691ce] hover:bg-[#1c6ea5] "}/>
                                 </div>
                             </div>
                         </div>
@@ -97,21 +86,12 @@ function Groups({groupData, setGroupData}) {
                                 Etiqueta con peores resultados.</p>
                             <p className='lg:text-7xl text-2xl font-bold my-5'>Etiqueta {values["worstTag"]}</p>
                         </div>
-                        <div className='px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
+                        <div className='px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <div className='flex flex-col justify-between'>
-                                <div>
-                                    <p className='text-xl'>
-                                        Alumnos con mejores resultados.</p>
-                                    <Table headers={["Alumnos","Promedio porcentual de resultados"]}  values={values["bestAnswers"]} color={"bg-[#36a2eb]"}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
-                            <div className='flex flex-col justify-between'>
-                                <div>
-                                    <p className='text-xl'>
-                                        Alumnos con peores resultados.</p>
-                                    <Table headers={["Alumnos","Promedio porcentual de resultados"]}  values={values["worstAnswers"]} color={"bg-[#ff6384]"}/>
+                                <div className='pt-2'>
+                                    <p className='text-xl lg:text-3xl'>
+                                        Alumnos con mas/menos resultados correctos.</p>
+                                    <Table headers={["Alumnos","Resultados"]} values={values["Answers"]} color={"bg-[#ff6384]"} buttonColor={" bg-[#dd5673] hover:bg-[#d64666] "}/>
                                 </div>
                             </div>
                         </div>
@@ -128,11 +108,22 @@ function Groups({groupData, setGroupData}) {
                             <button
                                 className="lg:py-4 lg:px-8 lg:mt-10 py-2 px-4 mt-10 rounded-xl border-black border font-bold"
                                 onClick={() => {
-                                setWaitingState(true);
-                                setTimeout(() => {
-                                    setWaitingState(false);
-                                    setGroupData("data")
-                                }, 2000);
+                                    setWaitingState(true);
+                                    startFetch(`dashboard/group/${selected["id"]}/`, 'GET', null, function(data) {
+                                        console.log(data)
+                                        setNewActive(data["participation_ranking"])
+                                        setNewAnswers(data["results_ranking"])
+                                        let questionsNumbers = []
+                                        let correct = []
+                                        for (let i in data["group_results_by_tests"]){
+                                            questionsNumbers.push(data["group_results_by_tests"][i]["test__name"])
+                                            correct.push(data["group_results_by_tests"][i]["correct_count"])
+                                        }
+                                        console.log(questionsNumbers,correct)
+                                        setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct})
+                                        setWaitingState(false);
+                                        setGroupData("data")
+                                    });
                             }}>Enviar</button>
                         </div>
                     </div>
