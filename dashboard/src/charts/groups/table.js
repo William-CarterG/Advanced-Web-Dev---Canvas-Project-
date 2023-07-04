@@ -1,7 +1,7 @@
 function Table({ headers, values, color }) {
     return (
       <div className="px-2 py-8 w-full">
-        <div className="shadow overflow-y-auto rounded border-b border-gray-200 max-h-[20vh]">
+        <div className="shadow overflow-y-auto rounded border-b border-gray-200 lg:max-h-[25vh] max-h-[45vh]">
           <table className="min-w-full bg-white">
             <thead className={`${color} text-white`}>
               <tr>

@@ -17,7 +17,7 @@ function General() {
     const [newCompleteMountEvaluation, setNewCompleteMountEvaluation] = useState([201,125,611,671,812,621,52,0,0,0,0,0]);
     const [newBestEvaluations, setNewBestEvaluations] = useState({1: {name:"Matematicas Conicas", amount:78}, 2:{name:"Mecanica", amount:73}, 3:{name:"Pensamiento Critico", amount:71}});
     const [newWorstEvaluations, setNewWorstEvaluations] = useState({1: {name:"Trigonometria", amount:28}, 2:{name:"Analisis de Fluidos", amount:33}, 3:{name:"Calculo II", amount:42}});
-    const [newResultByDifficulty, setNewResultByDifficulty] = useState({over: [10, 15, 25], less: [20, 15, 5]});
+    const [newResultByDifficulty, setNewResultByDifficulty] = useState({correct: [10, 15, 25], incorrect: [20, 15, 5]});
   
     useEffect(() => {
         setValues(prevValues => ({

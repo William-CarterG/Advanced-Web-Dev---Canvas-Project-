@@ -11,14 +11,14 @@ function ResultBar({ values }) {
             labels: values["questionsNumbers"],
             datasets: [
                 {
-                    label: 'Correcto',
+                    label: 'Correctas',
                     data: values["correct"],
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderWidth: 1,
                     borderRadius: 2,
                     borderSkipped: false
                 }, {
-                    label: 'Incorrecto',
+                    label: 'Incorrectas',
                     data: values["incorrect"],
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderWidth: 1,

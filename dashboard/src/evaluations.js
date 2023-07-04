@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import StackedBarParticipation from './charts/evaluations/stackedBarParticipation';
 import StackedBarDifficulty from './charts/evaluations/stackedBarDifficulty';
 import StackedBarTags from './charts/evaluations/stackedBarTags';
 import ResultBar from './charts/evaluations/resultsBar';
@@ -9,13 +8,16 @@ import startFetch from "./API";
 
 function Evaluations({evaluationData, setEvaluationData}) {
     const [values, setValues] = useState({});
-    const [newParticipationInEvaluation, setNewParticipationInEvaluation] = useState({ended: [10], noEnded: [20]});
-    const [newDifficultyInEvaluation, setNewDifficultyInEvaluation] = useState({over: [10, 15, 25], less: [20, 15, 5]});
-    const [newTagsInEvaluation, setNewTagsInEvaluation] = useState({over: [25, 2, 15], less: [5, 28, 15]});
+    const [newParticipationInEvaluation, setNewParticipationInEvaluation] = useState(78);
+    const [newDifficultyInEvaluation, setNewDifficultyInEvaluation] = useState({correct: [10, 15, 25], incorrect: [20, 15, 5]});
+    const [newTagsInEvaluation, setNewTagsInEvaluation] = useState({correct: [25, 2, 15], incorrect: [5, 28, 15]});
     const [newBestQuestion, setNewBestQuestion] = useState(2);
     const [newWorstQuestion, setNewWorstQuestion] = useState(4);
     const [newMeanOfActualEvaluation, setNewMeanOfActualEvaluation] = useState(77);
     const [newMeanOfHistoricalEvaluations, setNewMeanOfHistoricalEvaluations] = useState(82);
+    const [newCorrectAnswer, setNewCorrectAnswer] = useState(58);
+    const [newIncorrectAnswer, setNewIncorrectAnswer] = useState(23);
+    const [newNoAnswer, setNewNoAnswer] = useState(57);
     const [newPorcentualDistribution, setNewPorcentualDistribution] = useState({questionsNumbers:[1,2,3,4,5,6,7], correct:[1,8,3,4,5,6,7], incorrect:[5,2,5,7,1,2,2]});
 
     useEffect(() => {
@@ -28,9 +30,12 @@ function Evaluations({evaluationData, setEvaluationData}) {
             "worstQuestion": newWorstQuestion,
             "meanOfActualEvaluation": newMeanOfActualEvaluation,
             "meanOfHistoricalEvaluations": newMeanOfHistoricalEvaluations,
+            "correctAnswer": newCorrectAnswer,
+            "incorrectAnswer": newIncorrectAnswer,
+            "noAnswer": newNoAnswer,
             "porcentualDistribution": newPorcentualDistribution
         }));
-    }, [newParticipationInEvaluation, newDifficultyInEvaluation, newTagsInEvaluation, newBestQuestion, newWorstQuestion, newMeanOfActualEvaluation, newMeanOfHistoricalEvaluations, newPorcentualDistribution]);
+    }, [newParticipationInEvaluation, newDifficultyInEvaluation, newTagsInEvaluation, newBestQuestion, newWorstQuestion, newMeanOfActualEvaluation, newMeanOfHistoricalEvaluations, newCorrectAnswer, newIncorrectAnswer, newNoAnswer, newPorcentualDistribution]);
 
     const [isActiveEvaluation,setIsActiveEvaluation] = useState(false);
     const [isHistoricalEvaluation,setIsHistoricalEvaluation] = useState(false);
@@ -62,30 +67,11 @@ function Evaluations({evaluationData, setEvaluationData}) {
             evaluationData !== ""
                 ? (
                     <div className="grid gap-3 grid-cols-1 lg:grid-cols-3 lg:grid-rows-3">
-                        <div
-                            className='py-2 px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
-                            <p className='text-xl'>Participacion de la evaluacion.</p>
-                            <StackedBarParticipation values={values["participationInEvaluation"]}/>
-                        </div>
-                        <div
-                            className="py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
-                            <p className='text-xl'>Resultados segun la etiqueta de la pregunta.</p>
-                            <StackedBarTags values={values["tagsInEvaluation"]}/>
-                        </div>
-                        <div
-                            className="py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
-                            <p className='text-xl'>Resultados segun la dificultad de la pregunta.</p>
-                            <StackedBarDifficulty values={values["difficultyInEvaluation"]}/>
-                        </div>
-                        <div
-                            className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
-                            <p className='text-xl'>Pregunta con mejor promedio de resultado.</p>
-                            <p className='text-5xl my-5'>Pregunta nº{values["bestQuestion"]}</p>
-                        </div>
-                        <div
-                            className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
-                            <p className='text-xl'>Pregunta con peor promedio de resultado.</p>
-                            <p className='text-5xl my-5'>Pregunta nº{values["worstQuestion"]}</p>
+                        <div className="flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
+                            <div>
+                                <p className='text-xl'>Porcentaje de participacion.</p>
+                                <p className='text-9xl my-5'>{values["participationInEvaluation"]}%</p>
+                            </div>
                         </div>
                         <div
                             className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
@@ -99,8 +85,42 @@ function Evaluations({evaluationData, setEvaluationData}) {
                             </div>
                         </div>
                         <div
+                            className="py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
+                            <p className='text-xl'>Resultados segun la etiqueta de la pregunta.</p>
+                            <StackedBarTags values={values["tagsInEvaluation"]}/>
+                        </div>
+                        <div
+                            className="py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
+                            <p className='text-xl'>Resultados segun la dificultad de la pregunta.</p>
+                            <StackedBarDifficulty values={values["difficultyInEvaluation"]}/>
+                        </div>
+                        <div
+                            className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
+                            <p className='text-xl'>Pregunta con mejor de resultado.</p>
+                            <p className='text-5xl my-5'>Pregunta nº{values["bestQuestion"]}</p>
+                        </div>
+                        <div
+                            className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
+                            <p className='text-xl'>Pregunta con peor de resultado.</p>
+                            <p className='text-5xl my-5'>Pregunta nº{values["worstQuestion"]}</p>
+                        </div>
+                        <div className="flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
+                            <div>
+                                <p className='text-lg'>Cantidad total de correctas.</p>
+                                <p className='text-2xl my-2 font-bold'>{values["correctAnswer"]}%</p>
+                            </div>
+                            <div>
+                                <p className='lg'>Cantidad total de incorrectas.</p>
+                                <p className='text-2xl my-2 font-bold'>{values["incorrectAnswer"]}%</p>
+                            </div>
+                            <div>
+                                <p className='lg'>Cantidad total de no respondidas.</p>
+                                <p className='text-2xl my-2 font-bold'>{values["noAnswer"]}%</p>
+                            </div>
+                        </div>
+                        <div
                             className='py-2 px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
-                            <p className='text-xl'>Distribucion porcentual de los resultados.</p>
+                            <p className='text-xl'>Distribucion porcentual de los resultados por pregunta.</p>
                             <ResultBar values={values["porcentualDistribution"]}/>
                         </div>
                     </div>

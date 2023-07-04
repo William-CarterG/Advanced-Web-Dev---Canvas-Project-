@@ -9,16 +9,16 @@ function StackedBar({ values }) {
     useEffect(() => {
         const data = {
             labels: [
-                "Facil", "Medio", "Dificil"
+                "Baja", "Media", "Alta"
             ],
             datasets: [
                 {
-                    label: 'Menor o igual al 50% correcto',
-                    data: values["less"],
+                    label: 'Incorrectas',
+                    data: values["incorrect"],
                     backgroundColor: 'rgb(255, 99, 132)'
                 }, {
-                    label: 'Sobre el 50% correcto',
-                    data: values["over"],
+                    label: 'Correctas',
+                    data: values["correct"],
                     backgroundColor: 'rgb(54, 162, 235)'
                 }
             ]
