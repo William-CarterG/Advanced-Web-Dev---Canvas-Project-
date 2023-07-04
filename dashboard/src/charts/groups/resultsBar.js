@@ -17,13 +17,6 @@ function ResultBar({ values }) {
                     borderWidth: 1,
                     borderRadius: 2,
                     borderSkipped: false
-                }, {
-                    label: 'Incorrecto',
-                    data: values["incorrect"],
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderWidth: 1,
-                    borderRadius: 2,
-                    borderSkipped: false
                 }
             ]
         };
