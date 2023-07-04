@@ -158,7 +158,7 @@ const EvaluationTableComponent = ({ data, headers, setEvaluations }) => {
     startFetch(`evaluations/`, 'GET', null, function(data) {
       setEvaluationData(data);
     });
-  }, []);
+  });
 
   return (
     <div className="mt-10 flex flex-col h-[65vh] min-w-full py-6 align-middle">  

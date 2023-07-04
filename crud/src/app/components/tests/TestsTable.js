@@ -105,7 +105,7 @@ const TestTableComponent = ({ data, headers, setTests }) => {
     startFetch(`tests/`, 'GET', null, function(data) {
       setTestData(data);
     });
-  }, []);
+  });
 
   return (
     <div className="mt-10 flex flex-col h-[65vh] py-6">  
