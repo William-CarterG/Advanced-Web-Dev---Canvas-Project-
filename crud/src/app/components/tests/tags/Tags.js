@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import startFetch from '../../../../API';
 
-const tagsList = ['Ciencia', 'Física'];
-
-const Tags = () => {
+const Tags = ({ sendTags, url }) => {
   const [tagInput, setTagInput] = useState('');
-  const [tagList, setTagList] = useState(tagsList);
+  const [tagList, setTagList] = useState([]);
+
+  useEffect(() => {
+    if (url) {
+      startFetch(url, 'GET', null, function (data) {
+        setTagList(data.tags);
+      });
+    } else {
+      setTagList([]);
+    }
+  }, [url]);
 
   const handleInputChange = (event) => {
     setTagInput(event.target.value);
@@ -17,20 +26,27 @@ const Tags = () => {
   };
 
   const addTag = (tag) => {
-    if (!tagList.includes(tag)) {
-      setTagList([...tagList, tag]);
+    const tagExists = tagList.some(
+      (t) => t.name.toLowerCase() === tag.toLowerCase()
+    );
+    if (!tagExists) {
+      setTagList([...tagList, { name: tag }]);
     }
     setTagInput('');
   };
 
   const deleteTag = (tag) => {
-    const updatedTags = tagList.filter((t) => t !== tag);
+    const updatedTags = tagList.filter((t) => t.name !== tag.name);
     setTagList(updatedTags);
   };
 
-  const filteredSuggestions = tagsList.filter(
-    (tag) => tag.toLowerCase().includes(tagInput.toLowerCase())
+  const filteredSuggestions = tagList.filter((tag) =>
+    tag.name.toLowerCase().includes(tagInput.toLowerCase())
   );
+
+  useEffect(() => {
+    sendTags(tagList);
+  }, [tagList, sendTags]);
 
   return (
     <div className="flex flex-wrap items-center gap-2 py-4 px-2 mt-2 relative">
@@ -40,7 +56,7 @@ const Tags = () => {
           className="flex items-center rounded-lg bg-teal-200 px-2 py-1 cursor-pointer hover:bg-red-400 hover:text-white"
           onClick={() => deleteTag(tag)}
         >
-          <span>{tag}</span>
+          <span>{tag.name}</span>
         </div>
       ))}
       <input
@@ -54,14 +70,13 @@ const Tags = () => {
       {tagInput && filteredSuggestions.length > 0 && (
         <div className="bg-white w-full max-h-16 overflow-y-auto">
           {filteredSuggestions.map((tag, index) => (
-            <div>
-                <div
-                key={index}
+            <div key={index}>
+              <div
                 className="flex items-center border border-gray-300 rounded-lg bg-teal-100 px-2 py-1 cursor-pointer hover:bg-teal-200"
-                onClick={() => addTag(tag)}
-                >
-                <span>{tag}</span>
-                </div>
+                onClick={() => addTag(tag.name)}
+              >
+                <span>{tag.name}</span>
+              </div>
             </div>
           ))}
         </div>
