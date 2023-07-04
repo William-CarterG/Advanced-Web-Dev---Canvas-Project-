@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ColorPicker = () => {
+const ColorPicker = ({ prevColor, setColor }) => {
   const [selectedColor, setSelectedColor] = useState('#2d3748');
   const [isColorOptionsVisible, setColorOptionsVisible] = useState(false);
 
@@ -19,7 +19,15 @@ const ColorPicker = () => {
   const handleColorChange = (color) => {
     setSelectedColor(color);
     setColorOptionsVisible(false);
+    setColor(color);
   };
+
+  useEffect(() => {
+    if(prevColor){
+      setColor(prevColor);
+      setSelectedColor(prevColor);
+    }
+  }, [prevColor, setColor]);
 
   const colorOptionRows = [];
   let row = [];
@@ -35,8 +43,7 @@ const ColorPicker = () => {
     <div className="flex items-center space-x-4">
       <input
         type="text"
-        value={selectedColor}
-        readOnly
+        placeholder={selectedColor}
         className="border border-gray-300 rounded-md px-4 py-2 text-gray-700 w-24"
       />
       <div className="relative">

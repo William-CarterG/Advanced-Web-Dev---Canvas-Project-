@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import UploadFilesComponent from '../../util/UploadFiles';
-import ColorSelectionComponent from '../../util/ColorSelection';
+import DragAndDrop from '../util/UploadFiles';
+import ColorPicker from '../util/ColorSelection';
 import startFetch from '../../../../API';
 
 function AddGroup({setGroups}) {
   const [modelOpen, setModelOpen] = useState(false);
   const [groupName, setGroupName] = useState('');
+  const [backgroundColor, setBackgroundColor] = useState('');
+  const [textColor, setTextColor] = useState('');
+  const [logo, setLogo] = useState(null);
   const [studentName, setStudentName] = useState('');
   const [studentLastName, setStudentLastName] = useState('');
   const [studentEmail, setStudentEmail] = useState('');
@@ -35,7 +38,8 @@ function AddGroup({setGroups}) {
     setCurrentPage(1);
     toggleModelOpen();
     e.preventDefault();
-    let body = { "name": groupName } // Add visual styles for the group
+    let body = { "name": groupName, "background_color": backgroundColor, "text_font_color": textColor, "logo": logo } 
+    console.log(body);// Add visual styles for the group
     startFetch(`courses/`, 'POST', JSON.stringify(body), function(data) {
       body = { "name": studentName, "last_name":studentLastName, "mail":studentEmail}
       startFetch(`courses/${data["id"]}/members/`, 'POST', JSON.stringify(body), function(data) {
@@ -138,7 +142,7 @@ function AddGroup({setGroups}) {
                   >
                     Logo de Grupo
                   </label>
-                  <UploadFilesComponent />
+                  <DragAndDrop setLogo={setLogo} />
                 </div>
                 <div className="flex justify-end mt-6">
                   <button onClick={goToNextPage}
@@ -200,8 +204,8 @@ function AddGroup({setGroups}) {
                   Selecciona las configuraciones que determinen como se vera un grupo.
               </p>
               <div className="mt-5">
-                <ColorSelectionComponent name={"Background"}/>
-                <ColorSelectionComponent name={"Text Font"}/>
+                <ColorPicker name={"Background"} setColor={setBackgroundColor} />
+                <ColorPicker name={"Text Font"} setColor={setTextColor} />
                 <div className="flex justify-end mt-6">
                   <button onClick={goToNextPage}
                   className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">

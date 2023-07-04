@@ -17,7 +17,7 @@ const QuestionsTable = ({ item, setTests }) => {
   }, [item.id]); //aqui hice un cambio para que no tirara error
 
   function handleDeleteQuestion(question_id){
-    startFetch(`tests/${item.id}/questions/${question_id}`, 'DELETE', null, function(data) {
+    startFetch(`tests/${item.id}/questions/${question_id}/`, 'DELETE', null, function(data) {
       startFetch(`tests/${item.id}/questions/`, 'GET', null, function(data) {
         setQuestionData(data);
         startFetch(`tests/`, 'GET', null, function(data) {

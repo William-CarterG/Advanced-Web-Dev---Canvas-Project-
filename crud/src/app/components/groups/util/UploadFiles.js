@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const DragAndDrop = () => {
+const DragAndDrop = ({ prevLogo, setLogo }) => {
   const [dragging, setDragging] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
+
+  useEffect(() => {
+    if(prevLogo){
+      setUploadedFile(prevLogo);
+      setLogo(prevLogo);
+    }
+  }, [prevLogo, setLogo]);
 
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -30,6 +37,13 @@ const DragAndDrop = () => {
     if (files && files.length > 0) {
       const file = files[0];
       setUploadedFile(file);
+      // Read the image file using FileReader API
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imageData = reader.result;
+        setLogo(imageData); // Pass the image data to setLogo() instead of the file object.
+      };
+      reader.readAsDataURL(file);
     }
   };
 
