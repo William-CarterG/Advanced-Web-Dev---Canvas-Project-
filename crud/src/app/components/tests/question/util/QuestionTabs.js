@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Tags from '../../tags/Tags';
 
-const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType }) => {
+const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType, setTags, url }) => {
   const [selectedTab, setSelectedTab] = useState('verdaderoFalso');
   const [editingQuestionName, setEditingQuestionName] = useState(false);
   const [questionName, setQuestionName] = useState('¿Es la tierra redonda?');
@@ -48,12 +48,37 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
     const updatedMatrixQuestions = [...matrixQuestions];
     updatedMatrixQuestions[index] = e.target.value;
     setMatrixQuestions(updatedMatrixQuestions);
+    setName(updatedMatrixQuestions.join(";"))
   };
+
+  const handleMatrixQuestionAnswers = (e, index) => {
+    const nuevaRespuestaInputs = document.querySelectorAll('.nueva-respuesta-input');
+    let concatenatedValues = '';
+    nuevaRespuestaInputs.forEach((input, index) => {
+      if (index !== 0) {
+        concatenatedValues += ';';
+      }
+      concatenatedValues += input.value;
+    });
+    setCorrect(concatenatedValues);
+  }
 
   const handleDeleteMatrixQuestion = (index) => {
     let updatedMatrixQuestions = [...matrixQuestions];
     updatedMatrixQuestions.splice(index, 1);
     setMatrixQuestions(updatedMatrixQuestions);
+    setName(updatedMatrixQuestions.join(";"))
+
+    const nuevaRespuestaInputs = document.querySelectorAll('.nueva-respuesta-input');
+    let concatenatedValues = '';
+    nuevaRespuestaInputs.forEach((input, index) => {
+      if (index !== 0) {
+        concatenatedValues += ',';
+      }
+      concatenatedValues += input.value;
+    });
+    console.log(concatenatedValues);
+    setCorrect(concatenatedValues);
   };
 
   const handleAddMatrixQuestion = () => {
@@ -62,8 +87,14 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
   };
 
   const handleOptionSelection = (index) => {
-    setCorrect(index);
-    setCorrectChoice(index);
+    setCorrect(alternatives[index]); setCorrectChoice(index);
+    if (selectedTab === 'verdaderoFalso'){
+      setCorrect(index);
+      setChoices([0,1]);
+    }
+    else{
+      setChoices(alternatives); 
+    }
   };
   
   const renderQuestionName = () => {
@@ -231,6 +262,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
           <input
             type="number"
             placeholder="Enter numerical value"
+            onChange={(event) => setCorrect(event.target.value)}
             className="block w-full px-3 py-2 mt-1 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
           />
         </div>
@@ -248,9 +280,15 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
               type="text"
               placeholder={matrixQuestion}
               onChange={(e) => handleMatrixQuestionChange(e, index)}
-              className="block w-full px-3 py-2 mt-1 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
+              className="block w-full px-3 py-2 mt-1 mr-1 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
             />
             {/* Delete alternative */}
+            <input
+              type="text"
+              placeholder={"Nueva respuesta"}
+              onChange={(e) => handleMatrixQuestionAnswers(e, index)}
+              className="nueva-respuesta-input block w-full px-3 py-2 mt-1 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
+            />
             <button
               onClick={() => handleDeleteMatrixQuestion(index)}
               className="flex items-center ml-1 mt-1"
@@ -302,8 +340,8 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <ul class="flex items-center gap-2 text-sm font-medium">
-          <li class="flex-1">
+        <ul className="flex items-center gap-2 text-sm font-medium">
+          <li className="flex-1">
             <button
               onClick={() => handleTabClick('verdaderoFalso')}
               className={`relative whitespace-nowrap flex items-center justify-center gap-2 rounded-lg px-3 py-2 hover:bg-[#1d232e] hover:text-white focus:outline-none ${
@@ -315,7 +353,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
               Verdadero/Falso
             </button>
           </li>
-          <li class="flex-1">
+          <li className="flex-1">
             <button
               onClick={() => handleTabClick('alternativaMultiple')}
               className={`relative whitespace-nowrap flex items-center justify-center gap-2 rounded-lg px-3 py-2 hover:bg-[#1d232e] hover:text-white focus:outline-none ${
@@ -327,7 +365,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
               Alternativa Múltiple
             </button>
           </li>
-          <li class="flex-1">
+          <li className="flex-1">
             <button
               onClick={() => handleTabClick('semi')}
               className={`relative whitespace-nowrap flex items-center justify-center gap-2 rounded-lg px-3 py-2 hover:bg-[#1d232e] hover:text-white focus:outline-none ${
@@ -339,7 +377,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
               Semi-abierta
             </button>
           </li>
-          <li class="flex-1">
+          <li className="flex-1">
             <button
               onClick={() => handleTabClick('numerical')}
               className={`relative whitespace-nowrap flex items-center justify-center gap-2 rounded-lg px-3 py-2 hover:bg-[#1d232e] hover:text-white focus:outline-none ${
@@ -351,7 +389,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
               Numérica
             </button>
           </li>
-          <li class="flex-1">
+          <li className="flex-1">
             <button
               onClick={() => handleTabClick('matrix')}
               className={`relative whitespace-nowrap flex items-center justify-center gap-2 rounded-lg px-3 py-2 hover:bg-[#1d232e] hover:text-white focus:outline-none ${
@@ -382,6 +420,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
           </label>
           {renderMatrixQuestions()}
         </div>
+        
         )}
         <div>
           {selectedTab !== 'numerical' ? (
@@ -404,13 +443,13 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType 
             onChange={(e) => setDifficulty(e.target.value)}
             className="px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
           >
-            <option value="easy">Fácil</option>
-            <option value="medium">Medio</option>
-            <option value="hard">Difícil</option>
+            <option value={0}>Fácil</option>
+            <option value={1}>Medio</option>
+            <option value={2}>Difícil</option>
           </select>
         </div>
       </div>
-      <Tags />
+      <Tags sendTags={setTags} url={url}/>
     </div>
   );
 };

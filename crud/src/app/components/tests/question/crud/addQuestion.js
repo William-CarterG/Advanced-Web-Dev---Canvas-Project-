@@ -10,8 +10,9 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
     const [correct, setCorrect] = useState([]);
     const [name, setName] = useState([]);
     const [difficulty, setDifficulty] = useState(1);
-    const [type, setType] = useState(1);
+    const [type, setType] = useState(0);
     const [formatedChoices, setFormatedChoices] = useState([]);
+    const [tags, setTags] = useState([]);
 
 
     useEffect(() => {
@@ -26,16 +27,18 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
     }, [choices]);
 
     const handleTestNameSaveClick = () => {
-        let realCorrect = correct
-        if (typeof(correct) == "number"){
-            let parent = document.getElementById(`a${correct}`).parentNode
-            realCorrect =(parent.childNodes[1].firstChild.value)
+        let realCorrect = correct;
+        if(type === 0){
+            let parent = document.getElementById("a"+correct).parentNode;
+            realCorrect = (parent.childNodes[1].firstChild.value);
         }
-        
         //formatedChoices
-        let body = {"question_type":type,"difficulty":difficulty, "text": name, "correct_answer":realCorrect}
+        let body = {"question_type":type,"difficulty":difficulty, "text": name, "correct_answer":realCorrect, "tags": tags};
         console.log(body)
         startFetch(`tests/${item.id}/questions/`, 'POST', JSON.stringify(body), function(data) {
+            if (!formatedChoices){
+                setFormatedChoices([correct]);
+            }
             body = {"options": formatedChoices}
             startFetch(`tests/${item.id}/questions/${data.id}/answer-options/`, 'POST', JSON.stringify(body), function(data) {
                 startFetch(`tests/`, 'GET', null, function(data) {
@@ -43,7 +46,7 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
                 });
             });
         });
-        
+        toggleModelOpen();
     };
 
     return (
@@ -87,7 +90,7 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
                     <p className="mb-2 text-sm text-gray-500 ">
                         Acá puedes crear la pregunta y añadirla a tu prueba.
                     </p>
-                    <QuestionTabs toggleMenu={toggleModelOpen} setChoices={setChoices} setDifficulty={setDifficulty} setName={setName} setCorrect={setCorrect} setType={setType} />
+                    <QuestionTabs toggleMenu={toggleModelOpen} setChoices={setChoices} setDifficulty={setDifficulty} setName={setName} setCorrect={setCorrect} setType={setType} setTags={setTags} url={''}/>
                     <div className="flex justify-end">
                         <button href="*"
                         className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-m tracking-wide text-white 
