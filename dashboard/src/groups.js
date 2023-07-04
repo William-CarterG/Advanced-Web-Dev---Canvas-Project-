@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import ResultBar from './charts/groups/resultsBar';
-import Table from './charts/groups/table';
+import Table from './charts/table';
 import SemiOpen from './charts/groups/comboBox';
 import Loading from "./loading";
 import startFetch from "./API";
@@ -119,8 +119,9 @@ function Groups({groupData, setGroupData}) {
                                             questionsNumbers.push(data["group_results_by_tests"][i]["test__name"])
                                             correct.push(data["group_results_by_tests"][i]["correct_count"])
                                         }
-                                        console.log(questionsNumbers,correct)
                                         setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct})
+                                        setNewBestTag(data["tags_ranking"].slice(0, 1)[0]["question__tags"])
+                                        setNewWorstTag(data["tags_ranking"].reverse().slice(0, 1)[0]["question__tags"])
                                         setWaitingState(false);
                                         setGroupData("data")
                                     });

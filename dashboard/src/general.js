@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import StackedBar from './charts/general/stackedBar';
 import SemiOpen from './charts/general/comboBox';
 import HorizontalChart from './charts/general/horizontalBar';
-import Table from './charts/general/table';
+import Table from './charts/table';
 import Loading from "./loading";
 import startFetch from "./API";
 
@@ -16,8 +16,7 @@ function General() {
     const [newAskedVsTotal, setNewAskedVsTotal] = useState(80);
     const [newMountEvaluations, setNewMountEvaluations] = useState(84);
     const [newCompleteMountEvaluation, setNewCompleteMountEvaluation] = useState([0,0,0,0,0,0,0,0,0,0,0,0]);
-    const [newBestEvaluations, setNewBestEvaluations] = useState({0: {"clave":"Matematicas Conicas", "valor":78}, 1:{"clave":"Mecanica", "valor":73}, 2:{"clave":"Pensamiento Critico", "valor":71}});
-    const [newWorstEvaluations, setNewWorstEvaluations] = useState({0: {"clave":"Trigonometria", "valor":28}, 1:{"clave":"Analisis de Fluidos", "valor":33}, 2:{"clave":"Calculo II", "valor":42}});
+    const [newEvaluations, setNewEvaluations] = useState({0: {"participant_name":"Matematicas Conicas", "finished_tests":78}, 1:{"participant_name":"Mecanica", "finished_tests":73}, 2:{"participant_name":"Pensamiento Critico", "finished_tests":71}});
     const [newResultByDifficulty, setNewResultByDifficulty] = useState({0: {"correct":0,"incorrect":0,"noSended":0}, 1: {"correct":0,"incorrect":0,"noSended":0}, 2:{"correct":0,"incorrect":0,"noSended":0}});
   
     useEffect(() => {
@@ -31,12 +30,11 @@ function General() {
             "askedVsTotal": newAskedVsTotal,
             "mountEvaluations": newMountEvaluations,
             "completeMountEvaluation": newCompleteMountEvaluation,
-            "bestEvaluations": newBestEvaluations,
-            "worstEvaluations": newWorstEvaluations,
+            "evaluations": newEvaluations,
             "resultByDifficulty": newResultByDifficulty,
 
         }));
-    }, [newHorizontalBar, newActiveEvaluations, newDailyAnswers, newHistoricalParticipation, newAskedVsTotal, newMountEvaluations, newCompleteMountEvaluation, newBestEvaluations, newWorstEvaluations, newResultByDifficulty]);
+    }, [newHorizontalBar, newActiveEvaluations, newDailyAnswers, newHistoricalParticipation, newAskedVsTotal, newMountEvaluations, newCompleteMountEvaluation, newEvaluations, newResultByDifficulty]);
     
     const [waitingState, setWaitingState] = useState(true);
     useEffect(() => {
@@ -61,11 +59,10 @@ function General() {
                 mountValues[mount[i]["month"]-1] = mount[i]["total"]
             }
             setNewCompleteMountEvaluation(mountValues)
-            let arrayBestWorst = Object.entries(data[0]["historical_best_worst_results"]).map(([clave, valor]) => {
-                return { clave, valor };
+            let arrayBestWorst = Object.entries(data[0]["historical_best_worst_results"]).map(([participant_name, finished_tests]) => {
+                return { participant_name, finished_tests };
             });
-            setNewWorstEvaluations(arrayBestWorst.slice(0, 3))
-            setNewBestEvaluations(arrayBestWorst.reverse().slice(0, 3))
+            setNewEvaluations(arrayBestWorst.reverse())
             setWaitingState(false);
         });
     }, []);
@@ -114,15 +111,11 @@ function General() {
                     </div>
                 </div>
             </div>
-            <div className='row-span-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
+            <div className='px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                 <div className='flex flex-col justify-center h-full'>
                 <div>
                     <p className='text-xl'>Mejores evaluaciones.</p>
-                    <Table values={values["bestEvaluations"]} color={"bg-[#36a2eb]"}/>
-                </div>
-                <div>
-                    <p className='text-xl'>Peores evaluaciones.</p>
-                    <Table values={values["worstEvaluations"]} color={"bg-[#ff6384]"}/>
+                    <Table headers={["Nombre de evaluacion","Cantidad de correctas"]}  values={values["evaluations"]} color={"bg-[#6b7280]"} buttonColor={" bg-[#5b606b] hover:bg-[#52555c] "}/>
                 </div>
                 </div>
             </div>
