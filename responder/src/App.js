@@ -5,7 +5,7 @@ import Homepage from './components/Homepage.js';
 import Questions from './components/Questions.js';
 import Finished from './components/Finished.js';
 
-const App = ({indexValue, fullName, evaluation, questionsa, evToken, tokenState, ended}) => {
+const App = ({indexValue, fullName, evaluation, questionsa, evToken, tokenState, ended, personTestId}) => {
   const [index, setIndex] = useState(indexValue);
 
   let routeValue = ""
@@ -27,7 +27,7 @@ const App = ({indexValue, fullName, evaluation, questionsa, evToken, tokenState,
   const renderPage = () => {
     switch (route) {
       case 'homepage':
-        return <Homepage setRoute={setRoute} setIndex={setIndex} evaluations={evaluation} evToken={evToken} tokenState={tokenState}/>;
+        return <Homepage setRoute={setRoute} setIndex={setIndex} evaluations={evaluation} evToken={evToken} tokenState={tokenState} personTestId={personTestId}/>;
       case 'finished':
         return <Finished index={questionsa.length} evToken={evToken} tokenState={tokenState}/>;
       case 'questions':
@@ -51,7 +51,7 @@ const App = ({indexValue, fullName, evaluation, questionsa, evToken, tokenState,
             // do nothing
           
         }
-        return <Questions question={questionsa[index]} index={index} setIndex={setIndex} countOfQuestions={questionsa.length} description={typeMessage} setRoute={setRoute} evToken={evToken} tokenState={tokenState}/>;
+        return <Questions question={questionsa[index]} index={index} setIndex={setIndex} countOfQuestions={questionsa.length} description={typeMessage} setRoute={setRoute} evToken={evToken} tokenState={tokenState} personTestId={personTestId}/>;
       default:
         // do nothing
       

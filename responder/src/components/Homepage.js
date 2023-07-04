@@ -1,4 +1,6 @@
-const Homepage = ({setRoute, setIndex, evaluations, evToken, tokenState}) => {
+import startFetch from '../API';
+
+const Homepage = ({setRoute, setIndex, evaluations, evToken, tokenState, personTestId}) => {
   return (
     <div>
       <div className="flex max-w-4xl mx-auto  bg-white justify-center ">
@@ -17,6 +19,10 @@ const Homepage = ({setRoute, setIndex, evaluations, evToken, tokenState}) => {
               tokenState[evToken]["index"] = 0
               tokenState[evToken]["correct"] = 0
               localStorage.setItem('tokenState', JSON.stringify(tokenState));
+              let body = {'started': true}
+              startFetch(`person-tests/${personTestId}/`, 'PATCH', JSON.stringify(body), function(data) {
+                console.log(data) 
+               });
               setRoute('questions')
             }}>Realizar Prueba</button> 
       </div>
