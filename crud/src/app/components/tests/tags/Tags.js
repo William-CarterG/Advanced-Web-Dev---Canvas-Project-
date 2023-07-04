@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import startFetch from '../../../../API';
 
-const Tags = ({ sendTags, url }) => {
+const Tags = ({ sendTags, prevTags }) => {
   const [tagInput, setTagInput] = useState('');
   const [tagList, setTagList] = useState([]);
 
   useEffect(() => {
-    if (url) {
-      startFetch(url, 'GET', null, function (data) {
-        setTagList(data.tags);
-      });
+    if (prevTags) {
+      setTagList(prevTags);
     } else {
       setTagList([]);
     }
-  }, [url]);
+  }, [prevTags]);
 
   const handleInputChange = (event) => {
     setTagInput(event.target.value);
@@ -50,7 +47,7 @@ const Tags = ({ sendTags, url }) => {
 
   return (
     <div className="flex flex-wrap items-center gap-2 py-4 px-2 mt-2 relative">
-      {tagList.map((tag, index) => (
+      {prevTags && prevTags.map((tag, index) => (
         <div
           key={index}
           className="flex items-center rounded-lg bg-teal-200 px-2 py-1 cursor-pointer hover:bg-red-400 hover:text-white"

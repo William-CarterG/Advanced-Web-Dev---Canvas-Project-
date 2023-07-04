@@ -1,11 +1,59 @@
-// import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import RenderQuestion from '../util/renderQuestion';
+import RenderAlternatives from '../util/renderAlternatives';
+import Tags from '../../tags/Tags';
+import startFetch from '../../../../../API';
 // import startFetch from '../../../../../API';
 
-const EditTestQuestion = ({ toggleModelOpen, question }) => {
+const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
+    const [question, setQuestion] = useState('');
+    const [alternatives, setAlternatives] = useState([]);
+    const [answer, setAnswer] = useState('');
+    const [difficulty, setDifficulty] = useState('');
+    const [tags, setTags] = useState([]);
+
     const handleSaveEdit = () => {
-       // Edit
-        
+        /*
+        let realCorrect = answer;
+        if(data.question_type === "Verdadero o Falso"){
+            let parent = document.getElementById("alternativa"+correct).parentNode;
+            realCorrect = (parent.childNodes[1].firstChild.value);
+        }
+        */
+        //formatedChoices
+        let body = {"question_type": data.question_type,"difficulty":difficulty, "text": question, "correct_answer": answer, "tags": tags};
+        startFetch(`tests/${testId}/questions/`, 'PATCH', JSON.stringify(body), function(data) {
+            /*
+            if (!formatedChoices){
+                setFormatedChoices([correct]);
+            }
+            */
+            body = {"options": alternatives}
+            startFetch(`tests/${testId}/questions/${data.id}/answer-options/`, 'PATCH', JSON.stringify(body), function(data) {
+                startFetch(`tests/`, 'GET', null, function(data) {
+                    setTests(data);
+                });
+            });
+        });
+        toggleModelOpen();
     };
+
+    useEffect(() => {
+        console.log(data);
+        setQuestion(data.text);
+
+        setAlternatives(data.options);
+
+        setAnswer(data.correct_answer);
+
+        if (data.difficulty === 'Baja') {
+            setDifficulty(0);
+        } else if (data.difficulty === 'Media') {
+            setDifficulty(1);
+        } else if (data.difficulty === 'Alta') {
+            setDifficulty(2);
+        }  
+    }, [data]);
 
     return (
         <div
@@ -22,7 +70,7 @@ const EditTestQuestion = ({ toggleModelOpen, question }) => {
                 <div className="inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl 2xl:max-w-2xl">
                     <div className="flex items-center justify-between space-x-2">
                         <h1 className="text-xl font-bold text-gray-800">
-                        Editar Pregunta
+                        Editar Pregunta 
                         </h1>
     
                         <button
@@ -48,8 +96,46 @@ const EditTestQuestion = ({ toggleModelOpen, question }) => {
                     <p className="mb-2 text-sm text-gray-500 ">
                         Acá puedes editar el contenido de la pregunta
                     </p>
+                    {data.question_type !== 'Matriz' && (
+                        <div className="mb-6">
+                        <label htmlFor="questionName" className="block text-gray-600">
+                            Pregunta:
+                        </label>
+                        <RenderQuestion data={data}/>
+                        </div>
+                    )}
+                    <div className='flex flex-row'>
+                        <div>
+                            {data.question_type !== 'numerical' ? (
+                                <label htmlFor="alternatives" className=" block text-gray-600">
+                                Alternativas:
+                                </label>
+                            ):(
+                                <label htmlFor="alternatives" className="mb-2 block text-gray-600">
+                                Respuesta:
+                                </label>
+                            )}
+                            <RenderAlternatives data={data} setAlternatives={setAlternatives} setAnswer={setAnswer} />
+                        </div>
+                        <div className="ml-10">
+                            <label htmlFor="difficulty" className="mr-2 mb-2 block text-gray-600">
+                                Dificultad: {difficulty}
+                            </label>
+                            <select
+                                id="difficulty"
+                                onChange={(e) => setDifficulty(e.target.value)}
+                                value={parseInt(difficulty, 10)} // Convert difficulty to string and set it as the value
+                                className="px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
+                            >
+                                <option value={0}>Fácil</option>   
+                                <option value={1}>Medio</option>
+                                <option value={2}>Difícil</option>
+                            </select>
+                        </div>
+                    </div>
+                    <Tags sendTags={setTags} prevTags={data.tags} />
                     <div className="flex justify-end mt-6">
-                        <button href="*"
+                        <button
                         className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-m tracking-wide text-white 
                         capitalize transition-colors duration-200 transform bg-indigo-500 rounded-md focus:outline-none 
                         focus:ring focus:ring-opacity-50"

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Details from '../../buttons/details.js';
-import ViewTest from './TestDetails.js';
 import More from '../../buttons/more.js';
 import Delete from '../../buttons/delete.js';
 import AddQuestion from '../../buttons/addQuestion.js';
@@ -89,7 +88,6 @@ const TableRow = ({ item, setTests, setSelectedTest }) => {
 };
 
 const TestTableComponent = ({ data, headers, setTests }) => {
-  const [seeTestTable, setSeeTestTable] = useState(true);
   const [selectedTest, setSelectedTest] = useState(null);
   const [testData, setTestData] = useState(data);
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Tags from '../../tags/Tags';
 
-const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType, setTags, url }) => {
+const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType, setTags, prevTags }) => {
   const [selectedTab, setSelectedTab] = useState('verdaderoFalso');
   const [editingQuestionName, setEditingQuestionName] = useState(false);
   const [questionName, setQuestionName] = useState('¿Es la tierra redonda?');
@@ -449,7 +449,7 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType,
           </select>
         </div>
       </div>
-      <Tags sendTags={setTags} url={url}/>
+      <Tags sendTags={setTags} prevTags={''}/>
     </div>
   );
 };

@@ -90,7 +90,7 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
                     <p className="mb-2 text-sm text-gray-500 ">
                         Acá puedes crear la pregunta y añadirla a tu prueba.
                     </p>
-                    <QuestionTabs toggleMenu={toggleModelOpen} setChoices={setChoices} setDifficulty={setDifficulty} setName={setName} setCorrect={setCorrect} setType={setType} setTags={setTags} url={''}/>
+                    <QuestionTabs toggleMenu={toggleModelOpen} setChoices={setChoices} setDifficulty={setDifficulty} setName={setName} setCorrect={setCorrect} setType={setType} setTags={setTags} prevTags={''}/>
                     <div className="flex justify-end">
                         <button href="*"
                         className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-m tracking-wide text-white 

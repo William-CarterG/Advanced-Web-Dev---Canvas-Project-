@@ -198,7 +198,12 @@ const QuestionsTable = ({ item, setTests }) => {
       </table>
 
       {(isEditTestQuestionViewing && (
-        <EditTestQuestion toggleModelOpen={() => setIsEditTestQuestionViewing(!isEditTestQuestionViewing)} question={editQuestionValue}/>
+        <EditTestQuestion 
+          toggleModelOpen={() => setIsEditTestQuestionViewing(!isEditTestQuestionViewing)} 
+          testId={item.id} 
+          data={editQuestionValue} 
+          setTests={setTests}
+        />
       ))}
     </div>
   );
