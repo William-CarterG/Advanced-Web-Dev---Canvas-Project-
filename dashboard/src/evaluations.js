@@ -5,9 +5,13 @@ import ResultBar from './charts/evaluations/resultsBar';
 import SemiOpen from './charts/evaluations/comboBox';
 import Loading from "./loading";
 import startFetch from "./API";
+import percentajeFormater from "./functions/PercentajeFormater"
 
 function Evaluations({evaluationData, setEvaluationData}) {
     const [values, setValues] = useState({});
+    const [allHistorical, setAllHistorical] = useState(null);
+    const [allActive, setAllActive] = useState(null);
+    const [selected,setSelected] = useState("");
     const [newParticipationInEvaluation, setNewParticipationInEvaluation] = useState(78);
     const [newDifficultyInEvaluation, setNewDifficultyInEvaluation] = useState({correct: [10, 15, 25], incorrect: [20, 15, 5]});
     const [newTagsInEvaluation, setNewTagsInEvaluation] = useState({correct: [25, 2, 15], incorrect: [5, 28, 15]});
@@ -43,7 +47,11 @@ function Evaluations({evaluationData, setEvaluationData}) {
     const [waitingState,setWaitingState] = useState(true);
     useEffect(() => {
         startFetch(`evaluations/`, 'GET', null, function(data) {
-            setWaitingState(false);
+            setAllHistorical(Object.values(data))
+            startFetch(`active-evaluations/`, 'GET', null, function(data) {
+                setAllActive(Object.values(data))
+                setWaitingState(false);
+            });
         });
     }, []);
     const activeEvaluationChange = () => {
@@ -153,29 +161,28 @@ function Evaluations({evaluationData, setEvaluationData}) {
                         <div className="lg:mx-auto mx-3 lg:w-2/3 lg:my-10 my-2 h-24">
                             {option === "active" && (
                                 <div>
-                                    <SemiOpen/>
-                                    <button
-                                        className="lg:py-4 lg:px-8 lg:mt-10 py-2 px-4 mt-3 rounded-xl border-black border font-bold"
-                                        onClick={() => {
-                                        setWaitingState(true);
-                                        setTimeout(() => {
-                                            setWaitingState(false);
-                                            setEvaluationData("active")
-                                        }, 2000);
-                                    }}>Enviar</button>
+                                    <SemiOpen data={allActive} selected={selected} setSelected={setSelected}/>
                                 </div>
                             )}
                             {option === "historical" && (
                                 <div>
-                                    <SemiOpen/>
+                                    <SemiOpen data={allHistorical} selected={selected} setSelected={setSelected}/>
+                                </div>
+                            )}
+                            {(option === "active" || option === "historical") && (
+                                <div>
                                     <button
                                         className="lg:py-4 lg:px-8 lg:mt-10 py-2 px-4 mt-3 rounded-xl border-black border font-bold"
                                         onClick={() => {
                                         setWaitingState(true);
-                                        setTimeout(() => {
+                                        startFetch(`dashboard/evaluation/${selected["id"]}/`, 'GET', null, function(data) {
+                                            console.log(data)
+                                            setNewParticipationInEvaluation(percentajeFormater(data["participation_percentage"]))
+                                            setNewMeanOfActualEvaluation(percentajeFormater(data["actual_and_historical_results"]["actual_results"])) 
+                                            setNewMeanOfHistoricalEvaluations(percentajeFormater(data["actual_and_historical_results"]["historical_results"]))     
                                             setWaitingState(false);
-                                            setEvaluationData("historical")
-                                        }, 2000);
+                                            setEvaluationData("active")
+                                        });
                                     }}>Enviar</button>
                                 </div>
                             )}

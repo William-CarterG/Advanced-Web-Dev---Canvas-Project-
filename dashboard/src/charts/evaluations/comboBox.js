@@ -1,41 +1,14 @@
 import {useState} from "react";
 import {Combobox} from "@headlessui/react";
 
-const countries = [
-    {
-        name: "Enero"
-    }, {
-        name: "Febrero"
-    }, {
-        name: "Marzo"
-    }, {
-        name: "Abril"
-    }, {
-        name: "Mayo"
-    }, {
-        name: "Junio"
-    }, {
-        name: "Julio"
-    }, {
-        name: "Agosto"
-    }, {
-        name: "Septiembre"
-    }, {
-        name: "Octubre"
-    }, {
-        name: "Noviembre"
-    }, {
-        name: "Diciembre"
-    }
-];
-
-const SemiOpen = () => {
-    const [selected,setSelected] = useState("");
+const SemiOpen = ({ data, selected, setSelected }) => {
     const [query,setQuery] = useState("");
+    let countries = data;
 
     const filteredCountries = query === ""
         ? countries
         : countries.filter((person) => person.name.toLowerCase().replace(/\s+/g, "").includes(query.toLowerCase().replace(/\s+/g, "")));
+
 
     return (
         <div>

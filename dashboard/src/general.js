@@ -5,6 +5,7 @@ import HorizontalChart from './charts/general/horizontalBar';
 import Table from './charts/table';
 import Loading from "./loading";
 import startFetch from "./API";
+import percentajeFormater from "./functions/PercentajeFormater"
 
 function General() {
     const [values, setValues] = useState({});
@@ -42,7 +43,7 @@ function General() {
             setNewActiveEvaluations(data[0]["active_evaluations"])
             setNewCompletedActiveEvaluations(data[0]["completed_active_evaluations"])
             setNewDailyAnswers(data[0]["daily_completed_evaluations"][0]["count"])
-            setNewAskedVsTotal(Number(data[0]["active_evaluations_answered_percentage"].toFixed(3))*100)
+            setNewAskedVsTotal(percentajeFormater(data[0]["active_evaluations_answered_percentage"]))
             let difResults = {0:{correct:0,incorrect:0,noSended:0},1:{correct:0,incorrect:0,noSended:0},2:{correct:0,incorrect:0,noSended:0}}
             let dif = Object.values(data[0]["results_by_question_difficulty"])
             for (let i in dif){
@@ -52,7 +53,7 @@ function General() {
             }
             setNewResultByDifficulty(difResults)
             setNewHorizontalBar({answering:data[0]["started_active_evaluations"], answered:data[0]["completed_active_evaluations"], notAnswer:data[0]["never_started_active_evaluations"]})
-            setNewHistoricalParticipation(Number(data[0]["historical_participation_results"].toFixed(3))*100)
+            setNewHistoricalParticipation(percentajeFormater(data[0]["historical_participation_results"]))
             let mountValues = [0,0,0,0,0,0,0,0,0,0,0,0]
             let mount = Object.values(data[0]["monthly_evaluations"])
             for (let i in mount){

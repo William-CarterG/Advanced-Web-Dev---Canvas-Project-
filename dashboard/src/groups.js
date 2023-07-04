@@ -110,7 +110,6 @@ function Groups({groupData, setGroupData}) {
                                 onClick={() => {
                                     setWaitingState(true);
                                     startFetch(`dashboard/group/${selected["id"]}/`, 'GET', null, function(data) {
-                                        console.log(data)
                                         setNewActive(data["participation_ranking"])
                                         setNewAnswers(data["results_ranking"])
                                         let questionsNumbers = []
