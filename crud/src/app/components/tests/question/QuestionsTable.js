@@ -9,9 +9,11 @@ const QuestionsTable = ({ item, setTests }) => {
   const [editQuestionValue, setEditQuestionValue] = useState(null);
 
   useEffect(() => {
-    startFetch(`tests/${item.id}/questions`, 'GET', null, function (data) {
-      setQuestionData(data);
-    });
+    if(item.id){
+      startFetch(`tests/${item.id}/questions`, 'GET', null, function (data) {
+        setQuestionData(data);
+      });
+    }
   }, [item.id]); //aqui hice un cambio para que no tirara error
 
   function handleDeleteQuestion(question_id){
