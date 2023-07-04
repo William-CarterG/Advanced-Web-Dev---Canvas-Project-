@@ -115,14 +115,14 @@ function Groups({groupData, setGroupData}) {
                 )
                 : (
                     <div
-                        className='flex flex-col justify-center h-[93vh] text-gray-600 rounded-xl border border-gray-200'>
-                        <div className='mx-auto w-2/3'>
-                            <p className='text-9xl mb-10'>Seleccione el grupo.</p>
+                        className='flex flex-col justify-center lg:h-[93vh] h-[60vh] text-gray-600 rounded-xl border border-gray-200'>
+                        <div className='mx-auto lg:w-2/3 w-full'>
+                            <p className='lg:text-9xl  text-2xl lg:mb-10 mt-10'>Seleccione el grupo.</p>
                         </div>
                         <div className="mx-auto w-2/3 my-10">
                             <SemiOpen/>
                             <button
-                                className="py-4 px-8 mt-10 rounded-xl border-black border font-bold"
+                                className="lg:py-4 lg:px-8 lg:mt-10 py-2 px-4 mt-10 rounded-xl border-black border font-bold"
                                 onClick={() => {
                                 setWaitingState(true);
                                 setTimeout(() => {

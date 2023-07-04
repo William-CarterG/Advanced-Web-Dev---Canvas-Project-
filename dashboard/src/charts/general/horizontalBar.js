@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import Chart from 'chart.js/auto';
 
-function HorizontalChart({values}) {
+function HorizontalChart({ values,axis,desc }) {
     const canvasRef = useRef(null);
     const chartRef = useRef(null);
 
@@ -38,7 +38,8 @@ function HorizontalChart({values}) {
             type: 'bar',
             data: data,
             options: {
-                indexAxis: 'y',
+                maintainAspectRatio: false,
+                indexAxis: axis,
                 elements: {
                     bar: {
                         borderWidth: 2
@@ -57,13 +58,13 @@ function HorizontalChart({values}) {
                     x: {
                         title: {
                             display: true,
-                            text: 'Respuestas'
+                            text: desc[0]
                         }
                     },
                     y: {
                         title: {
                             display: true,
-                            text: 'Estados'
+                            text: desc[1]
                         }
                     }
                 }
@@ -80,7 +81,7 @@ function HorizontalChart({values}) {
     }, [values]);
 
     return (
-        <div className='h-[25vh]'>
+        <div className='lg:h-[25vh] h-[35vh]'>
             <canvas ref={canvasRef}></canvas>
         </div>
     );

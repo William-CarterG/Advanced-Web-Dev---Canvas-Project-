@@ -50,12 +50,12 @@ function General() {
             <div className="grid gap-3 grid-cols-1 lg:grid-cols-3 lg:grid-rows-3">
             <div className="flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
                 <div className='mb-4'>
-                <p className='text-xl mt-5'>Numero de evaluaciones activas.</p>
-                <p className='text-5xl my-5'>{values["activeEvaluations"]} evaluaciones.</p>
+                <p className='lg:text-xl lg:mt-5 text-lg'>Numero de evaluaciones activas.</p>
+                <p className='lg:text-5xl lg:my-5 text-xl font-bold'>{values["activeEvaluations"]} evaluaciones.</p>
                 </div>
                 <div>
-                <p className='text-xl'>Numero respuestas diarias completas.</p>
-                <p className='text-5xl my-5'>{values["dailyAnswers"]} respuestas.</p>
+                <p className='lg:text-xl text-lg'>Numero respuestas diarias completas.</p>
+                <p className='lg:text-5xl lg:my-5  text-xl font-bold'>{values["dailyAnswers"]} respuestas.</p>
                 </div>
             </div>
             <div className='py-2 px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
@@ -67,21 +67,30 @@ function General() {
             <div className='flex flex-col justify-center row-span-2 py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                 <div>
                 <p className='text-xl mt-5'>Porcentaje respondido / evaluaciones activas.</p>
-                <p className='lg:text-9xl text-3xl my-5'>{values["askedVsTotal"]}%</p>
+                <p className='lg:text-9xl text-3xl font-bold lg:my-5 my-2'>{values["askedVsTotal"]}%</p>
                 </div>
                 <div>
                 <p className='text-xl'>Estado de los test.</p>
-                <HorizontalChart values={values["horizontalBar"]}/>
+                <div className="hidden lg:block">
+                    <HorizontalChart values={values["horizontalBar"]} axis={'y'} desc={["Respuestas","Estados"]}/>
+                </div>
+                <div className="lg:hidden">
+                    <HorizontalChart values={values["horizontalBar"]} axis={'x'} desc={["Estados","Respuestas"]}/>
+                </div>
                 </div>
             </div>
             <div className="py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
-                <div className='flex items-center justify-between my-12'>
-                <p>Numero de evaluaciones ya completas para el mes de:</p>
-                <div className='w-72 mr-3'>
-                    <SemiOpen values={values["completeMountEvaluation"]} setNewMountEvaluations={setNewMountEvaluations}/>
+                <div className="flex flex-col justify-center">
+                    <div className='flex items-center justify-between lg:my-12 my-4'>
+                        <p className="lg:text-base text-sm">Numero de evaluaciones ya completas para el mes de:</p>
+                        <div className='w-72 mr-3'>
+                            <SemiOpen values={values["completeMountEvaluation"]} setNewMountEvaluations={setNewMountEvaluations}/>
+                        </div>
+                    </div>
+                    <div>
+                        <p className='lg:text-5xl font-bold text-lg'>{values["mountEvaluations"]} evaluaciones.</p>
+                    </div>
                 </div>
-                </div>
-                <p className='text-5xl'>{values["mountEvaluations"]} evaluaciones.</p>
             </div>
             <div className='row-span-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                 <div className='flex flex-col justify-center'>

@@ -5,6 +5,7 @@ import StackedBarTags from './charts/evaluations/stackedBarTags';
 import ResultBar from './charts/evaluations/resultsBar';
 import SemiOpen from './charts/evaluations/comboBox';
 import Loading from "./loading";
+import startFetch from "./API";
 
 function Evaluations({evaluationData, setEvaluationData}) {
     const [values, setValues] = useState({});
@@ -36,9 +37,10 @@ function Evaluations({evaluationData, setEvaluationData}) {
     const [option,setOption] = useState("");
     const [waitingState,setWaitingState] = useState(true);
     useEffect(() => {
-        setTimeout(() => {
+        startFetch(`evaluations/`, 'GET', null, function(data) {
+            console.log(data)
             setWaitingState(false);
-        }, 2000);
+        });
     }, []);
     const activeEvaluationChange = () => {
         setIsActiveEvaluation(!isActiveEvaluation);
@@ -105,36 +107,36 @@ function Evaluations({evaluationData, setEvaluationData}) {
                 )
                 : (
                     <div
-                        className='flex flex-col justify-center h-[93vh] text-gray-600 rounded-xl border border-gray-200'>
-                        <div className='mx-auto w-2/3'>
-                            <p className='text-9xl mb-36'>Seleccione el tipo de evaluacion.</p>
-                            <div className='flex justify-between mt-36'>
-                                <div className='flex justify-center'>
-                                    <p className='text-4xl'>Evaluaciones activas</p>
+                        className='flex flex-col justify-center lg:h-[93vh] h-[60vh] text-gray-600 rounded-xl border border-gray-200'>
+                        <div className='mx-auto lg:w-2/3 w-full'>
+                            <p className='lg:text-9xl text-3xl lg:mb-36'>Seleccione el tipo de evaluacion.</p>
+                            <div className='flex justify-between lg:mt-36 mt-5'>
+                                <div className='lg:flex justify-center'>
+                                    <p className='lg:text-4xl text-lg'>Evaluaciones activas</p>
                                     <input
                                         type='checkbox'
                                         name='evaluationGroup'
                                         checked={isActiveEvaluation}
                                         onChange={activeEvaluationChange}
-                                        className='ml-4 w-8'/>
+                                        className='lg:ml-4 lg:w-8'/>
                                 </div>
-                                <div className='flex justify-center'>
-                                    <p className='text-4xl'>Evaluaciones históricas</p>
+                                <div className='lg:flex justify-center'>
+                                    <p className='lg:text-4xl text-lg'>Evaluaciones históricas</p>
                                     <input
                                         type='checkbox'
                                         name='evaluationGroup'
                                         checked={isHistoricalEvaluation}
                                         onChange={historicalEvaluationChange}
-                                        className='ml-4 w-8'/>
+                                        className='lg:ml-4 lg:w-8'/>
                                 </div>
                             </div>
                         </div>
-                        <div className="mx-auto w-2/3 my-10 h-24">
+                        <div className="lg:mx-auto mx-3 lg:w-2/3 lg:my-10 my-2 h-24">
                             {option === "active" && (
                                 <div>
                                     <SemiOpen/>
                                     <button
-                                        className="py-4 px-8 mt-10 rounded-xl border-black border font-bold"
+                                        className="lg:py-4 lg:px-8 lg:mt-10 py-2 px-4 mt-3 rounded-xl border-black border font-bold"
                                         onClick={() => {
                                         setWaitingState(true);
                                         setTimeout(() => {
@@ -148,7 +150,7 @@ function Evaluations({evaluationData, setEvaluationData}) {
                                 <div>
                                     <SemiOpen/>
                                     <button
-                                        className="py-4 px-8 mt-10 rounded-xl border-black border font-bold"
+                                        className="lg:py-4 lg:px-8 lg:mt-10 py-2 px-4 mt-3 rounded-xl border-black border font-bold"
                                         onClick={() => {
                                         setWaitingState(true);
                                         setTimeout(() => {

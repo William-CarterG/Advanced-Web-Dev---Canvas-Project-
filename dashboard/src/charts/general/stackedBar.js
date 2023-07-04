@@ -37,6 +37,7 @@ function StackedBar({ values }) {
             type: 'bar',
             data: data,
             options: {
+                maintainAspectRatio: false,
                 responsive: true,
                 scales: {
                     x: {
@@ -67,7 +68,7 @@ function StackedBar({ values }) {
     }, []); // Agregamos 'labels' al arreglo de dependencias
 
     return (
-        <div className='h-[25vh]'>
+        <div className='lg:h-[25vh] h-[35vh]'>
             <canvas ref={canvasRef}></canvas>
         </div>
     );

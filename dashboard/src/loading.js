@@ -26,7 +26,7 @@ function Loading() {
     }, []);
     return (
         <div
-            className='flex flex-col justify-center h-[93vh] text-gray-600 rounded-xl border border-gray-200'>
+            className='flex flex-col justify-center lg:h-[93vh] h-[60vh] text-gray-600 rounded-xl border border-gray-200'>
             <svg
                 width="20vw"
                 height="20vh"
@@ -67,7 +67,7 @@ function Loading() {
                     </g>
                 </g>
             </svg>
-            <p className='text-5xl'>Cargando{text}</p>
+            <p className='lg:text-5xl text-lg'>Cargando{text}</p>
         </div>
     );
 }
