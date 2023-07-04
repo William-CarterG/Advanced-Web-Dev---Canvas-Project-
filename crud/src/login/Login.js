@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 const Login = ({ toggleLoggedIn }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('admin');
+  const [password, setPassword] = useState('123456');
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -13,7 +13,7 @@ const Login = ({ toggleLoggedIn }) => {
       return;
     }
 
-    fetch('http://35.223.95.177:8000/api/token/', {
+    fetch('http://localhost:8000/api/token/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,6 +37,7 @@ const Login = ({ toggleLoggedIn }) => {
         // store tokens in local storage
         localStorage.setItem('token_access', tokenAccess);
         localStorage.setItem('token_refresh', tokenRefresh);
+        localStorage.setItem('username', username);
 
         // Update loggedIn state in the parent component
         toggleLoggedIn();
