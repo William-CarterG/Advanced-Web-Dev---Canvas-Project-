@@ -147,7 +147,14 @@ const TableRow = ({ item, setEvaluations }) => {
 
 
 const EvaluationTableComponent = ({ data, headers, setEvaluations }) => {
-  const fakeData = data;
+  const [evaluationData, setEvaluationData] = useState(data);
+
+  useEffect(() => {
+    startFetch(`evaluations/`, 'GET', null, function(data) {
+      setEvaluationData(data);
+    });
+  });
+  
   return (
     <div className="mt-10 flex flex-col h-[65vh] min-w-full py-6 align-middle">  
       <div className="flex-grow rounded-2xl overflow-auto bg-white"> 
@@ -170,7 +177,7 @@ const EvaluationTableComponent = ({ data, headers, setEvaluations }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {fakeData.map((item) => (
+            {evaluationData.map((item) => (
               <TableRow key={item.id} item={item} setEvaluations={setEvaluations} />
             ))}
           </tbody>

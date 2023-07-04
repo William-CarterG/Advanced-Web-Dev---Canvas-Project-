@@ -88,7 +88,7 @@ function ViewGroup({ closeViewGroupModal, id, setGroups }) {
                     />
                     
                     <div className="flex justify-between mt-6">
-                        <AddStudentFromFile id={id} setStudents={setStudents}/>
+                        <AddStudentFromFile id={id} setStudents={setStudents} setGroups={setGroups}/>
                         <button onClick={goToNextPage}
                         className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-300 rounded-md focus:outline-none focus:ring focus:ring-opacity-50">
                         Estilo Visual del Grupo

@@ -112,7 +112,14 @@ const TableRow = ({ item, setGroups }) => {
 
 
 const GroupTableComponent = ({ data, headers, setGroups }) => {
-  const fakeData = data;
+  const [groupData, setGroupData] = useState(data);
+
+  useEffect(() => {
+    startFetch(`courses/`, 'GET', null, function(data) {
+      setGroupData(data);
+    });
+  });
+
   return (
     <div className="mt-10 flex flex-col h-[65vh] min-w-full py-6 align-middle">  
       <div className="flex-grow rounded-2xl overflow-auto bg-white"> 
@@ -135,7 +142,7 @@ const GroupTableComponent = ({ data, headers, setGroups }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {fakeData.map((item) => (
+            {groupData.map((item) => (
               <TableRow key={item.id} item={item} setGroups={setGroups}/>
               
             ))}

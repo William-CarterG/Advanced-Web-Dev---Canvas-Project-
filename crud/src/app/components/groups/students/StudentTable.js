@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import startFetch from '../../../../API';
 
 const StudentTableComponent = ({ data, headers, setGroups, groupId, setStudents }) => {
@@ -15,7 +15,13 @@ const StudentTableComponent = ({ data, headers, setGroups, groupId, setStudents 
         
         
     }
-    const studentData = data;
+    const [studentData, setStudentData] = useState(data);
+    startFetch(`courses/${groupId}/members/`, 'GET', null, function (data) {
+        setStudentData(data);
+        startFetch(`courses/`, 'GET', null, function(data) {
+          setGroups(data);
+        });
+    });
     return (
         <div className="flex flex-col h-96 min-w-full py-6 align-middle">  
         <div className="flex-grow rounded-2xl overflow-auto"> 

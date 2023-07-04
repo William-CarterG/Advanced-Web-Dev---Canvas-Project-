@@ -143,8 +143,14 @@ const TableRow = ({ user, setUsers }) => {
 
 
 const UserTableComponent = ({ data, headers, setUsers }) => {
+  const [userData, setUserData] = useState(data);
 
-  const userData = data;
+  useEffect(() => {
+    startFetch(`users/`, 'GET', null, function(data) {
+      setUserData(data);
+    });
+  });
+
   return (
     <div className="mt-10 flex flex-col h-[65vh] min-w-full py-6 align-middle">  
       <div className="flex-grow rounded-2xl overflow-auto bg-white"> 
