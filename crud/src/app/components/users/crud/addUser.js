@@ -208,10 +208,11 @@ function AddUser({setUsers}) {
                         
                         let body = {"username":user,"password":pass,"groups": groups}
                         startFetch(`users/`, 'POST', JSON.stringify(body), function(data) {
-                            startFetch(`users/`, 'GET', null, function(data) {
-                                setUsers(data);
-                            });
+                            
                         });
+                        startFetch(`users/`, 'GET', null, function(data) {
+                          setUsers(data);
+                      });
                         toggleModelOpen();
                       }}
                       className="pressed-button flex items-center justify-center px-3 py-2 space-x-2 text-sm tracking-wide text-white 

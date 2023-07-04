@@ -5,7 +5,7 @@ import Papa from 'papaparse';
 // Allowed extensions for input file
 const allowedExtensions = ['csv'];
 
-function AddStudentFromFile({ id, setStudents }) {
+function AddStudentFromFile({ id, setStudents, setGroups }) {
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
 
@@ -37,6 +37,9 @@ function AddStudentFromFile({ id, setStudents }) {
 
         startFetch(`courses/${id}/members/`, 'GET', null, function (data) {
           setStudents(data);
+          startFetch(`courses/`, 'GET', null, function(data) {
+            setGroups(data);
+          });
         });
       };
 

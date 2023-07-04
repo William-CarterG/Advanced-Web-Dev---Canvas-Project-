@@ -98,7 +98,15 @@ const TableRow = ({ item, setTests }) => {
 
 
 const TestTableComponent = ({ data, headers, setTests }) => {
-  const fakeData = data;
+
+  const [testData, setTestData] = useState(data);
+
+  useEffect(() => {
+    startFetch(`tests/`, 'GET', null, function(data) {
+      setTestData(data);
+    });
+  });
+
   return (
     <div className="mt-10 flex flex-col h-[65vh] py-6">  
       <div className="flex-grow rounded-2xl overflow-auto bg-white"> 
@@ -116,7 +124,7 @@ const TestTableComponent = ({ data, headers, setTests }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {fakeData.map((item) => (
+            {testData.map((item) => (
               <TableRow key={item.id} item={item} setTests={setTests}/>
             ))}
           </tbody>

@@ -20,8 +20,13 @@ const TableRow = ({ item, setEvaluations }) => {
     setIsViewEvaluationOpen(!isViewEvaluationOpen);
   };
 
-  const sendEvaluationReminder = () => {
+  const sendEvaluationReminder = (id) => {
     //Make request to send emails to all members of this evaluation.
+    let body = {"remind": true};
+
+    startFetch(`evaluations/${id}/`, 'PATCH', JSON.stringify(body), function(data) {
+    });
+    
   }
 
   const deleteEvaluation = () => {
@@ -104,7 +109,7 @@ const TableRow = ({ item, setEvaluations }) => {
                 </span>
               </div>
 
-              <div className="" onClick={sendEvaluationReminder} role="none">
+              <div className="" onClick={sendEvaluationReminder(item.id)} role="none">
                 <span className="flex items-center text-gray-500 font-medium hover:text-gray-900 hover:bg-gray-50 px-4 py-2 text-sm">
                 <svg className="mr-2 w-6 h-6" fill="none" stroke="#000000" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
@@ -147,7 +152,14 @@ const TableRow = ({ item, setEvaluations }) => {
 
 
 const EvaluationTableComponent = ({ data, headers, setEvaluations }) => {
-  const fakeData = data;
+  const [evaluationData, setEvaluationData] = useState(data);
+
+  useEffect(() => {
+    startFetch(`evaluations/`, 'GET', null, function(data) {
+      setEvaluationData(data);
+    });
+  });
+
   return (
     <div className="mt-10 flex flex-col h-[65vh] min-w-full py-6 align-middle">  
       <div className="flex-grow rounded-2xl overflow-auto bg-white"> 
@@ -170,7 +182,7 @@ const EvaluationTableComponent = ({ data, headers, setEvaluations }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
-            {fakeData.map((item) => (
+            {evaluationData.map((item) => (
               <TableRow key={item.id} item={item} setEvaluations={setEvaluations} />
             ))}
           </tbody>
