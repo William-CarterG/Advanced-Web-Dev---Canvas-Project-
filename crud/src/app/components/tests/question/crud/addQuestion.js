@@ -36,15 +36,22 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
         let body = {"question_type":type,"difficulty":difficulty, "text": name, "correct_answer":realCorrect, "tags": tags};
         console.log(body)
         startFetch(`tests/${item.id}/questions/`, 'POST', JSON.stringify(body), function(data) {
-            if (!formatedChoices){
-                setFormatedChoices([correct]);
+            if(type === 1 || type === 4 | type === 2){
+                if (!formatedChoices){
+                    setFormatedChoices([correct]);
+                }
+                body = {"options": formatedChoices}
+                startFetch(`tests/${item.id}/questions/${data.id}/answer-options/`, 'POST', JSON.stringify(body), function(data) {
+                    startFetch(`tests/`, 'GET', null, function(data) {
+                        setTests(data);
+                    });
+                });
             }
-            body = {"options": formatedChoices}
-            startFetch(`tests/${item.id}/questions/${data.id}/answer-options/`, 'POST', JSON.stringify(body), function(data) {
+            else{
                 startFetch(`tests/`, 'GET', null, function(data) {
                     setTests(data);
                 });
-            });
+            }
         });
         toggleModelOpen();
     };
