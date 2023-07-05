@@ -102,7 +102,7 @@ function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
                 noSended.push(questionsInfo[i]["n"])
             }
             setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct, "incorrect":incorrect, "noSended":noSended })
-            if (questionsInfo === []){
+            if (questionsInfo !== []){
                 setNewBestQuestion(questionsInfo[0]["question"])
                 setNewWorstQuestion(questionsInfo.reverse()[0]["question"])
             }
@@ -154,12 +154,12 @@ function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
                         <div
                             className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <p className='text-xl'>Pregunta con mejor de resultado.</p>
-                            <p className='lg:text-5xl text-3xl font-bold my-5'>Pregunta nº{values["bestQuestion"]}</p>
+                            <p className='lg:text-5xl text-3xl font-bold my-5'>Nº{values["bestQuestion"]}.</p>
                         </div>
                         <div
                             className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <p className='text-xl'>Pregunta con peor de resultado.</p>
-                            <p className='lg:text-5xl text-3xl font-bold my-5'>Pregunta nº{values["worstQuestion"]}</p>
+                            <p className='lg:text-5xl text-3xl font-bold my-5'>Nº{values["worstQuestion"]}.</p>
                         </div>
                         <div className="flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
                             <div className="flex justify-center my-2">

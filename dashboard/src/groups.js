@@ -36,6 +36,16 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
             defId = id
         }
         startFetch(`dashboard/group/${defId}/`, 'GET', null, function(data) {
+            if (String(data["tags_ranking"]) !== ""){
+                let ragsRanking = data["tags_ranking"].slice(1, data["tags_ranking"].length)
+                startFetch(`tags/${ragsRanking.slice(0, 1)[0]["question__tags"]}/`, 'GET', null, function(data) {
+                    setNewBestTag(data["name"])
+                });
+                startFetch(`tags/${ragsRanking.reverse().slice(0, 1)[0]["question__tags"]}/`, 'GET', null, function(data) {
+                    setNewWorstTag(data["name"])
+
+                });
+            }
             let groupEvals = []
             for (let i in data["participation_ranking"]){
                 let insideDict = {"name":data["participation_ranking"][i]["participant_name"], "count":data["participation_ranking"][i]["finished_tests"]} 
@@ -56,10 +66,6 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
                 correct.push(percentajeFormater(data["group_results_by_tests"][i]["correct_count"]/data["group_results_by_tests"][i]["total_questions"]))
             }
             setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct})
-            if (String(data["tags_ranking"]) !== ""){
-                setNewBestTag(data["tags_ranking"].slice(0, 1)[0]["question__tags"])
-                setNewWorstTag(data["tags_ranking"].reverse().slice(0, 1)[0]["question__tags"])
-            }
             startFetch(`evaluations/?search=${defId}`, 'GET', null, function(data) {
                 groupEvals = []
                 for (let i in data){
@@ -102,14 +108,14 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
                             className='py-2 px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                                 <div className="mx-8">
                                     <p className='text-xl'>
-                                        Distribucion porcentual de los resultados.</p>
+                                        Promedio de los resultados por evaluacion.</p>
                                     <ResultBar values={values["porcentualDistribution"]}/>
                                 </div>
                         </div>
                         <div className='px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <div className='flex flex-col justify-between'>
                                 <div className='pt-2'>
-                                    <p className='text-xl'>
+                                    <p className='text-xl mb-2'>
                                         Evaluaciones del Grupo.</p>
                                     <Table headers={["Evaluaciones",""]} values={values["groupEvaluations"]} color={"bg-gray-500"} buttonColor={" hidden "} setRoute={setRoute} setFromGroupToEval={setFromGroupToEval} setGeneralButton={setGeneralButton} setEvaluationsButton={setEvaluationsButton} setGroupsButton={setGroupsButton}/>
                                 </div>
@@ -118,8 +124,8 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
                         <div className='px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <div className='flex flex-col justify-between'>
                                 <div className='pt-2'>
-                                    <p className='text-xl lg:text-3xl'>
-                                        Alumnos mas/menos activos.</p>
+                                    <p className='text-xl lg:text-2xl mb-2'>
+                                        Participacion de los alumnos.</p>
                                     <Table headers={["Alumnos","Evaluaciones hechas"]} values={values["Active"]} color={"bg-[#36a2eb]"} buttonColor={" bg-[#3691ce] hover:bg-[#1c6ea5] "}/>
                                 </div>
                             </div>
@@ -127,20 +133,20 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
                         <div
                             className='flex flex-col justify-center px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <p className='text-2xl'>
-                                Etiqueta con mejores resultados.</p>
-                            <p className='lg:text-7xl text-3xl font-bold my-5'>Etiqueta {values["bestTag"]}</p>
+                                Etiqueta con mejores resultados:</p>
+                            <p className='lg:text-7xl text-3xl font-bold my-5'>{values["bestTag"]}.</p>
                         </div>
                         <div
                             className='flex flex-col justify-center px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <p className='text-2xl'>
-                                Etiqueta con peores resultados.</p>
-                            <p className='lg:text-7xl text-3xl font-bold my-5'>Etiqueta {values["worstTag"]}</p>
+                                Etiqueta con peores resultados:</p>
+                            <p className='lg:text-7xl text-3xl font-bold my-5'>{values["worstTag"]}.</p>
                         </div>
                         <div className='px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <div className='flex flex-col justify-between'>
                                 <div className='pt-2'>
-                                    <p className='text-xl lg:text-3xl'>
-                                        Alumnos con mas/menos resultados correctos.</p>
+                                    <p className='text-xl lg:text-2xl mb-2'>
+                                        Cantidad de correctos de los alumnos.</p>
                                     <Table headers={["Alumnos","Resultados"]} values={values["Answers"]} color={"bg-[#ff6384]"} buttonColor={" bg-[#dd5673] hover:bg-[#d64666] "}/>
                                 </div>
                             </div>

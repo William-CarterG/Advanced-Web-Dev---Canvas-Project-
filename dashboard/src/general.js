@@ -142,7 +142,7 @@ function General({ws, setRoute, setFromGroupToEval, setFromGeneralToGroup, setGe
             </div>
             <div className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                 <div>
-                <p className='text-xl mt-5'>Porcentaje respondido / evaluaciones activas.</p>
+                <p className='text-xl mt-5'>Porcentaje respondido en funcion del total.</p>
                 <p className='lg:text-9xl text-3xl font-bold lg:my-5 my-2'>{values["askedVsTotal"]}%</p>
                 </div>
             </div>
@@ -162,13 +162,13 @@ function General({ws, setRoute, setFromGroupToEval, setFromGeneralToGroup, setGe
             <div className='px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                 <div className='flex flex-col justify-center h-full'>
                 <div>
-                    <p className='text-xl'>Mejores evaluaciones.</p>
+                    <p className='text-xl mb-2'>Mejores evaluaciones.</p>
                     <Table headers={["Nombre de evaluacion","Cantidad de correctas"]}  values={values["evaluations"]} color={"bg-[#6b7280]"} buttonColor={" bg-[#5b606b] hover:bg-[#52555c] "}/>
                 </div>
                 </div>
             </div>
             <div className="py-2 px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
-                <p className='text-xl'>Estado de los test.</p>
+                <p className='text-xl'>Estado de todas las pruebas de los alumnos:</p>
                 <div className="hidden lg:block">
                     <HorizontalChart values={values["horizontalBar"]} axis={'y'} desc={["Respuestas","Estados"]}/>
                 </div>
@@ -179,12 +179,12 @@ function General({ws, setRoute, setFromGroupToEval, setFromGeneralToGroup, setGe
            
             <div className="flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
                 <div>
-                <p className='lg:text-2xl text-lg'>Numero de evaluaciones activas.</p>
-                <p className='lg:text-5xl lg:my-1 text-xl font-bold'>{values["activeEvaluations"]} evaluaciones.</p>
+                <p className='lg:text-2xl text-lg'>Numero de evaluaciones activas:</p>
+                <p className='lg:text-5xl lg:my-1 text-xl font-bold'>{values["activeEvaluations"]}</p>
                 </div>
                 <div className="mt-5">
-                <p className='lg:text-2xl text-lg'>Numero respuestas diarias completas.</p>
-                <p className='lg:text-5xl lg:my-1  text-xl font-bold'>{values["dailyAnswers"]} respuestas.</p>
+                <p className='lg:text-2xl text-lg'>Numero respuestas diarias completas:</p>
+                <p className='lg:text-5xl lg:my-1  text-xl font-bold'>{values["dailyAnswers"]}</p>
                 </div>
             </div>
             </div>
