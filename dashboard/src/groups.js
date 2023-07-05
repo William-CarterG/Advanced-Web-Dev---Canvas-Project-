@@ -60,7 +60,7 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
                 setNewBestTag(data["tags_ranking"].slice(0, 1)[0]["question__tags"])
                 setNewWorstTag(data["tags_ranking"].reverse().slice(0, 1)[0]["question__tags"])
             }
-            startFetch(`evaluations/?search=${selected["id"]}`, 'GET', null, function(data) {
+            startFetch(`evaluations/?search=${defId}`, 'GET', null, function(data) {
                 groupEvals = []
                 for (let i in data){
                     let insideDict = {"name":data[i]["name"], "count":-1, "id":data[i]["id"]} 
