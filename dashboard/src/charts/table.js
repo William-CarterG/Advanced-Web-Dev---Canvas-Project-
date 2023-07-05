@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Table({ headers, values, color, buttonColor }) {
+function Table({ headers, values, color, buttonColor, setRoute, setFromGroupToEval, setGeneralButton, setEvaluationsButton, setGroupsButton }) {
   const [reverseOrder, setReverseOrder] = useState(false);
 
   const reverseActualOrder = () => {
@@ -12,6 +12,11 @@ function Table({ headers, values, color, buttonColor }) {
   const rows = reverseOrder ? reversedTableValues : tableValues;
 
   const handleButtonClick = (id) => {
+    setFromGroupToEval(id)
+    setGeneralButton("")
+    setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
+    setGroupsButton("")
+    setRoute("evaluations")
     console.log(id);
   };
 
@@ -50,7 +55,7 @@ function Table({ headers, values, color, buttonColor }) {
                     value["count"]
                   ) : (
                     <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
                       onClick={() => handleButtonClick(value.id)}
                     >
                       Button

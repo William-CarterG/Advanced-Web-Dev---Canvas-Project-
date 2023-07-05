@@ -71,7 +71,8 @@ function PaintedBars({ values }) {
                             text: 'Resultados'
                         }
                     }
-                }
+                },
+                animation: false
             }
         });
 

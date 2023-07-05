@@ -70,6 +70,7 @@ function ResultBar({ values }) {
                         }
                     }
                 },
+                animation: false
             }
         });
 

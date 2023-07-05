@@ -7,7 +7,7 @@ import Loading from "./loading";
 import startFetch from "./API";
 import percentajeFormater from "./functions/PercentajeFormater"
 
-function Evaluations({evaluationData, setEvaluationData}) {
+function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
     const [values, setValues] = useState({});
     const [allHistorical, setAllHistorical] = useState(null);
     const [allActive, setAllActive] = useState(null);
@@ -48,13 +48,19 @@ function Evaluations({evaluationData, setEvaluationData}) {
     const [option,setOption] = useState("");
     const [waitingState,setWaitingState] = useState(true);
     useEffect(() => {
-        startFetch(`evaluations/`, 'GET', null, function(data) {
-            setAllHistorical(Object.values(data))
-            startFetch(`active-evaluations/`, 'GET', null, function(data) {
-                setAllActive(Object.values(data))
-                setWaitingState(false);
+        if (fromGroupToEval !== false){
+            setEvaluationData("data")
+            reloadView(fromGroupToEval)
+            
+        }else{
+            startFetch(`evaluations/`, 'GET', null, function(data) {
+                setAllHistorical(Object.values(data))
+                startFetch(`active-evaluations/`, 'GET', null, function(data) {
+                    setAllActive(Object.values(data))
+                    setWaitingState(false);
+                });
             });
-        });
+        }
     }, []);
     const activeEvaluationChange = () => {
         setIsActiveEvaluation(!isActiveEvaluation);
@@ -66,14 +72,79 @@ function Evaluations({evaluationData, setEvaluationData}) {
         setIsActiveEvaluation(false);
         setOption("historical");
     };
-
+    function reloadView(id){
+        let defId = selected["id"];
+        if (id !== false){
+            defId = id
+        }
+        console.log(defId)
+        startFetch(`dashboard/evaluation/${defId}/`, 'GET', null, function(data) {
+            setNewParticipationInEvaluation(percentajeFormater(data["participation_percentage"]))
+            setNewMeanOfActualEvaluation(percentajeFormater(data["actual_and_historical_results"]["actual_results"])) 
+            setNewMeanOfHistoricalEvaluations(percentajeFormater(data["actual_and_historical_results"]["historical_results"]))     
+            let difResults = {0:{correct:0,incorrect:0,noSended:0},1:{correct:0,incorrect:0,noSended:0},2:{correct:0,incorrect:0,noSended:0}}
+            let dif = data["questions_analysis"]["results_by_difficulty"]
+            for (let i in dif){
+                difResults[dif[i]["difficulty"]]["correct"] = dif[i]["c"]
+                difResults[dif[i]["difficulty"]]["incorrect"] = dif[i]["i"]
+                difResults[dif[i]["difficulty"]]["noSended"] = dif[i]["n"]
+            }
+            setNewDifficultyInEvaluation(difResults)
+            let tagTrigger = 0;
+            let tagResults = {}
+            let tag = data["questions_analysis"]["results_by_tag"]
+            for (let i in tag){
+                tagTrigger = 1;
+                tagResults[String(tag[i]["tag"])] = {}
+                tagResults[String(tag[i]["tag"])]["correct"] = tag[i]["c"]
+                tagResults[String(tag[i]["tag"])]["incorrect"] = tag[i]["i"]
+                tagResults[String(tag[i]["tag"])]["noSended"] = tag[i]["n"]
+            }
+            if (tagTrigger !== 0){
+                setNewTagsInEvaluation(tagResults)
+            }
+            setNewCorrectAnswer(data["results"]["correct"])
+            setNewIncorrectAnswer(data["results"]["incorrect"])
+            setNewNoAnswer(data["results"]["no_answer"])
+            setNewTotal(data["results"]["total"])
+            let questionsNumbers = []
+            let correct = []
+            let incorrect = []
+            let noSended = []
+            let questionsInfo = data["questions_analysis"]["results_by_question"]
+            for (let i in questionsInfo){
+                questionsNumbers.push(questionsInfo[i]["question"])
+                correct.push(questionsInfo[i]["c"])
+                incorrect.push(questionsInfo[i]["i"])
+                noSended.push(questionsInfo[i]["n"])
+            }
+            setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct, "incorrect":incorrect, "noSended":noSended })
+            if (questionsInfo === []){
+                setNewBestQuestion(questionsInfo[0]["question"])
+                setNewWorstQuestion(questionsInfo.reverse()[0]["question"])
+            }
+            setWaitingState(false);
+            setEvaluationData("active")
+        });
+    }
+    /*
+    if (fromGroupToEval !== false){
+        setEvaluationData("data")
+        setSelected({"id":fromGroupToEval})
+    }
+    */
+    useEffect(() => {
+        if (evaluationData !== ""){
+            reloadView(fromGroupToEval);
+        }
+      }, [ws]);
     return (
     <> {
         waitingState === true && (<Loading/>)
     }
     {
         waitingState === false && (<> {
-            evaluationData !== ""
+            (evaluationData !== "" )
                 ? (
                     <div className="grid gap-3 grid-cols-1 lg:grid-cols-3 lg:grid-rows-3">
                         <div className="flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
@@ -181,54 +252,7 @@ function Evaluations({evaluationData, setEvaluationData}) {
                                         className="lg:py-4 lg:px-8 lg:mt-10 py-2 px-4 mt-3 rounded-xl border-black border font-bold"
                                         onClick={() => {
                                         setWaitingState(true);
-                                        startFetch(`dashboard/evaluation/${selected["id"]}/`, 'GET', null, function(data) {
-                                            setNewParticipationInEvaluation(percentajeFormater(data["participation_percentage"]))
-                                            setNewMeanOfActualEvaluation(percentajeFormater(data["actual_and_historical_results"]["actual_results"])) 
-                                            setNewMeanOfHistoricalEvaluations(percentajeFormater(data["actual_and_historical_results"]["historical_results"]))     
-                                            let difResults = {0:{correct:0,incorrect:0,noSended:0},1:{correct:0,incorrect:0,noSended:0},2:{correct:0,incorrect:0,noSended:0}}
-                                            let dif = data["questions_analysis"]["results_by_difficulty"]
-                                            for (let i in dif){
-                                                difResults[dif[i]["difficulty"]]["correct"] = dif[i]["c"]
-                                                difResults[dif[i]["difficulty"]]["incorrect"] = dif[i]["i"]
-                                                difResults[dif[i]["difficulty"]]["noSended"] = dif[i]["n"]
-                                            }
-                                            setNewDifficultyInEvaluation(difResults)
-                                            let tagTrigger = 0;
-                                            let tagResults = {}
-                                            let tag = data["questions_analysis"]["results_by_tag"]
-                                            for (let i in tag){
-                                                tagTrigger = 1;
-                                                tagResults[String(tag[i]["tag"])] = {}
-                                                tagResults[String(tag[i]["tag"])]["correct"] = tag[i]["c"]
-                                                tagResults[String(tag[i]["tag"])]["incorrect"] = tag[i]["i"]
-                                                tagResults[String(tag[i]["tag"])]["noSended"] = tag[i]["n"]
-                                            }
-                                            if (tagTrigger !== 0){
-                                                setNewTagsInEvaluation(tagResults)
-                                            }
-                                            setNewCorrectAnswer(data["results"]["correct"])
-                                            setNewIncorrectAnswer(data["results"]["incorrect"])
-                                            setNewNoAnswer(data["results"]["no_answer"])
-                                            setNewTotal(data["results"]["total"])
-                                            let questionsNumbers = []
-                                            let correct = []
-                                            let incorrect = []
-                                            let noSended = []
-                                            let questionsInfo = data["questions_analysis"]["results_by_question"]
-                                            for (let i in questionsInfo){
-                                                questionsNumbers.push(questionsInfo[i]["question"])
-                                                correct.push(questionsInfo[i]["c"])
-                                                incorrect.push(questionsInfo[i]["i"])
-                                                noSended.push(questionsInfo[i]["n"])
-                                            }
-                                            setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct, "incorrect":incorrect, "noSended":noSended })
-                                            if (questionsInfo === []){
-                                                setNewBestQuestion(questionsInfo[0]["question"])
-                                                setNewWorstQuestion(questionsInfo.reverse()[0]["question"])
-                                            }
-                                            setWaitingState(false);
-                                            setEvaluationData("active")
-                                        });
+                                        reloadView(false);
                                     }}>Enviar</button>
                                 </div>
                             )}

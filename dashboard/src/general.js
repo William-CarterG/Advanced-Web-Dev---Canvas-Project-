@@ -7,8 +7,9 @@ import Loading from "./loading";
 import startFetch from "./API";
 import percentajeFormater from "./functions/PercentajeFormater"
 
-function General() {
+function General({ws}) {
     const [values, setValues] = useState({});
+    const [remember, setRemember] = useState(false);
     const [newHorizontalBar, setNewHorizontalBar] = useState({answering:0, answered:0, notAnswer:0});
     const [newActiveEvaluations, setNewActiveEvaluations] = useState(135);
     const [newCompletedActiveEvaluations, setNewCompletedActiveEvaluations] = useState(51);
@@ -37,8 +38,9 @@ function General() {
         }));
     }, [newHorizontalBar, newActiveEvaluations, newDailyAnswers, newCompletedActiveEvaluations, newHistoricalParticipation, newAskedVsTotal, newMountEvaluations, newCompleteMountEvaluation, newEvaluations, newResultByDifficulty]);
     
+    
     const [waitingState, setWaitingState] = useState(true);
-    useEffect(() => {
+    function reloadView(){
         startFetch(`dashboard/general/`, 'GET', null, function(data) {
             setNewActiveEvaluations(data[0]["active_evaluations"])
             setNewCompletedActiveEvaluations(data[0]["completed_active_evaluations"])
@@ -66,7 +68,11 @@ function General() {
             setNewEvaluations(arrayBestWorst.reverse())
             setWaitingState(false);
         });
-    }, []);
+    }
+
+    useEffect(() => {
+        reloadView();
+      }, [ws]);
 
     return (
         <>

@@ -68,7 +68,8 @@ function StackedBar({ values }) {
                             text: 'Respuestas'
                         }
                     }
-                }
+                },
+                animation: false
             }
         });
 

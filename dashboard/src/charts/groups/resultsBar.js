@@ -38,7 +38,7 @@ function ResultBar({ values }) {
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'top'
+                        display: false,
                     }
                 },
                 scales: {
@@ -51,11 +51,12 @@ function ResultBar({ values }) {
                     y: {
                         title: {
                             display: true,
-                            text: 'Respuestas'
+                            text: 'Respuestas en (%)'
                         }
                     }
                 },
-                barPercentage: 0.5
+                barPercentage: 0.5,
+                animation: false
             }
         });
 
