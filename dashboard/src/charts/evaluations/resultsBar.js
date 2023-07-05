@@ -84,7 +84,7 @@ function ResultBar({ values }) {
     }, [values]);
 
     return (
-        <div className='h-[25vh] w-full'>
+        <div className='lg:h-[25vh] h-[35vh] w-full'>
             <canvas ref={canvasRef}></canvas>
         </div>
     );

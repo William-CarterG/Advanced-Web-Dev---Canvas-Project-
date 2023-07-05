@@ -65,6 +65,7 @@ function App() {
                                     setGeneralButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setEvaluationsButton("")
                                     setGroupsButton("")
+                                    setFromGeneralToGroup(false)
                                     setFromGroupToEval(false)
                                     setRoute('general')
                                 }}>
@@ -93,6 +94,7 @@ function App() {
                                     setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setGroupsButton("")
                                     setEvaluationData("")
+                                    setFromGeneralToGroup(false)
                                     setFromGroupToEval(false)
                                     setRoute('evaluations')
                                 }}>
@@ -122,6 +124,7 @@ function App() {
                                     setEvaluationsButton("")
                                     setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setGroupData("")
+                                    setFromGeneralToGroup(false)
                                     setFromGroupToEval(false)
                                     setRoute('groups')
                                 }}>
@@ -174,6 +177,7 @@ function App() {
                                     setGeneralButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setEvaluationsButton("")
                                     setGroupsButton("")
+                                    setFromGeneralToGroup(false)
                                     setFromGroupToEval(false)
                                     setRoute('general')
                                 }}>
@@ -202,6 +206,7 @@ function App() {
                                     setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setGroupsButton("")
                                     setEvaluationData("")
+                                    setFromGeneralToGroup(false)
                                     setFromGroupToEval(false)
                                     setRoute('evaluations')
                                 }}>
@@ -231,6 +236,7 @@ function App() {
                                     setEvaluationsButton("")
                                     setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setGroupData("")
+                                    setFromGeneralToGroup(false)
                                     setFromGroupToEval(false)
                                     setRoute('groups')
                                 }}>

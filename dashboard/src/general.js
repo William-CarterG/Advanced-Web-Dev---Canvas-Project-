@@ -99,7 +99,7 @@ function General({ws, setRoute, setFromGroupToEval, setFromGeneralToGroup, setGe
                         <div className="flex justify-center">
                             <SemiOpen data={allEvaluations} selected={evaluationSelected} setSelected={setEvaluationSelected} size={" text-base a" }/>
                             <button
-                                className="relative right-0 lg:py-2 lg:px-4 mt-1 rounded-xl border-black border font-bold hover:bg-slate-500 hover:text-white"
+                                className="relative right-0 lg:py-2 lg:px-4 px-2 mt-1 rounded-xl border-black border font-bold hover:bg-slate-500 hover:text-white"
                                 onClick={() => {
                                     setFromGroupToEval(evaluationSelected["id"])
                                     setGeneralButton("")
@@ -116,7 +116,7 @@ function General({ws, setRoute, setFromGroupToEval, setFromGeneralToGroup, setGe
                         <div className="flex justify-center">
                             <SemiOpen data={allCourses} selected={courseSelected} setSelected={setCourseSelected} size={" text-base a" }/>
                             <button
-                                className="relative right-0 lg:py-2 lg:px-4 mt-1 rounded-xl border-black border font-bold hover:bg-slate-500 hover:text-white"
+                                className="relative right-0 lg:py-2 lg:px-4 px-2 mt-1 rounded-xl border-black border font-bold hover:bg-slate-500 hover:text-white"
                                 onClick={() => {
                                     setFromGeneralToGroup(courseSelected["id"])
                                     setGeneralButton("")

@@ -128,13 +128,13 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
                             className='flex flex-col justify-center px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <p className='text-2xl'>
                                 Etiqueta con mejores resultados.</p>
-                            <p className='lg:text-7xl text-2xl font-bold my-5'>Etiqueta {values["bestTag"]}</p>
+                            <p className='lg:text-7xl text-3xl font-bold my-5'>Etiqueta {values["bestTag"]}</p>
                         </div>
                         <div
                             className='flex flex-col justify-center px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <p className='text-2xl'>
                                 Etiqueta con peores resultados.</p>
-                            <p className='lg:text-7xl text-2xl font-bold my-5'>Etiqueta {values["worstTag"]}</p>
+                            <p className='lg:text-7xl text-3xl font-bold my-5'>Etiqueta {values["worstTag"]}</p>
                         </div>
                         <div className='px-2 lg:col-span-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
                             <div className='flex flex-col justify-between'>
