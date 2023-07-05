@@ -27,7 +27,7 @@ function ResultBar({ values }) {
                 },
                 {
                     label: 'No enviadas',
-                    data: values["NoSended"],
+                    data: values["noSended"],
                     backgroundColor: 'rgb(201, 203, 207)',
                     borderWidth: 1,
                     borderRadius: 2,

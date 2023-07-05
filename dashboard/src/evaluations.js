@@ -54,6 +54,7 @@ function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
                 setWaitingState(false);
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function reloadView(id){
@@ -62,6 +63,66 @@ function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
             defId = id
         }
         startFetch(`dashboard/evaluation/${defId}/`, 'GET', null, function(data) {
+            let questionsNumbers = []
+            let realQuestionsNumbers = []
+            let correct = []
+            let incorrect = []
+            let noSended = []
+            let questionsInfo = data["questions_analysis"]["results_by_question"]
+            for (let i in questionsInfo){
+                questionsNumbers.push(questionsInfo[i]["question"])
+                correct.push(questionsInfo[i]["c"])
+                incorrect.push(questionsInfo[i]["i"])
+                noSended.push(questionsInfo[i]["n"])
+            }
+            if (questionsInfo !== []){
+                startFetch(`evaluations/${defId}/`, 'GET', null, function(data) {
+                    for (let i in questionsNumbers){
+                        startFetch(`tests/${data["test_id"]}/questions/${questionsInfo[i]["question"]}/`, 'GET', null, function(data) {
+                            realQuestionsNumbers.push(data["order"])
+                            if (realQuestionsNumbers.length === questionsNumbers.length){
+                                let diccionario = {"questionsNumbers":realQuestionsNumbers, "correct":correct, "incorrect":incorrect, "noSended":noSended }
+                                const length = diccionario.questionsNumbers.length;
+
+                                const indicesOrdenados = Array.from(Array(length).keys()).sort((a, b) => {
+                                const aFifth = diccionario.questionsNumbers[a];
+                                const bFifth = diccionario.questionsNumbers[b];
+                                
+                                return aFifth - bFifth;
+                                });
+
+                                for (let key in diccionario) {
+                                    diccionario[key] = indicesOrdenados.map(index => diccionario[key][index]);
+                                }
+                                setNewPorcentualDistribution(diccionario)
+
+                                let maxIncorrectIndex = 0;
+                                for (let i = 1; i < diccionario.incorrect.length; i++) {
+                                if (diccionario.incorrect[i] > diccionario.incorrect[maxIncorrectIndex]) {
+                                    maxIncorrectIndex = i;
+                                }
+                                }
+
+                                const maxIncorrectQuestionNumber = diccionario.questionsNumbers[maxIncorrectIndex];
+
+                                let maxCorrectIndex = 0;
+                                for (let i = 1; i < diccionario.correct.length; i++) {
+                                if (diccionario.correct[i] > diccionario.correct[maxCorrectIndex]) {
+                                    maxCorrectIndex = i;
+                                }
+                                }
+
+                                const maxCorrectQuestionNumber = diccionario.questionsNumbers[maxCorrectIndex];
+
+                                setNewBestQuestion(maxCorrectQuestionNumber)
+                                setNewWorstQuestion(maxIncorrectQuestionNumber)
+
+                            }
+                        });
+                    }
+                });
+                
+            }
             setNewParticipationInEvaluation(percentajeFormater(data["participation_percentage"]))
             setNewMeanOfActualEvaluation(percentajeFormater(data["actual_and_historical_results"]["actual_results"])) 
             setNewMeanOfHistoricalEvaluations(percentajeFormater(data["actual_and_historical_results"]["historical_results"]))     
@@ -90,22 +151,6 @@ function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
             setNewIncorrectAnswer(data["results"]["incorrect"])
             setNewNoAnswer(data["results"]["no_answer"])
             setNewTotal(data["results"]["total"])
-            let questionsNumbers = []
-            let correct = []
-            let incorrect = []
-            let noSended = []
-            let questionsInfo = data["questions_analysis"]["results_by_question"]
-            for (let i in questionsInfo){
-                questionsNumbers.push(questionsInfo[i]["question"])
-                correct.push(questionsInfo[i]["c"])
-                incorrect.push(questionsInfo[i]["i"])
-                noSended.push(questionsInfo[i]["n"])
-            }
-            setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct, "incorrect":incorrect, "noSended":noSended })
-            if (questionsInfo !== []){
-                setNewBestQuestion(questionsInfo[0]["question"])
-                setNewWorstQuestion(questionsInfo.reverse()[0]["question"])
-            }
             setWaitingState(false);
             setEvaluationData("active")
         });
@@ -114,6 +159,7 @@ function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
         if (evaluationData !== ""){
             reloadView(fromGroupToEval);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [ws]);
     return (
     <> {
