@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DragAndDrop from '../util/UploadFiles';
+import LogoUpload from '../util/UploadFiles';
 import ColorPicker from '../util/ColorSelection';
 import startFetch from '../../../../API';
 
@@ -38,7 +38,7 @@ function AddGroup({setGroups}) {
     setCurrentPage(1);
     toggleModelOpen();
     e.preventDefault();
-    let body = { "name": groupName, "background_color": backgroundColor, "text_font_color": textColor, "logo": logo } 
+    let body = { "name": groupName, "background_color": backgroundColor, "text_font_color": textColor} 
     console.log(body);// Add visual styles for the group
     startFetch(`courses/`, 'POST', JSON.stringify(body), function(data) {
       body = { "name": studentName, "last_name":studentLastName, "mail":studentEmail}
@@ -142,7 +142,7 @@ function AddGroup({setGroups}) {
                   >
                     Logo de Grupo
                   </label>
-                  <DragAndDrop setLogo={setLogo} />
+                  <LogoUpload setLogo={setLogo} />
                 </div>
                 <div className="flex justify-end mt-6">
                   <button onClick={goToNextPage}

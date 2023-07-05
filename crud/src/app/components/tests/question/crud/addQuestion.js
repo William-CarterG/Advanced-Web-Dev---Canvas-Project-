@@ -40,6 +40,7 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
                     setFormatedChoices([correct]);
                 }
                 body = {"options": formatedChoices}
+                console.log(body)
                 startFetch(`tests/${item.id}/questions/${data.id}/answer-options/`, 'POST', JSON.stringify(body), function(data) {
                     startFetch(`tests/`, 'GET', null, function(data) {
                         setTests(data);

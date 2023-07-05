@@ -1,7 +1,7 @@
 import React, { useState,  useEffect } from 'react';
 import StudentTableComponent from './students/StudentTable';
 import ColorPicker from './util/ColorSelection';
-import DragAndDrop from './util/UploadFiles';
+import ImageUploadButton from './util/UploadFiles';
 import startFetch from '../../../API';
 import AddStudentFromFile from './students/crud/addStudentFromFile';
 
@@ -66,7 +66,7 @@ function ViewGroup({ closeViewGroupModal, id, setGroups }) {
             console.log(data);
           });
         }
-      }, [currentPage, id]);
+      }, [currentPage]);
        //aqui agregue id para evitar un error
     const fakeUserData = students;
     const toggleModelOpen = () => {
@@ -196,7 +196,7 @@ function ViewGroup({ closeViewGroupModal, id, setGroups }) {
                             <div>
                                 {editMode ? (
                                     <div className=''>
-                                        <DragAndDrop prevLogo={logo} setLogo={setLogo}/>
+                                        <ImageUploadButton setLogo={setLogo} />
                                         <button
                                     onClick={togglEditMode}
                                     className="mt-2 text-sm text-gray-500 hover:text-gray-700 focus:outline-none"
