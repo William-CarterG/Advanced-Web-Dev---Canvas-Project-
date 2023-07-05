@@ -5,7 +5,7 @@ import Homepage from './components/Homepage.js';
 import Questions from './components/Questions.js';
 import Finished from './components/Finished.js';
 
-const App = ({indexValue, fullName, evaluation, questionsa, evToken, tokenState, ended, personTestId}) => {
+const App = ({matrixChoice, indexValue, fullName, evaluation, questionsa, evToken, tokenState, ended, personTestId}) => {
   const [index, setIndex] = useState(indexValue);
 
   let routeValue = ""
@@ -51,7 +51,7 @@ const App = ({indexValue, fullName, evaluation, questionsa, evToken, tokenState,
             // do nothing
           
         }
-        return <Questions question={questionsa[index]} index={index} setIndex={setIndex} countOfQuestions={questionsa.length} description={typeMessage} setRoute={setRoute} evToken={evToken} tokenState={tokenState} personTestId={personTestId}/>;
+        return <Questions matrixChoice={matrixChoice} question={questionsa[index]} index={index} setIndex={setIndex} countOfQuestions={questionsa.length} description={typeMessage} setRoute={setRoute} evToken={evToken} tokenState={tokenState} personTestId={personTestId}/>;
       default:
         // do nothing
       
