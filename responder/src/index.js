@@ -63,7 +63,19 @@ if (evToken) {
       let groupId = data["group_id"]
       startFetch(`courses/${groupId}/`, 'GET', null, function(data) {
           let fontColor = String(data["text_font_color"])
+          if (fontColor === "null"){
+            fontColor = "#ffffff"
+          }
+          if (fontColor === "undefined"){
+            fontColor = "#ffffff"
+          }
           let bgColor = String(data["background_color"])
+          if (bgColor === "null"){
+            bgColor = "#374151"
+          }
+          if (bgColor === "undefined"){
+            bgColor = "#374151"
+          }
           startFetch(`courses/${groupId}/members/${fetchedPersonId}`, 'GET', null, function(data) {
             fetchedfullName = data["name"] + " " + data["last_name"];
             startFetch(`tests/${fetchedevaluation["test_id"]}`, 'GET', null, function(data) {
