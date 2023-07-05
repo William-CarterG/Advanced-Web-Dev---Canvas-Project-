@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import startFetch from '../../../../../API';
 import Papa from 'papaparse';
+import * as XLSX from 'xlsx';
 
 // Allowed extensions for input file
-const allowedExtensions = ['csv'];
+const allowedExtensions = ['csv', 'xlsx'];
 
-function AddStudentFromFile({ id, setStudents, setGroups }) {
+function AddStudentFromFile({ id }) {
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
 
@@ -14,10 +15,10 @@ function AddStudentFromFile({ id, setStudents, setGroups }) {
 
     if (e.target.files.length) {
       const inputFile = e.target.files[0];
-      const fileExtension = inputFile?.type.split('/')[1];
+      const fileExtension = inputFile?.name.split('.').pop();
 
       if (!allowedExtensions.includes(fileExtension)) {
-        setError('Please input a csv file');
+        setError('Please input a csv or xlsx file');
         return;
       }
 
@@ -25,25 +26,39 @@ function AddStudentFromFile({ id, setStudents, setGroups }) {
 
       const reader = new FileReader();
       reader.onload = async ({ target }) => {
-        const csv = Papa.parse(target.result, { header: true });
-        const parsedData = csv?.data;
+        if (fileExtension === 'csv') {
+          const csvData = Papa.parse(target.result, { header: true });
+          const parsedData = csvData?.data;
 
-        parsedData.forEach((row) => {
-          let body = { name: row['NOMBRE'], last_name: row['APELLIDO'], mail: row['EMAIL'] };
-          console.log(JSON.stringify(body));
-          startFetch(`courses/${id}/members/`, 'POST', JSON.stringify(body), function (data) {});
-        });
-
-
-        startFetch(`courses/${id}/members/`, 'GET', null, function (data) {
-          setStudents(data);
-          startFetch(`courses/`, 'GET', null, function(data) {
-            setGroups(data);
+          parsedData.forEach((row) => {
+            let body = { name: row['NOMBRE'], last_name: row['APELLIDO'], mail: row['EMAIL'] };
+            console.log(JSON.stringify(body));
+            startFetch(`courses/${id}/members/`, 'POST', JSON.stringify(body), function (data) {});
           });
-        });
+        }
+
+        if (fileExtension === 'xlsx') {
+          const data = new Uint8Array(target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const sheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[sheetName];
+          const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+          jsonData.forEach((row) => {
+            let body = { name: row['NOMBRE'], last_name: row['APELLIDO'], mail: row['EMAIL'] };
+            console.log(JSON.stringify(body));
+            startFetch(`courses/${id}/members/`, 'POST', JSON.stringify(body), function (data) {});
+          });
+        }
       };
 
-      reader.readAsText(inputFile);
+      if (fileExtension === 'csv') {
+        reader.readAsText(inputFile);
+      }
+
+      if (fileExtension === 'xlsx') {
+        reader.readAsArrayBuffer(inputFile);
+      }
     }
   };
 
