@@ -15,8 +15,8 @@ function Evaluations({evaluationData, setEvaluationData}) {
     const [newParticipationInEvaluation, setNewParticipationInEvaluation] = useState(78);
     const [newDifficultyInEvaluation, setNewDifficultyInEvaluation] = useState({0: {"correct":0,"incorrect":0,"noSended":0}, 1: {"correct":0,"incorrect":0,"noSended":0}, 2:{"correct":0,"incorrect":0,"noSended":0}});
     const [newTagsInEvaluation, setNewTagsInEvaluation] = useState({"No hay tags disponibles":{correct:0,incorrect:0,noSended:0}});
-    const [newBestQuestion, setNewBestQuestion] = useState(2);
-    const [newWorstQuestion, setNewWorstQuestion] = useState(4);
+    const [newBestQuestion, setNewBestQuestion] = useState(0);
+    const [newWorstQuestion, setNewWorstQuestion] = useState(0);
     const [newMeanOfActualEvaluation, setNewMeanOfActualEvaluation] = useState(77);
     const [newMeanOfHistoricalEvaluations, setNewMeanOfHistoricalEvaluations] = useState(82);
     const [newCorrectAnswer, setNewCorrectAnswer] = useState(58);
@@ -182,7 +182,6 @@ function Evaluations({evaluationData, setEvaluationData}) {
                                         onClick={() => {
                                         setWaitingState(true);
                                         startFetch(`dashboard/evaluation/${selected["id"]}/`, 'GET', null, function(data) {
-                                            console.log(data)
                                             setNewParticipationInEvaluation(percentajeFormater(data["participation_percentage"]))
                                             setNewMeanOfActualEvaluation(percentajeFormater(data["actual_and_historical_results"]["actual_results"])) 
                                             setNewMeanOfHistoricalEvaluations(percentajeFormater(data["actual_and_historical_results"]["historical_results"]))     
@@ -222,10 +221,11 @@ function Evaluations({evaluationData, setEvaluationData}) {
                                                 incorrect.push(questionsInfo[i]["i"])
                                                 noSended.push(questionsInfo[i]["n"])
                                             }
-                                            console.log(questionsNumbers,correct,incorrect,noSended)
                                             setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct, "incorrect":incorrect, "noSended":noSended })
-                                            setNewBestQuestion(questionsInfo[0]["question"])
-                                            setNewWorstQuestion(questionsInfo.reverse()[0]["question"])
+                                            if (questionsInfo === []){
+                                                setNewBestQuestion(questionsInfo[0]["question"])
+                                                setNewWorstQuestion(questionsInfo.reverse()[0]["question"])
+                                            }
                                             setWaitingState(false);
                                             setEvaluationData("active")
                                         });

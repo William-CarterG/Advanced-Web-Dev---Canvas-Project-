@@ -10,10 +10,10 @@ function Groups({groupData, setGroupData}) {
     const [allGroups, setAllGroups] = useState(null);
     const [selected,setSelected] = useState("");
     const [newPorcentualDistribution, setNewPorcentualDistribution] = useState({questionsNumbers:[1,2,3,4,5,6,7], correct:[1,2,3,4,5,6,7], incorrect:[5,12,5,7,1,2,2]});
-    const [newGroupEvaluations] = useState({1: {participant_name:"Matematicas Conicas", finished_tests:-1}, 2:{participant_name:"Mecanica", finished_tests:-1}, 3:{participant_name:"Pensamiento Critico", finished_tests:-1}});//, setNewGroupEvaluations
+    const [newGroupEvaluations, setNewGroupEvaluations] = useState({1: {participant_name:"Matematicas Conicas", finished_tests:-1}, 2:{participant_name:"Mecanica", finished_tests:-1}, 3:{participant_name:"Pensamiento Critico", finished_tests:-1}});
     const [newActive, setNewActive] = useState({1: {participant_name:"Juan Perez", finished_tests:3}, 2:{participant_name:"John Doe", finished_tests:3}, 3:{participant_name:"Andrew Leiva", finished_tests:3}});
-    const [newBestTag, setNewBestTag] = useState("A");
-    const [newWorstTag, setNewWorstTag] = useState("D");
+    const [newBestTag, setNewBestTag] = useState("");
+    const [newWorstTag, setNewWorstTag] = useState("");
     const [newAnswers, setNewAnswers] = useState({1: {participant_name:"Juan Perez", finished_tests:82}, 2:{participant_name:"Andrew Leiva", finished_tests:73}, 3:{participant_name:"John Doe", finished_tests:58}});
 
     useEffect(() => {
@@ -110,8 +110,19 @@ function Groups({groupData, setGroupData}) {
                                 onClick={() => {
                                     setWaitingState(true);
                                     startFetch(`dashboard/group/${selected["id"]}/`, 'GET', null, function(data) {
-                                        setNewActive(data["participation_ranking"])
-                                        setNewAnswers(data["results_ranking"])
+                                        let groupEvals = []
+                                        for (let i in data["participation_ranking"]){
+                                            let insideDict = {"name":data["participation_ranking"][i]["participant_name"], "count":data["participation_ranking"][i]["finished_tests"]} 
+                                            groupEvals.push(insideDict)
+                                        }
+                                        setNewActive(groupEvals)
+
+                                        groupEvals = []
+                                        for (let i in data["results_ranking"]){
+                                            let insideDict = {"name":data["results_ranking"][i]["participant_name"], "count":data["results_ranking"][i]["correct_count"]} 
+                                            groupEvals.push(insideDict)
+                                        }
+                                        setNewAnswers(groupEvals)
                                         let questionsNumbers = []
                                         let correct = []
                                         for (let i in data["group_results_by_tests"]){
@@ -119,10 +130,20 @@ function Groups({groupData, setGroupData}) {
                                             correct.push(data["group_results_by_tests"][i]["correct_count"])
                                         }
                                         setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct})
-                                        setNewBestTag(data["tags_ranking"].slice(0, 1)[0]["question__tags"])
-                                        setNewWorstTag(data["tags_ranking"].reverse().slice(0, 1)[0]["question__tags"])
-                                        setWaitingState(false);
-                                        setGroupData("data")
+                                        if (String(data["tags_ranking"]) !== ""){
+                                            setNewBestTag(data["tags_ranking"].slice(0, 1)[0]["question__tags"])
+                                            setNewWorstTag(data["tags_ranking"].reverse().slice(0, 1)[0]["question__tags"])
+                                        }
+                                        startFetch(`evaluations/?search=${selected["id"]}`, 'GET', null, function(data) {
+                                            groupEvals = []
+                                            for (let i in data){
+                                                let insideDict = {"name":data[i]["name"], "count":-1, "id":data[i]["id"]} 
+                                                groupEvals.push(insideDict)
+                                            }
+                                            setNewGroupEvaluations(groupEvals)
+                                            setWaitingState(false);
+                                            setGroupData("data")
+                                        });
                                     });
                             }}>Enviar</button>
                         </div>

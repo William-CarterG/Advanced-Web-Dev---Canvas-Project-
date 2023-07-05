@@ -35,7 +35,7 @@ function General() {
             "resultByDifficulty": newResultByDifficulty,
 
         }));
-    }, [newHorizontalBar, newActiveEvaluations, newDailyAnswers, newHistoricalParticipation, newAskedVsTotal, newMountEvaluations, newCompleteMountEvaluation, newEvaluations, newResultByDifficulty]);
+    }, [newHorizontalBar, newActiveEvaluations, newDailyAnswers, newCompletedActiveEvaluations, newHistoricalParticipation, newAskedVsTotal, newMountEvaluations, newCompleteMountEvaluation, newEvaluations, newResultByDifficulty]);
     
     const [waitingState, setWaitingState] = useState(true);
     useEffect(() => {
@@ -60,8 +60,8 @@ function General() {
                 mountValues[mount[i]["month"]-1] = mount[i]["total"]
             }
             setNewCompleteMountEvaluation(mountValues)
-            let arrayBestWorst = Object.entries(data[0]["historical_best_worst_results"]).map(([participant_name, finished_tests]) => {
-                return { participant_name, finished_tests };
+            let arrayBestWorst = Object.entries(data[0]["historical_best_worst_results"]).map(([name, count]) => {
+                return { name, count };
             });
             setNewEvaluations(arrayBestWorst.reverse())
             setWaitingState(false);
