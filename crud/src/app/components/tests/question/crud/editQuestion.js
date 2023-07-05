@@ -13,30 +13,51 @@ const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
     const [difficulty, setDifficulty] = useState('');
     const [tags, setTags] = useState([]);
     const [questionId, setQuestionId] = useState(null);
+    const [changesOptionsId, setChangeOptionsId] = useState(null);
+
+    const [formatedChoices, setFormatedChoices] = useState([]);
+    useEffect(() => {
+        let s = ""
+        for (let i in alternatives){
+            if (alternatives[i] !== ""){
+                s += alternatives[i]+";"
+            }
+        }
+        let newStr = s.slice(0, s.length - 1);
+        setFormatedChoices(newStr)
+    }, [alternatives]);
 
     const handleSaveEdit = () => {
-        /*
-        let realCorrect = answer;
-        if(data.question_type === "Verdadero o Falso"){
-            let parent = document.getElementById("alternativa"+correct).parentNode;
-            realCorrect = (parent.childNodes[1].firstChild.value);
-        }
-        */
         //formatedChoices
         let body = {"difficulty":difficulty, "text": question, "correct_answer": answer, "tags": tags};
         console.log(body);
         startFetch(`tests/${testId}/questions/${questionId}/`, 'PATCH', JSON.stringify(body), function(data) {
-            /*
-            if (!formatedChoices){
-                setFormatedChoices([correct]);
+            console.log(data)
+            if(data.question_type === 1){
+                if (!formatedChoices){
+                    setFormatedChoices([answer]);
+                }
+                
+                body = {"options": alternatives}
+                startFetch(`tests/${testId}/questions/${data.id}/answer-options/${changesOptionsId}/`, 'PATCH', JSON.stringify(body), function(data) {
+                    startFetch(`tests/`, 'GET', null, function(data) {
+                        setTests(data);
+                    });
+                });
             }
-            */
-            // body = {"options": alternatives}
-            // startFetch(`tests/${testId}/questions/${data.id}/answer-options/`, 'PATCH', JSON.stringify(body), function(data) {
-            //     startFetch(`tests/`, 'GET', null, function(data) {
-            //         setTests(data);
-            //     });
-            // });
+            else if ( data.question_type === 4 | data.question_type === 2){
+                body = {"options": alternatives}
+                startFetch(`tests/${testId}/questions/${data.id}/answer-options/`, 'POST', JSON.stringify(body), function(data) {
+                    startFetch(`tests/`, 'GET', null, function(data) {
+                        setTests(data);
+                    });
+                });
+            }
+            else{
+                startFetch(`tests/`, 'GET', null, function(data) {
+                    setTests(data);
+                });
+            }
         });
         toggleModelOpen();
     };
@@ -47,8 +68,16 @@ const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
 
         setQuestion(data.text);
 
-        setAlternatives(data.options);
-
+        if (data.question_type !== 'Verdadero y Falso'){
+            if (data.options.length > 1){
+                setAlternatives(data.options[(data.options.length)-1].options);
+                setChangeOptionsId(data.options[(data.options.length)-1].id)
+            }
+            setAlternatives(data.options[(data.options.length)-1]);
+        }
+        else{
+            setAlternatives([0,1]);
+        }
         setAnswer(data.correct_answer);
 
         if (data.difficulty === 'Baja') {
