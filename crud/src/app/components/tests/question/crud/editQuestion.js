@@ -23,9 +23,9 @@ const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
         }
         */
         //formatedChoices
-        let body = {"question_type": data.question_type,"difficulty":difficulty, "text": question, "correct_answer": answer, "tags": tags};
+        let body = {"difficulty":difficulty, "text": question, "correct_answer": answer, "tags": tags};
         console.log(body);
-        startFetch(`tests/${testId}/questions/${questionId}/`, 'PUT', JSON.stringify(body), function(data) {
+        startFetch(`tests/${testId}/questions/${questionId}/`, 'PATCH', JSON.stringify(body), function(data) {
             /*
             if (!formatedChoices){
                 setFormatedChoices([correct]);
@@ -108,7 +108,7 @@ const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
                         <label htmlFor="questionName" className="block text-gray-600">
                             Pregunta:
                         </label>
-                        <RenderQuestion data={data}/>
+                        <RenderQuestion data={data} setQuestionData={setQuestion} />
                         </div>
                     )}
                     <div className='flex flex-row'>
@@ -134,7 +134,7 @@ const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
                         </div>
                         <div className="ml-10">
                             <label htmlFor="difficulty" className="mr-2 mb-2 block text-gray-600">
-                                Dificultad: {difficulty}
+                                Dificultad:
                             </label>
                             <select
                                 id="difficulty"

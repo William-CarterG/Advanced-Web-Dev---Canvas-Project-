@@ -7,7 +7,7 @@ import startFetch from '../../../../../API';
 // creating a good part of this modal window. 
 function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
     const [choices, setChoices] = useState([]);
-    const [correct, setCorrect] = useState([]);
+    const [correct, setCorrect] = useState(0);
     const [name, setName] = useState([]);
     const [difficulty, setDifficulty] = useState(1);
     const [type, setType] = useState(0);
@@ -28,10 +28,9 @@ function AddTestQuestion( {toggleModelOpen, setTests, item} ) {
 
     const handleTestNameSaveClick = () => {
         let realCorrect = correct;
-        if(type === 0){
-            let parent = document.getElementById("a"+correct).parentNode;
-            realCorrect = (parent.childNodes[1].firstChild.value);
-        }
+        if (type === 0 && correct === 0) {
+            realCorrect = 'Verdadero';
+        }        
         //formatedChoices
         let body = {"question_type":type,"difficulty":difficulty, "text": name, "correct_answer":realCorrect, "tags": tags};
         console.log(body)
