@@ -65,12 +65,12 @@ const RenderAlternatives = ({ data, setAlternatives, setAnswer }) => {
         <div>
           {options.map((alternative, index) => (
             <div key={index} className="flex items-center" id={`alternativa${index}`}>
-              <input
+              {selectedTab !== 'matrix' && <input
                 type="radio"
                 onChange={() => handleOptionSelection(index)}
                 className="w-4 h-4 mr-2"
                 checked={index === correctChoice}
-              />
+              />}
               <input
                 type="text"
                 value={alternative}
