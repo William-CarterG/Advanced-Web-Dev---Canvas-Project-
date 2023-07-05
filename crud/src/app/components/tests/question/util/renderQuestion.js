@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const RenderQuestion = ({ data }) => {
+const RenderQuestion = ({ data, setQuestionData }) => {
   const [editingquestion, setEditingQuestion] = useState(false);
   const [question, setQuestion] = useState('');
+
+  const handleChangeQuestion = () => {
+    setEditingQuestion(false);
+    setQuestionData(question);
+  }
 
   useEffect(() => {
     setQuestion(data.text);
@@ -17,7 +22,7 @@ const RenderQuestion = ({ data }) => {
           onChange={(e) => setQuestion(e.target.value)}
           className="block w-full px-3 py-2 mt-2 text-gray-600 placeholder-gray-400 bg-white text-black border border-gray-200 rounded-md focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
         />
-        <button onClick={() => setEditingQuestion(false)} className="flex items-center ml-2 mb-5 mt-1">
+        <button onClick={handleChangeQuestion} className="flex items-center ml-2 mb-5 mt-1">
           <svg
             className="h-6 w-6"
             fill="none"

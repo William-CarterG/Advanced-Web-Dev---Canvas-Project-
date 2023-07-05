@@ -14,7 +14,7 @@ const QuestionsTable = ({ item, setTests }) => {
         setQuestionData(data);
       });
     }
-  }, [item.id]); //aqui hice un cambio para que no tirara error
+  }, [questionData]); //aqui hice un cambio para que no tirara error
 
   function handleDeleteQuestion(question_id){
     startFetch(`tests/${item.id}/questions/${question_id}/`, 'DELETE', null, function(data) {

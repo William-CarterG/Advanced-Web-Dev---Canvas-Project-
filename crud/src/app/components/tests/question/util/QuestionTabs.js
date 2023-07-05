@@ -89,8 +89,10 @@ const QuestionTabs = ({ setChoices, setName, setDifficulty, setCorrect, setType,
   const handleOptionSelection = (index) => {
     setCorrect(alternatives[index]); setCorrectChoice(index);
     if (selectedTab === 'verdaderoFalso'){
-      setCorrect(index);
-      setChoices([0,1]);
+      const correctValue = index === 0 ? 'Verdadero' : 'Falso';
+      setCorrect(correctValue);
+      setCorrectChoice(index);
+      setChoices([0, 1]);
     }
     else{
       setChoices(alternatives); 
