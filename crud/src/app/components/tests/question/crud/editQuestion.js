@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RenderQuestion from '../util/renderQuestion';
 import RenderAlternatives from '../util/renderAlternatives';
+import RenderMatrixQuestions from '../util/renderMatrixQuestions';
 import Tags from '../../tags/Tags';
 import startFetch from '../../../../../API';
 // import startFetch from '../../../../../API';
@@ -11,6 +12,7 @@ const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
     const [answer, setAnswer] = useState('');
     const [difficulty, setDifficulty] = useState('');
     const [tags, setTags] = useState([]);
+    const [questionId, setQuestionId] = useState(null);
 
     const handleSaveEdit = () => {
         /*
@@ -22,24 +24,27 @@ const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
         */
         //formatedChoices
         let body = {"question_type": data.question_type,"difficulty":difficulty, "text": question, "correct_answer": answer, "tags": tags};
-        startFetch(`tests/${testId}/questions/`, 'PATCH', JSON.stringify(body), function(data) {
+        console.log(body);
+        startFetch(`tests/${testId}/questions/${questionId}/`, 'PUT', JSON.stringify(body), function(data) {
             /*
             if (!formatedChoices){
                 setFormatedChoices([correct]);
             }
             */
-            body = {"options": alternatives}
-            startFetch(`tests/${testId}/questions/${data.id}/answer-options/`, 'PATCH', JSON.stringify(body), function(data) {
-                startFetch(`tests/`, 'GET', null, function(data) {
-                    setTests(data);
-                });
-            });
+            // body = {"options": alternatives}
+            // startFetch(`tests/${testId}/questions/${data.id}/answer-options/`, 'PATCH', JSON.stringify(body), function(data) {
+            //     startFetch(`tests/`, 'GET', null, function(data) {
+            //         setTests(data);
+            //     });
+            // });
         });
         toggleModelOpen();
     };
 
     useEffect(() => {
         console.log(data);
+        setQuestionId(data.id);
+
         setQuestion(data.text);
 
         setAlternatives(data.options);
@@ -53,7 +58,9 @@ const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
         } else if (data.difficulty === 'Alta') {
             setDifficulty(2);
         }  
-    }, [data]);
+
+        setTags(data.tags)
+    }, []);
 
     return (
         <div
@@ -105,6 +112,14 @@ const EditTestQuestion = ({ toggleModelOpen, data, testId, setTests }) => {
                         </div>
                     )}
                     <div className='flex flex-row'>
+                        {data.question_type === 'Matriz' && (
+                            <div>
+                                <label htmlFor="questionName" className="block text-gray-600">
+                                    Pregunta:
+                                </label>
+                                <RenderMatrixQuestions data={data} setAnswer={setAnswer} setQuestion={setQuestion} />
+                            </div>
+                        )}
                         <div>
                             {data.question_type !== 'numerical' ? (
                                 <label htmlFor="alternatives" className=" block text-gray-600">

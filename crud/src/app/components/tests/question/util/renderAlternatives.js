@@ -7,10 +7,26 @@ const RenderAlternatives = ({ data, setAlternatives, setAnswer }) => {
 
     useEffect(() => {
         setSelectedTab(data.question_type);
-        setOptions(data.options);
-
-        const correctChoiceIndex = data.options.indexOf(data.correct_answer);
-        setCorrectChoice(correctChoiceIndex);
+        console.log(data.options)
+        if (data.options && data.question_type === "Alternativas" ){
+          setOptions(data.options[0].options.split(";"));
+          const correctChoiceIndex = data.options.indexOf(data.correct_answer);
+          setCorrectChoice(correctChoiceIndex);
+        }
+        else if (data.options && data.question_type === "Semi-abierta" ){
+          setOptions(data.options[0].options.split(";"));
+          const correctChoiceIndex = data.options.indexOf(data.correct_answer);
+          setCorrectChoice(correctChoiceIndex);
+        }
+        else if (data.options && data.question_type === "Matriz" ){
+          setOptions(data.options[0].options.split(";"));
+          const correctChoiceIndex = data.options.indexOf(data.correct_answer);
+          setCorrectChoice(correctChoiceIndex);
+        }
+        else if (data.question_type === "Verdadero o Falso") {
+          let boolIndex = (data.correct_answer === 'Falso') ? 1 : 0;
+          setCorrectChoice(boolIndex);
+        }
         
     }, [data]);
     
@@ -36,7 +52,7 @@ const RenderAlternatives = ({ data, setAlternatives, setAnswer }) => {
     const handleOptionSelection = (index) => { 
         if (selectedTab === 'verdaderoFalso'){
             setAnswer(index);
-            setOptions([0,1]);
+            setCorrectChoice(index);
         }
         else{
             setAnswer(options[index]);
@@ -58,6 +74,7 @@ const RenderAlternatives = ({ data, setAlternatives, setAnswer }) => {
               <input
                 type="text"
                 value={alternative}
+                onClick={() => console.log(alternative[0].options)}
                 onChange={(e) => handleAlternativeChange(e, index)}
                 className="block w-full px-3 py-2 mt-1 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
               />
@@ -142,7 +159,7 @@ const RenderAlternatives = ({ data, setAlternatives, setAnswer }) => {
         <div>
           <input
             type="number"
-            placeholder="Enter numerical value"
+            placeholder={data.correct_answer}
             onChange={(event) => setAnswer(event.target.value)}
             className="block w-full px-3 py-2 mt-1 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
           />

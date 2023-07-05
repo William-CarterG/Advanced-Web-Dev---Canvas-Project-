@@ -5,9 +5,10 @@ const RenderMatrixQuestions = ( { data, setAnswer, setQuestion } ) => {
     const [matrixAnswers, setMatrixAnswers] = useState([]);
 
     useEffect(() => {
-        setMatrixQuestions(data.options);
+        setMatrixQuestions(data.text.split(';'));
+        setMatrixAnswers(data.correct_answer.split(';'))
         //setMatrixAnswers(data.)
-    })
+    }, [data])
 
     const handleMatrixQuestionChange = (e, index) => {
         const updatedMatrixQuestions = [...matrixQuestions];
@@ -46,6 +47,11 @@ const RenderMatrixQuestions = ( { data, setAnswer, setQuestion } ) => {
         setAnswer(concatenatedValues);
     };
 
+    const handleAddMatrixQuestion = () => {
+      const newMatrixQuestion = `Nueva Pregunta`;
+      setMatrixQuestions([...matrixQuestions, newMatrixQuestion]);
+  };
+
     return (
       <div className='mr-6'>
         {matrixQuestions.map((matrixQuestion, index) => (
@@ -59,7 +65,7 @@ const RenderMatrixQuestions = ( { data, setAnswer, setQuestion } ) => {
             {/* Delete alternative */}
             <input
               type="text"
-              placeholder={"Nueva respuesta"}
+              placeholder={matrixAnswers[index] ? matrixAnswers[index] : "Nueva respuesta"}
               onChange={(e) => handleMatrixQuestionAnswers(e, index)}
               className="nueva-respuesta-input block w-full px-3 py-2 mt-1 text-gray-600 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-indigo-300 focus:ring-opacity-40"
             />
