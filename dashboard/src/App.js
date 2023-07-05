@@ -90,13 +90,15 @@ function App() {
                                     id="evaluationsButton"
                                     className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group hover:font-bold ${evaluationsButton}`}
                                     onClick={() => {
-                                    setGeneralButton("")
-                                    setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
-                                    setGroupsButton("")
-                                    setEvaluationData("")
-                                    setFromGeneralToGroup(false)
-                                    setFromGroupToEval(false)
-                                    setRoute('evaluations')
+                                        if(evaluationsButton === ""){
+                                            setGeneralButton("")
+                                            setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
+                                            setGroupsButton("")
+                                            setEvaluationData("")
+                                            setFromGeneralToGroup(false)
+                                            setFromGroupToEval(false)
+                                            setRoute('evaluations')
+                                        }
                                 }}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -120,13 +122,16 @@ function App() {
                                     id="groupsButton"
                                     className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group hover:font-bold ${groupsButton}`}
                                     onClick={() => {
-                                    setGeneralButton("")
-                                    setEvaluationsButton("")
-                                    setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
-                                    setGroupData("")
-                                    setFromGeneralToGroup(false)
-                                    setFromGroupToEval(false)
-                                    setRoute('groups')
+                                        
+                                        if(groupsButton === ""){
+                                            setGeneralButton("")
+                                            setEvaluationsButton("")
+                                            setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
+                                            setGroupData("")
+                                            setFromGeneralToGroup(false)
+                                            setFromGroupToEval(false)
+                                            setRoute('groups')
+                                        }
                                 }}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -202,13 +207,15 @@ function App() {
                                     id="evaluationsButton"
                                     className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group hover:font-bold ${evaluationsButton}`}
                                     onClick={() => {
-                                    setGeneralButton("")
-                                    setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
-                                    setGroupsButton("")
-                                    setEvaluationData("")
-                                    setFromGeneralToGroup(false)
-                                    setFromGroupToEval(false)
-                                    setRoute('evaluations')
+                                        if(evaluationsButton === ""){
+                                            setGeneralButton("")
+                                            setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
+                                            setGroupsButton("")
+                                            setEvaluationData("")
+                                            setFromGeneralToGroup(false)
+                                            setFromGroupToEval(false)
+                                            setRoute('evaluations')
+                                        }
                                 }}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -232,13 +239,15 @@ function App() {
                                     id="groupsButton"
                                     className={`px-4 py-3 flex items-center space-x-4 rounded-md text-gray-600 group hover:font-bold ${groupsButton}`}
                                     onClick={() => {
-                                    setGeneralButton("")
-                                    setEvaluationsButton("")
-                                    setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
-                                    setGroupData("")
-                                    setFromGeneralToGroup(false)
-                                    setFromGroupToEval(false)
-                                    setRoute('groups')
+                                        if(groupsButton === ""){
+                                            setGeneralButton("")
+                                            setEvaluationsButton("")
+                                            setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
+                                            setGroupData("")
+                                            setFromGeneralToGroup(false)
+                                            setFromGroupToEval(false)
+                                            setRoute('groups')
+                                        }
                                 }}>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
