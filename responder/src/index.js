@@ -60,31 +60,36 @@ if (evToken) {
     
     startFetch(`evaluations/${fetchedEvaluationId}`, 'GET', null, function(data) {
       fetchedevaluation = data;
-      startFetch(`courses/${data["group_id"]}/members/${fetchedPersonId}`, 'GET', null, function(data) {
-        fetchedfullName = data["name"] + " " + data["last_name"];
-        startFetch(`tests/${fetchedevaluation["test_id"]}`, 'GET', null, function(data) {
-          fetchedquestion = data["questions"];
-          if (isReload === 1){
-            let body = {'answer_data': "n", "question":fetchedquestion[indexValue-1]["id"], "person_test":personTestId}
-            startFetch(`person-tests/${personTestId}/answers/`, 'POST', JSON.stringify(body), function(data) {
+      let groupId = data["group_id"]
+      startFetch(`courses/${groupId}/`, 'GET', null, function(data) {
+          let fontColor = String(data["text_font_color"])
+          let bgColor = String(data["background_color"])
+          startFetch(`courses/${groupId}/members/${fetchedPersonId}`, 'GET', null, function(data) {
+            fetchedfullName = data["name"] + " " + data["last_name"];
+            startFetch(`tests/${fetchedevaluation["test_id"]}`, 'GET', null, function(data) {
+              fetchedquestion = data["questions"];
+              if (isReload === 1){
+                let body = {'answer_data': "n", "question":fetchedquestion[indexValue-1]["id"], "person_test":personTestId}
+                startFetch(`person-tests/${personTestId}/answers/`, 'POST', JSON.stringify(body), function(data) {
+                });
+              }
+              if ( data["questions"].length === parseInt(tokenState[evToken]["index"])){
+                ended = 1
+              } 
+    
+              root.render(
+                <React.StrictMode>
+                  <App fontColor={fontColor} bgColor={bgColor} matrixChoice={matrixChoice} indexValue={indexValue} fullName={fetchedfullName} evaluation={fetchedevaluation} questionsa={fetchedquestion} evToken={evToken} tokenState={tokenState} ended={ended} personTestId={personTestId}/>
+                </React.StrictMode>
+              );
+              
             });
-          }
-          if ( data["questions"].length === parseInt(tokenState[evToken]["index"])){
-            ended = 1
-          } 
-
-          root.render(
-            <React.StrictMode>
-              <App matrixChoice={matrixChoice} indexValue={indexValue} fullName={fetchedfullName} evaluation={fetchedevaluation} questionsa={fetchedquestion} evToken={evToken} tokenState={tokenState} ended={ended} personTestId={personTestId}/>
-            </React.StrictMode>
-          );
+    
+    
+          });
           
         });
-
-
       });
-      
-    });
   });
 }
 

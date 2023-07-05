@@ -6,7 +6,7 @@ import Number from './type/Number.js';
 import Matrix from './type/Matrix.js';
 import startFetch from "../API.js";
 
-const Questions = ({matrixChoice, question, index, setIndex, countOfQuestions, description, setRoute, evToken, tokenState, personTestId}) => {
+const Questions = ({fontColor, bgColor, matrixChoice, question, index, setIndex, countOfQuestions, description, setRoute, evToken, tokenState, personTestId}) => {
     const [select, setSelect] = useState(null);
     const renderQuestion = () => {
         switch (question["question_type"]) {
@@ -43,6 +43,7 @@ const Questions = ({matrixChoice, question, index, setIndex, countOfQuestions, d
                 <div className="flex justify-center w-full">
                     <button
                     className="w-2/3 rounded-lg bg-gray-700 py-3 px-8 text-base font-semibold text-white outline-none"
+                    style={{ color: fontColor, backgroundColor:bgColor }}
                     onClick={() => {
                         let body;
                         let actualAnswer = select

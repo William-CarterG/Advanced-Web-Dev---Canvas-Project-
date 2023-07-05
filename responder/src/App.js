@@ -5,7 +5,7 @@ import Homepage from './components/Homepage.js';
 import Questions from './components/Questions.js';
 import Finished from './components/Finished.js';
 
-const App = ({matrixChoice, indexValue, fullName, evaluation, questionsa, evToken, tokenState, ended, personTestId}) => {
+const App = ({fontColor, bgColor, matrixChoice, indexValue, fullName, evaluation, questionsa, evToken, tokenState, ended, personTestId}) => {
   const [index, setIndex] = useState(indexValue);
 
   let routeValue = ""
@@ -27,7 +27,7 @@ const App = ({matrixChoice, indexValue, fullName, evaluation, questionsa, evToke
   const renderPage = () => {
     switch (route) {
       case 'homepage':
-        return <Homepage setRoute={setRoute} setIndex={setIndex} evaluations={evaluation} evToken={evToken} tokenState={tokenState} personTestId={personTestId}/>;
+        return <Homepage fontColor={fontColor} bgColor={bgColor}  setRoute={setRoute} setIndex={setIndex} evaluations={evaluation} evToken={evToken} tokenState={tokenState} personTestId={personTestId}/>;
       case 'finished':
         return <Finished index={questionsa.length} evToken={evToken} tokenState={tokenState}/>;
       case 'questions':
@@ -51,21 +51,22 @@ const App = ({matrixChoice, indexValue, fullName, evaluation, questionsa, evToke
             // do nothing
           
         }
-        return <Questions matrixChoice={matrixChoice} question={questionsa[index]} index={index} setIndex={setIndex} countOfQuestions={questionsa.length} description={typeMessage} setRoute={setRoute} evToken={evToken} tokenState={tokenState} personTestId={personTestId}/>;
+        return <Questions fontColor={fontColor} bgColor={bgColor}  matrixChoice={matrixChoice} question={questionsa[index]} index={index} setIndex={setIndex} countOfQuestions={questionsa.length} description={typeMessage} setRoute={setRoute} evToken={evToken} tokenState={tokenState} personTestId={personTestId}/>;
       default:
         // do nothing
       
     }
   };
 
+
   return (
     <div>
-      <nav className="relative select-none bg-gray-700 flex items-stretch w-full h-16">
+      <nav className={`relative select-none flex items-stretch w-full h-16`} style={{ backgroundColor: bgColor }}>
         <div className="flex my-auto h-12 justify-between w-full">
           <div>
             <img src={logo} alt="logo" className="App-logo w-16" />
           </div>
-          <div className='pr-5 my-auto text-white text-lg'>
+          <div className={`pr-5 my-auto text-white  text-lg`} style={{ color: fontColor }}>
             {fullName}
           </div>
         </div>

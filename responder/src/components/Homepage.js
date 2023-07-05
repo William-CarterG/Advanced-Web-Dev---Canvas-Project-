@@ -1,6 +1,6 @@
 import startFetch from '../API';
 
-const Homepage = ({setRoute, setIndex, evaluations, evToken, tokenState, personTestId}) => {
+const Homepage = ({fontColor, bgColor, setRoute, setIndex, evaluations, evToken, tokenState, personTestId}) => {
   return (
     <div>
       <div className="flex max-w-4xl mx-auto  bg-white justify-center ">
@@ -13,7 +13,7 @@ const Homepage = ({setRoute, setIndex, evaluations, evToken, tokenState, personT
       </div>
 
       <div className="flex justify-center pb-6 border-gray-700">
-          <button className="py-3 px-4 bg-gray-700 text-gray-100 font-semibold"
+          <button className="py-3 px-4 bg-gray-700 text-gray-100 font-semibold"  style={{ color: fontColor, backgroundColor:bgColor }}
             onClick={() => {
               setIndex(0)
               tokenState[evToken]["index"] = 0
