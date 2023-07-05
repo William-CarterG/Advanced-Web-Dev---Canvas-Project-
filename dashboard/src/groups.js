@@ -10,7 +10,7 @@ function Groups({groupData, setGroupData}) {
     const [allGroups, setAllGroups] = useState(null);
     const [selected,setSelected] = useState("");
     const [newPorcentualDistribution, setNewPorcentualDistribution] = useState({questionsNumbers:[1,2,3,4,5,6,7], correct:[1,2,3,4,5,6,7], incorrect:[5,12,5,7,1,2,2]});
-    const [newGroupEvaluations, setNewGroupEvaluations] = useState({1: {participant_name:"Matematicas Conicas", finished_tests:-1}, 2:{participant_name:"Mecanica", finished_tests:-1}, 3:{participant_name:"Pensamiento Critico", finished_tests:-1}});
+    const [newGroupEvaluations] = useState({1: {participant_name:"Matematicas Conicas", finished_tests:-1}, 2:{participant_name:"Mecanica", finished_tests:-1}, 3:{participant_name:"Pensamiento Critico", finished_tests:-1}});//, setNewGroupEvaluations
     const [newActive, setNewActive] = useState({1: {participant_name:"Juan Perez", finished_tests:3}, 2:{participant_name:"John Doe", finished_tests:3}, 3:{participant_name:"Andrew Leiva", finished_tests:3}});
     const [newBestTag, setNewBestTag] = useState("A");
     const [newWorstTag, setNewWorstTag] = useState("D");

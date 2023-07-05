@@ -24,6 +24,14 @@ function ResultBar({ values }) {
                     borderWidth: 1,
                     borderRadius: 2,
                     borderSkipped: false
+                },
+                {
+                    label: 'No enviadas',
+                    data: values["NoSended"],
+                    backgroundColor: 'rgb(201, 203, 207)',
+                    borderWidth: 1,
+                    borderRadius: 2,
+                    borderSkipped: false
                 }
             ]
         };
@@ -61,7 +69,7 @@ function ResultBar({ values }) {
                             text: 'Respuestas'
                         }
                     }
-                }
+                },
             }
         });
 

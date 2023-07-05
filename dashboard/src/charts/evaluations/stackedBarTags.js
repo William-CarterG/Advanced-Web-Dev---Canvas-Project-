@@ -1,77 +1,81 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-function StackedBarTags( {values} ) {
+function StackedBaTags({ values }) {
+  const canvasRef = useRef(null);
+  const chartRef = useRef(null);
 
-    const canvasRef = useRef(null);
-    const chartRef = useRef(null);
+  useEffect(() => {
+    const labels = Object.keys(values);
+    const incorrectData = Object.values(values).map((item) => item.incorrect);
+    const correctData = Object.values(values).map((item) => item.correct);
+    const noSendedData = Object.values(values).map((item) => item.noSended);
+    
 
-    useEffect(() => {
-        const data = {
-            labels: [
-                "Etiqueta A", "Etiqueta B", "Etiqueta C"
-            ],
-            datasets: [
-                {
-                    label: 'Incorrectas',
-                    data: values["incorrect"],
-                    backgroundColor: 'rgb(255, 99, 132)'
-                }, {
-                    label: 'Correctas',
-                    data: values["correct"],
-                    backgroundColor: 'rgb(54, 162, 235)'
-                }
-            ]
-        };
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Incorrectas',
+          data: incorrectData,
+          backgroundColor: 'rgb(255, 99, 132)',
+        },
+        {
+          label: 'Correctas',
+          data: correctData,
+          backgroundColor: 'rgb(54, 162, 235)',
+        },
+        {
+          label: 'No enviado',
+          data: noSendedData,
+          backgroundColor: 'rgb(107, 114, 128)',
+        },
+      ],
+    };
 
-        if (chartRef.current) {
-            chartRef
-                .current
-                .destroy();
-        }
+    if (chartRef.current) {
+      chartRef.current.destroy();
+    }
 
-        const ctx = canvasRef
-            .current
-            .getContext('2d');
-        chartRef.current = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: {
+    const ctx = canvasRef.current.getContext('2d');
+    chartRef.current = new Chart(ctx, {
+      type: 'bar',
+      data: data,
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          x: {
+            stacked: true,
+            title: {
+              display: true,
+              text: 'Dificultad',
+            },
+          },
+          y: {
+            stacked: true,
+            title: {
+              display: true,
+              text: 'Respuestas',
+            },
+          },
+        },
+        barPercentage: 0.5
+      },
+    });
 
-                responsive: true,
-                scales: {
-                    x: {
-                        stacked: true,
-                        title: {
-                            display: true,
-                            text: 'Etiquetas'
-                        }
-                    },
-                    y: {
-                        stacked: true,
-                        title: {
-                            display: true,
-                            text: 'Respuestas'
-                        }
-                    }
-                }
-            }
-        });
+    return () => {
+      if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+    };
+  }, [values]);
 
-        return () => {
-            if (chartRef.current) {
-                chartRef
-                    .current
-                    .destroy();
-            }
-        };
-    }, [values]);
-
-    return (
-        <div className='h-[25vh]'>
-            <canvas ref={canvasRef}></canvas>
-        </div>
-    );
+  return (
+    <div className="lg:h-[25vh] h-[35vh]">
+      <canvas ref={canvasRef}></canvas>
+    </div>
+  );
 }
 
-export default StackedBarTags;
+export default StackedBaTags;
