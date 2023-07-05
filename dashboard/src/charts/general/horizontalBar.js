@@ -67,7 +67,8 @@ function HorizontalChart({ values,axis,desc }) {
                             text: desc[1]
                         }
                     }
-                }
+                },
+                animation: false
             }
         });
 

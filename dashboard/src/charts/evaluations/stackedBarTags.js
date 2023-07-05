@@ -60,7 +60,8 @@ function StackedBaTags({ values }) {
             },
           },
         },
-        barPercentage: 0.5
+        barPercentage: 0.5,
+        animation: false
       },
     });
 

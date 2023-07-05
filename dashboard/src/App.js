@@ -3,10 +3,12 @@ import './App.css';
 import General from './general';
 import Evaluations from './evaluations';
 import Groups from './groups';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 function App() {
-
+    const [socketSignal,setSocketSignal] = useState(0);
+    const [fromGroupToEval,setFromGroupToEval] = useState(false);
+    const [fromGeneralToGroup,setFromGeneralToGroup] = useState(false);
     const [generalButton,setGeneralButton] = useState("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold");
     const [evaluationsButton,setEvaluationsButton] = useState("");
     const [groupsButton,setGroupsButton] = useState("");
@@ -14,20 +16,31 @@ function App() {
     const [evaluationData,setEvaluationData] = useState('');
     const [groupData,setGroupData] = useState('');
 
+    useEffect(() => {
+        const ws = new WebSocket('ws://35.223.95.177:8000/ws/dashboard/');
+        ws.addEventListener("message", () => {
+          setSocketSignal(prevSignal => prevSignal + 1);
+        });
+      }, []);
+
     const renderDashboard = () => {
         switch (route) {
             case 'general':
-                return <General/>;
+                return <General ws={socketSignal} setFromGroupToEval={setFromGroupToEval} setFromGeneralToGroup={setFromGeneralToGroup} setRoute={setRoute} setGeneralButton={setGeneralButton} setEvaluationsButton={setEvaluationsButton} setGroupsButton={setGroupsButton}/>;
             case 'evaluations':
                 return <Evaluations
+                    ws={socketSignal}
                     evaluationData={evaluationData}
-                    setEvaluationData={setEvaluationData}/>;
+                    setEvaluationData={setEvaluationData}
+                    fromGroupToEval={fromGroupToEval}/>;
             case 'groups':
-                return <Groups groupData={groupData} setGroupData={setGroupData}/>;
+                return <Groups  ws={socketSignal} groupData={groupData} setGroupData={setGroupData} setFromGroupToEval={setFromGroupToEval} setRoute={setRoute} setGeneralButton={setGeneralButton} setEvaluationsButton={setEvaluationsButton} setGroupsButton={setGroupsButton} fromGeneralToGroup={fromGeneralToGroup}/>;
             default:
                 // do nothing
         }
     };
+
+
 
     return (
         <div className="App">
@@ -52,6 +65,8 @@ function App() {
                                     setGeneralButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setEvaluationsButton("")
                                     setGroupsButton("")
+                                    setFromGeneralToGroup(false)
+                                    setFromGroupToEval(false)
                                     setRoute('general')
                                 }}>
                                     <svg className="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
@@ -79,6 +94,8 @@ function App() {
                                     setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setGroupsButton("")
                                     setEvaluationData("")
+                                    setFromGeneralToGroup(false)
+                                    setFromGroupToEval(false)
                                     setRoute('evaluations')
                                 }}>
                                     <svg
@@ -107,6 +124,8 @@ function App() {
                                     setEvaluationsButton("")
                                     setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setGroupData("")
+                                    setFromGeneralToGroup(false)
+                                    setFromGroupToEval(false)
                                     setRoute('groups')
                                 }}>
                                     <svg
@@ -158,6 +177,8 @@ function App() {
                                     setGeneralButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setEvaluationsButton("")
                                     setGroupsButton("")
+                                    setFromGeneralToGroup(false)
+                                    setFromGroupToEval(false)
                                     setRoute('general')
                                 }}>
                                     <svg className="-ml-1 h-6 w-6" viewBox="0 0 24 24" fill="none">
@@ -185,6 +206,8 @@ function App() {
                                     setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setGroupsButton("")
                                     setEvaluationData("")
+                                    setFromGeneralToGroup(false)
+                                    setFromGroupToEval(false)
                                     setRoute('evaluations')
                                 }}>
                                     <svg
@@ -213,6 +236,8 @@ function App() {
                                     setEvaluationsButton("")
                                     setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
                                     setGroupData("")
+                                    setFromGeneralToGroup(false)
+                                    setFromGroupToEval(false)
                                     setRoute('groups')
                                 }}>
                                     <svg
