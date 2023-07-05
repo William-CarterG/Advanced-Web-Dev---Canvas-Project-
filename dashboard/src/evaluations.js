@@ -13,16 +13,17 @@ function Evaluations({evaluationData, setEvaluationData}) {
     const [allActive, setAllActive] = useState(null);
     const [selected,setSelected] = useState("");
     const [newParticipationInEvaluation, setNewParticipationInEvaluation] = useState(78);
-    const [newDifficultyInEvaluation, setNewDifficultyInEvaluation] = useState({correct: [10, 15, 25], incorrect: [20, 15, 5]});
-    const [newTagsInEvaluation, setNewTagsInEvaluation] = useState({correct: [25, 2, 15], incorrect: [5, 28, 15]});
-    const [newBestQuestion, setNewBestQuestion] = useState(2);
-    const [newWorstQuestion, setNewWorstQuestion] = useState(4);
+    const [newDifficultyInEvaluation, setNewDifficultyInEvaluation] = useState({0: {"correct":0,"incorrect":0,"noSended":0}, 1: {"correct":0,"incorrect":0,"noSended":0}, 2:{"correct":0,"incorrect":0,"noSended":0}});
+    const [newTagsInEvaluation, setNewTagsInEvaluation] = useState({"No hay tags disponibles":{correct:0,incorrect:0,noSended:0}});
+    const [newBestQuestion, setNewBestQuestion] = useState(0);
+    const [newWorstQuestion, setNewWorstQuestion] = useState(0);
     const [newMeanOfActualEvaluation, setNewMeanOfActualEvaluation] = useState(77);
     const [newMeanOfHistoricalEvaluations, setNewMeanOfHistoricalEvaluations] = useState(82);
     const [newCorrectAnswer, setNewCorrectAnswer] = useState(58);
     const [newIncorrectAnswer, setNewIncorrectAnswer] = useState(23);
     const [newNoAnswer, setNewNoAnswer] = useState(57);
-    const [newPorcentualDistribution, setNewPorcentualDistribution] = useState({questionsNumbers:[1,2,3,4,5,6,7], correct:[1,8,3,4,5,6,7], incorrect:[5,2,5,7,1,2,2]});
+    const [newTotal, setNewTotal] = useState(500);
+    const [newPorcentualDistribution, setNewPorcentualDistribution] = useState({questionsNumbers:[1,2,3,4,5,6,7], correct:[1,8,3,4,5,6,7], incorrect:[5,2,5,7,1,2,2], noSended:[1,1,1,1,1,1,1]});
 
     useEffect(() => {
         setValues(prevValues => ({
@@ -37,9 +38,10 @@ function Evaluations({evaluationData, setEvaluationData}) {
             "correctAnswer": newCorrectAnswer,
             "incorrectAnswer": newIncorrectAnswer,
             "noAnswer": newNoAnswer,
+            "Total": newTotal,
             "porcentualDistribution": newPorcentualDistribution
         }));
-    }, [newParticipationInEvaluation, newDifficultyInEvaluation, newTagsInEvaluation, newBestQuestion, newWorstQuestion, newMeanOfActualEvaluation, newMeanOfHistoricalEvaluations, newCorrectAnswer, newIncorrectAnswer, newNoAnswer, newPorcentualDistribution]);
+    }, [newParticipationInEvaluation, newDifficultyInEvaluation, newTagsInEvaluation, newBestQuestion, newWorstQuestion, newMeanOfActualEvaluation, newMeanOfHistoricalEvaluations, newCorrectAnswer, newIncorrectAnswer, newNoAnswer, newTotal, newPorcentualDistribution]);
 
     const [isActiveEvaluation,setIsActiveEvaluation] = useState(false);
     const [isHistoricalEvaluation,setIsHistoricalEvaluation] = useState(false);
@@ -112,17 +114,21 @@ function Evaluations({evaluationData, setEvaluationData}) {
                             <p className='text-5xl my-5'>Pregunta nº{values["worstQuestion"]}</p>
                         </div>
                         <div className="flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
-                            <div>
-                                <p className='text-lg'>Cantidad total de correctas.</p>
-                                <p className='text-2xl my-2 font-bold'>{values["correctAnswer"]}%</p>
+                            <div className="flex justify-center my-2">
+                                <p className='text-xl mr-2'>Cantidad total de correctas:</p>
+                                <p className='text-2xl font-bold'>{values["correctAnswer"]}</p>
                             </div>
-                            <div>
-                                <p className='lg'>Cantidad total de incorrectas.</p>
-                                <p className='text-2xl my-2 font-bold'>{values["incorrectAnswer"]}%</p>
+                            <div className="flex justify-center my-2">
+                                <p className='text-xl mr-2'>Cantidad total de incorrectas:</p>
+                                <p className='text-2xl font-bold'>{values["incorrectAnswer"]}</p>
                             </div>
-                            <div>
-                                <p className='lg'>Cantidad total de no respondidas.</p>
-                                <p className='text-2xl my-2 font-bold'>{values["noAnswer"]}%</p>
+                            <div className="flex justify-center my-2">
+                                <p className='text-xl mr-2'>Cantidad total de no respondidas:</p>
+                                <p className='text-2xl font-bold'>{values["noAnswer"]}</p>
+                            </div>
+                            <div className="flex justify-center my-2">
+                                <p className='text-xl mr-2'>Cantidad Total de respuestas:</p>
+                                <p className='text-2xl font-bold'>{values["Total"]}</p>
                             </div>
                         </div>
                         <div
@@ -176,10 +182,50 @@ function Evaluations({evaluationData, setEvaluationData}) {
                                         onClick={() => {
                                         setWaitingState(true);
                                         startFetch(`dashboard/evaluation/${selected["id"]}/`, 'GET', null, function(data) {
-                                            console.log(data)
                                             setNewParticipationInEvaluation(percentajeFormater(data["participation_percentage"]))
                                             setNewMeanOfActualEvaluation(percentajeFormater(data["actual_and_historical_results"]["actual_results"])) 
                                             setNewMeanOfHistoricalEvaluations(percentajeFormater(data["actual_and_historical_results"]["historical_results"]))     
+                                            let difResults = {0:{correct:0,incorrect:0,noSended:0},1:{correct:0,incorrect:0,noSended:0},2:{correct:0,incorrect:0,noSended:0}}
+                                            let dif = data["questions_analysis"]["results_by_difficulty"]
+                                            for (let i in dif){
+                                                difResults[dif[i]["difficulty"]]["correct"] = dif[i]["c"]
+                                                difResults[dif[i]["difficulty"]]["incorrect"] = dif[i]["i"]
+                                                difResults[dif[i]["difficulty"]]["noSended"] = dif[i]["n"]
+                                            }
+                                            setNewDifficultyInEvaluation(difResults)
+                                            let tagTrigger = 0;
+                                            let tagResults = {}
+                                            let tag = data["questions_analysis"]["results_by_tag"]
+                                            for (let i in tag){
+                                                tagTrigger = 1;
+                                                tagResults[String(tag[i]["tag"])] = {}
+                                                tagResults[String(tag[i]["tag"])]["correct"] = tag[i]["c"]
+                                                tagResults[String(tag[i]["tag"])]["incorrect"] = tag[i]["i"]
+                                                tagResults[String(tag[i]["tag"])]["noSended"] = tag[i]["n"]
+                                            }
+                                            if (tagTrigger !== 0){
+                                                setNewTagsInEvaluation(tagResults)
+                                            }
+                                            setNewCorrectAnswer(data["results"]["correct"])
+                                            setNewIncorrectAnswer(data["results"]["incorrect"])
+                                            setNewNoAnswer(data["results"]["no_answer"])
+                                            setNewTotal(data["results"]["total"])
+                                            let questionsNumbers = []
+                                            let correct = []
+                                            let incorrect = []
+                                            let noSended = []
+                                            let questionsInfo = data["questions_analysis"]["results_by_question"]
+                                            for (let i in questionsInfo){
+                                                questionsNumbers.push(questionsInfo[i]["question"])
+                                                correct.push(questionsInfo[i]["c"])
+                                                incorrect.push(questionsInfo[i]["i"])
+                                                noSended.push(questionsInfo[i]["n"])
+                                            }
+                                            setNewPorcentualDistribution({"questionsNumbers":questionsNumbers, "correct":correct, "incorrect":incorrect, "noSended":noSended })
+                                            if (questionsInfo === []){
+                                                setNewBestQuestion(questionsInfo[0]["question"])
+                                                setNewWorstQuestion(questionsInfo.reverse()[0]["question"])
+                                            }
                                             setWaitingState(false);
                                             setEvaluationData("active")
                                         });

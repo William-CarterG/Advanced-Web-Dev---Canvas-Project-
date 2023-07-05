@@ -54,7 +54,8 @@ function ResultBar({ values }) {
                             text: 'Respuestas'
                         }
                     }
-                }
+                },
+                barPercentage: 0.5
             }
         });
 

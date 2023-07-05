@@ -11,6 +11,10 @@ function Table({ headers, values, color, buttonColor }) {
   const reversedTableValues = [...tableValues].reverse();
   const rows = reverseOrder ? reversedTableValues : tableValues;
 
+  const handleButtonClick = (id) => {
+    console.log(id);
+  };
+
   return (
     <div className="px-2 w-full">
       <div className="shadow overflow-y-auto rounded border-b border-gray-200 lg:max-h-[22vh] max-h-[45vh]">
@@ -25,7 +29,7 @@ function Table({ headers, values, color, buttonColor }) {
                   <div className="my-auto">{headers[1]}</div>
                   <div>
                     <button
-                      className={`mx-2 ${buttonColor} text-white font-bold  py-2 px-4 rounded transition-colors duration-300`}
+                      className={`mx-2 ${buttonColor} text-white font-bold py-2 px-4 rounded transition-colors duration-300`}
                       onClick={reverseActualOrder}
                     >
                       {reverseOrder ? "DESC" : "ASC"}
@@ -39,14 +43,19 @@ function Table({ headers, values, color, buttonColor }) {
             {rows.map((value, index) => (
               <tr key={index} className={index % 2 === 0 ? "" : "bg-gray-100"}>
                 <td className="text-left py-2 px-4">
-                  {value.hasOwnProperty("participant_name")
-                    ? value["participant_name"]
-                    : value["finisher_name"]}
+                  {value["name"]}
                 </td>
                 <td className="text-left py-2 px-4">
-                  {value.hasOwnProperty("finished_tests")
-                    ? value["finished_tests"]
-                    : value["correct_count"]}
+                  {value["count"] !== -1 ? (
+                    value["count"]
+                  ) : (
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => handleButtonClick(value.id)}
+                    >
+                      Button
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
