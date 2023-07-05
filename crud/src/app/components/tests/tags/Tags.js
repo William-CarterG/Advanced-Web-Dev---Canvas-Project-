@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import startFetch from '../../../../API';
 
 const Tags = ({ sendTags, prevTags }) => {
   const [tagInput, setTagInput] = useState('');
   const [tagList, setTagList] = useState([]);
+  const [tagRequest, setTagRequest] = useState([]);
 
   useEffect(() => {
     if (prevTags) {
@@ -37,17 +39,20 @@ const Tags = ({ sendTags, prevTags }) => {
     setTagList(updatedTags);
   };
 
-  const filteredSuggestions = tagList.filter((tag) =>
+  const filteredSuggestions = tagRequest.filter((tag) =>
     tag.name.toLowerCase().includes(tagInput.toLowerCase())
   );
 
   useEffect(() => {
+    startFetch("tags/", "GET", null, function(data){
+      setTagRequest(data);
+    })
     sendTags(tagList);
   }, [tagList, sendTags]);
 
   return (
     <div className="flex flex-wrap items-center gap-2 py-4 px-2 mt-2 relative">
-      {prevTags && prevTags.map((tag, index) => (
+      {tagList && tagList.map((tag, index) => (
         <div
           key={index}
           className="flex items-center rounded-lg bg-teal-200 px-2 py-1 cursor-pointer hover:bg-red-400 hover:text-white"
