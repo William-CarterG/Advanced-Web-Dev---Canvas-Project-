@@ -69,11 +69,17 @@ if (evToken) {
           if (fontColor === "undefined"){
             fontColor = "#ffffff"
           }
+          if (fontColor === ""){
+            fontColor = "#ffffff"
+          }
           let bgColor = String(data["background_color"])
           if (bgColor === "null"){
             bgColor = "#374151"
           }
           if (bgColor === "undefined"){
+            bgColor = "#374151"
+          }
+          if (bgColor === ""){
             bgColor = "#374151"
           }
           startFetch(`courses/${groupId}/members/${fetchedPersonId}`, 'GET', null, function(data) {
