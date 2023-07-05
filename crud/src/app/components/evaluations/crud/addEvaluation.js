@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import startFetch from '../../../../API';
 
-function AddEvaluation({groups, tests, setEvaluations}) {
+function AddEvaluation({ setEvaluations }) {
   const [modelOpen, setModelOpen] = useState(false);
   const [EvaluationName, setEvaluationName] = useState('');
   const [idGroup, setIdGroup] = useState('');
   const [idTest, setIdTest] = useState('');
   const [textValue, setTextValue] = useState('');
+  const [groups, setGroups] = useState(null);
+  const [tests, setTests] = useState(null);
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1); // Get tomorrow's date
   const [selectedDate, setSelectedDate] = useState(tomorrow); // Initialize with tomorrow's date
@@ -47,11 +49,14 @@ function AddEvaluation({groups, tests, setEvaluations}) {
     });
   };
 
-  const handleEvaluationGroupSubmit = (e) => {
-    e.preventDefault();
-    // Additional logic for student submission
-  };
-
+  useEffect(() => {
+    startFetch(`tests/`, 'GET', null, function(data) {
+      setTests(data);
+    });
+    startFetch(`courses/`, 'GET', null, function(data) {
+      setGroups(data);
+    });
+  }, []);
 
   return (
     <div className="mt-4">
@@ -238,7 +243,7 @@ function AddEvaluation({groups, tests, setEvaluations}) {
                     Crear un nuevo grupo, en el cual debes incluir una evaluacion.
                   </p>
 
-                  <form onSubmit={handleEvaluationGroupSubmit} className="mt-5">
+                  <form onSubmit={e => e.preventDefault()} className="mt-5">
                     <div onClick={e => e.preventDefault()}>
                       <label
                         htmlFor="Submission Deadline"
