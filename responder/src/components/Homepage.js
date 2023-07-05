@@ -21,7 +21,6 @@ const Homepage = ({setRoute, setIndex, evaluations, evToken, tokenState, personT
               localStorage.setItem('tokenState', JSON.stringify(tokenState));
               let body = {'started': true}
               startFetch(`person-tests/${personTestId}/`, 'PATCH', JSON.stringify(body), function(data) {
-                console.log(data) 
                });
               setRoute('questions')
             }}>Realizar Prueba</button> 

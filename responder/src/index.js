@@ -40,12 +40,12 @@ if (indexValue === null) {
   if (readyState === null && readyState !== 1) {
     indexValue = parseInt(indexValue) + 1;
     isReload = 1;
-    console.log("recargo pagina")
   }
   tokenState[evToken]["index"] = indexValue
   localStorage.setItem('tokenState', JSON.stringify(tokenState));
 }
 
+let matrixChoice = {0:false}
 let fetchedevaluation
 let fetchedfullName
 let fetchedquestion
@@ -53,7 +53,6 @@ let ended = 0
 let personTestId
 if (evToken) {
   startFetch(`person-tests/?ev_token=${evToken}`, 'GET', null, function(data) {
-    console.log(data)
     const personTest = data[0];
     const fetchedEvaluationId = personTest['evaluation'];
     const fetchedPersonId = personTest['person'];
@@ -68,7 +67,6 @@ if (evToken) {
           if (isReload === 1){
             let body = {'answer_data': "n", "question":fetchedquestion[indexValue-1]["id"], "person_test":personTestId}
             startFetch(`person-tests/${personTestId}/answers/`, 'POST', JSON.stringify(body), function(data) {
-                console.log(data) 
             });
           }
           if ( data["questions"].length === parseInt(tokenState[evToken]["index"])){
@@ -77,7 +75,7 @@ if (evToken) {
 
           root.render(
             <React.StrictMode>
-              <App indexValue={indexValue} fullName={fetchedfullName} evaluation={fetchedevaluation} questionsa={fetchedquestion} evToken={evToken} tokenState={tokenState} ended={ended} personTestId={personTestId}/>
+              <App matrixChoice={matrixChoice} indexValue={indexValue} fullName={fetchedfullName} evaluation={fetchedevaluation} questionsa={fetchedquestion} evToken={evToken} tokenState={tokenState} ended={ended} personTestId={personTestId}/>
             </React.StrictMode>
           );
           
