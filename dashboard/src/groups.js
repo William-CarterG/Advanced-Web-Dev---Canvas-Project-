@@ -6,7 +6,7 @@ import Loading from "./loading";
 import startFetch from "./API";
 import percentajeFormater from "./functions/PercentajeFormater"
 
-function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setGeneralButton, setEvaluationsButton, setGroupsButton}) {
+function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setGeneralButton, setEvaluationsButton, setGroupsButton, fromGeneralToGroup}) {
     const [values, setValues] = useState({});    
     const [allGroups, setAllGroups] = useState(null);
     const [selected,setSelected] = useState("");
@@ -30,8 +30,12 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
     }, [newPorcentualDistribution, newGroupEvaluations, newActive, newBestTag, newWorstTag, newAnswers]);
 
     const [waitingState,setWaitingState] = useState(true);
-    function reloadView(){
-        startFetch(`dashboard/group/${selected["id"]}/`, 'GET', null, function(data) {
+    function reloadView(id){
+        let defId = selected["id"];
+        if (id !== false){
+            defId = id
+        }
+        startFetch(`dashboard/group/${defId}/`, 'GET', null, function(data) {
             let groupEvals = []
             for (let i in data["participation_ranking"]){
                 let insideDict = {"name":data["participation_ranking"][i]["participant_name"], "count":data["participation_ranking"][i]["finished_tests"]} 
@@ -69,14 +73,19 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
         });
     }
     useEffect(() => {
-        startFetch(`courses/`, 'GET', null, function(data) {
-            setAllGroups(Object.values(data))
-            setWaitingState(false);
-        });
+        if (fromGeneralToGroup !== false){
+            setGroupData("data")
+            reloadView(fromGeneralToGroup)
+        }else{
+            startFetch(`courses/`, 'GET', null, function(data) {
+                setAllGroups(Object.values(data))
+                setWaitingState(false);
+            });
+        } 
     }, []);
     useEffect(() => {
         if (groupData !== ""){
-            reloadView();
+            reloadView(fromGeneralToGroup);
         }
       }, [ws]);
     return (
@@ -150,7 +159,7 @@ function Groups({ws, groupData, setGroupData, setRoute, setFromGroupToEval, setG
                                 className="lg:py-4 lg:px-8 lg:mt-10 py-2 px-4 mt-10 rounded-xl border-black border font-bold"
                                 onClick={() => {
                                     setWaitingState(true);
-                                    reloadView()
+                                    reloadView(false)
                             }}>Enviar</button>
                         </div>
                     </div>

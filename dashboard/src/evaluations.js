@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import StackedBarDifficulty from './charts/evaluations/stackedBarDifficulty';
 import StackedBarTags from './charts/evaluations/stackedBarTags';
 import ResultBar from './charts/evaluations/resultsBar';
-import SemiOpen from './charts/evaluations/comboBox';
+import SemiOpen from './charts/evaluations/evalComboBox';
 import Loading from "./loading";
 import startFetch from "./API";
 import percentajeFormater from "./functions/PercentajeFormater"
@@ -77,7 +77,6 @@ function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
         if (id !== false){
             defId = id
         }
-        console.log(defId)
         startFetch(`dashboard/evaluation/${defId}/`, 'GET', null, function(data) {
             setNewParticipationInEvaluation(percentajeFormater(data["participation_percentage"]))
             setNewMeanOfActualEvaluation(percentajeFormater(data["actual_and_historical_results"]["actual_results"])) 
@@ -127,12 +126,6 @@ function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
             setEvaluationData("active")
         });
     }
-    /*
-    if (fromGroupToEval !== false){
-        setEvaluationData("data")
-        setSelected({"id":fromGroupToEval})
-    }
-    */
     useEffect(() => {
         if (evaluationData !== ""){
             reloadView(fromGroupToEval);
@@ -238,12 +231,12 @@ function Evaluations({ws,evaluationData, setEvaluationData, fromGroupToEval}) {
                         <div className="lg:mx-auto mx-3 lg:w-2/3 lg:my-10 my-2 h-24">
                             {option === "active" && (
                                 <div>
-                                    <SemiOpen data={allActive} selected={selected} setSelected={setSelected}/>
+                                    <SemiOpen data={allActive} selected={selected} setSelected={setSelected} size={""}/>
                                 </div>
                             )}
                             {option === "historical" && (
                                 <div>
-                                    <SemiOpen data={allHistorical} selected={selected} setSelected={setSelected}/>
+                                    <SemiOpen data={allHistorical} selected={selected} setSelected={setSelected} size={""}/>
                                 </div>
                             )}
                             {(option === "active" || option === "historical") && (

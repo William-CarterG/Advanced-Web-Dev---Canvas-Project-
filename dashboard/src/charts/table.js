@@ -17,7 +17,6 @@ function Table({ headers, values, color, buttonColor, setRoute, setFromGroupToEv
     setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
     setGroupsButton("")
     setRoute("evaluations")
-    console.log(id);
   };
 
   return (

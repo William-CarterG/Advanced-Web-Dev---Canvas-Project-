@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import StackedBar from './charts/general/stackedBar';
-import SemiOpen from './charts/general/comboBox';
+import SemiOpenMount from './charts/general/mountComboBox';
+import SemiOpen from './charts/evaluations/evalComboBox';
 import HorizontalChart from './charts/general/horizontalBar';
 import Table from './charts/table';
 import Loading from "./loading";
 import startFetch from "./API";
 import percentajeFormater from "./functions/PercentajeFormater"
 
-function General({ws}) {
+function General({ws, setRoute, setFromGroupToEval, setFromGeneralToGroup, setGeneralButton, setEvaluationsButton, setGroupsButton}) {
     const [values, setValues] = useState({});
-    const [remember, setRemember] = useState(false);
+    const [allEvaluations, setEvaluations] = useState([{url: 'http://35.223.95.177:8000/courses/1/', id: 1, name: 'Seed Course', members_count: 5},{url: 'http://35.223.95.177:8000/courses/2/', id: 2, name: 'G1', members_count: 9},{url: 'http://35.223.95.177:8000/courses/3/', id: 3, name: 'G2', members_count: 10},{url: 'http://35.223.95.177:8000/courses/4/', id: 4, name: 'G3', members_count: 10}]);
+    const [evaluationSelected,setEvaluationSelected] = useState("");
+    const [allCourses, setAllCourses] = useState([{url: 'http://35.223.95.177:8000/courses/1/', id: 1, name: 'Seed Course', members_count: 5},{url: 'http://35.223.95.177:8000/courses/2/', id: 2, name: 'G1', members_count: 9},{url: 'http://35.223.95.177:8000/courses/3/', id: 3, name: 'G2', members_count: 10},{url: 'http://35.223.95.177:8000/courses/4/', id: 4, name: 'G3', members_count: 10}]);
+    const [courseSelected,setCourseSelected] = useState("");
     const [newHorizontalBar, setNewHorizontalBar] = useState({answering:0, answered:0, notAnswer:0});
     const [newActiveEvaluations, setNewActiveEvaluations] = useState(135);
     const [newCompletedActiveEvaluations, setNewCompletedActiveEvaluations] = useState(51);
@@ -20,7 +24,16 @@ function General({ws}) {
     const [newCompleteMountEvaluation, setNewCompleteMountEvaluation] = useState([0,0,0,0,0,0,0,0,0,0,0,0]);
     const [newEvaluations, setNewEvaluations] = useState({0: {"participant_name":"Matematicas Conicas", "finished_tests":78}, 1:{"participant_name":"Mecanica", "finished_tests":73}, 2:{"participant_name":"Pensamiento Critico", "finished_tests":71}});
     const [newResultByDifficulty, setNewResultByDifficulty] = useState({0: {"correct":0,"incorrect":0,"noSended":0}, 1: {"correct":0,"incorrect":0,"noSended":0}, 2:{"correct":0,"incorrect":0,"noSended":0}});
-  
+    
+    useEffect(() => {
+        startFetch(`courses/`, 'GET', null, function(data) {
+            setAllCourses(Object.values(data))
+        });
+        startFetch(`evaluations/`, 'GET', null, function(data) {
+            setEvaluations(Object.values(data))
+        });
+    }, []);
+
     useEffect(() => {
         setValues(prevValues => ({
           ...prevValues,
@@ -79,14 +92,42 @@ function General({ws}) {
         {waitingState === true && (<Loading/>)}
         {waitingState === false && (
             <div className="grid gap-3 grid-cols-1 lg:grid-cols-3 lg:grid-rows-3">
-            <div className="flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
-                <div>
-                <p className='lg:text-2xl text-lg'>Numero de evaluaciones activas.</p>
-                <p className='lg:text-5xl lg:my-1 text-xl font-bold'>{values["activeEvaluations"]} evaluaciones.</p>
-                </div>
-                <div className="mt-5">
-                <p className='lg:text-2xl text-lg'>Numero respuestas diarias completas.</p>
-                <p className='lg:text-5xl lg:my-1  text-xl font-bold'>{values["dailyAnswers"]} respuestas.</p>
+            <div className='px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
+                <div className='flex flex-col justify-center h-full'>
+                    <div>
+                        <p className='text-lg'>Todas las evaluaciones.</p>
+                        <div className="flex justify-center">
+                            <SemiOpen data={allEvaluations} selected={evaluationSelected} setSelected={setEvaluationSelected} size={" text-base a" }/>
+                            <button
+                                className="relative right-0 lg:py-2 lg:px-4 mt-1 rounded-xl border-black border font-bold hover:bg-slate-500 hover:text-white"
+                                onClick={() => {
+                                    setFromGroupToEval(evaluationSelected["id"])
+                                    setGeneralButton("")
+                                    setEvaluationsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
+                                    setGroupsButton("")
+                                    setRoute("evaluations")
+                                }}>
+                                    Ir
+                            </button>
+                        </div>
+                    </div>
+                    <div className="mt-10">
+                        <p className='text-lg'>Todos los cursos.</p>
+                        <div className="flex justify-center">
+                            <SemiOpen data={allCourses} selected={courseSelected} setSelected={setCourseSelected} size={" text-base a" }/>
+                            <button
+                                className="relative right-0 lg:py-2 lg:px-4 mt-1 rounded-xl border-black border font-bold hover:bg-slate-500 hover:text-white"
+                                onClick={() => {
+                                    setFromGeneralToGroup(courseSelected["id"])
+                                    setGeneralButton("")
+                                    setEvaluationsButton("")
+                                    setGroupsButton("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold")
+                                    setRoute("groups")
+                                }}>
+                                    Ir
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className='flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white'>
@@ -110,7 +151,7 @@ function General({ws}) {
                     <div className='flex items-center justify-between lg:my-12 my-4'>
                         <p className="lg:text-base text-sm">Numero de evaluaciones ya completas para el mes de:</p>
                         <div className='w-72 mr-3'>
-                            <SemiOpen values={values["completeMountEvaluation"]} setNewMountEvaluations={setNewMountEvaluations}/>
+                            <SemiOpenMount values={values["completeMountEvaluation"]} setNewMountEvaluations={setNewMountEvaluations}/>
                         </div>
                     </div>
                     <div>
@@ -133,6 +174,17 @@ function General({ws}) {
                 </div>
                 <div className="lg:hidden">
                     <HorizontalChart values={values["horizontalBar"]} axis={'x'} desc={["Estados","Respuestas"]}/>
+                </div>
+            </div>
+           
+            <div className="flex flex-col justify-center py-2 px-2 text-gray-600 rounded-xl border border-gray-200 bg-white">
+                <div>
+                <p className='lg:text-2xl text-lg'>Numero de evaluaciones activas.</p>
+                <p className='lg:text-5xl lg:my-1 text-xl font-bold'>{values["activeEvaluations"]} evaluaciones.</p>
+                </div>
+                <div className="mt-5">
+                <p className='lg:text-2xl text-lg'>Numero respuestas diarias completas.</p>
+                <p className='lg:text-5xl lg:my-1  text-xl font-bold'>{values["dailyAnswers"]} respuestas.</p>
                 </div>
             </div>
             </div>

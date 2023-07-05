@@ -8,6 +8,7 @@ import {useState, useEffect} from "react";
 function App() {
     const [socketSignal,setSocketSignal] = useState(0);
     const [fromGroupToEval,setFromGroupToEval] = useState(false);
+    const [fromGeneralToGroup,setFromGeneralToGroup] = useState(false);
     const [generalButton,setGeneralButton] = useState("bg-gradient-to-r from-[#36a2eb] to-[#ff6384] text-white font-bold");
     const [evaluationsButton,setEvaluationsButton] = useState("");
     const [groupsButton,setGroupsButton] = useState("");
@@ -25,7 +26,7 @@ function App() {
     const renderDashboard = () => {
         switch (route) {
             case 'general':
-                return <General ws={socketSignal}/>;
+                return <General ws={socketSignal} setFromGroupToEval={setFromGroupToEval} setFromGeneralToGroup={setFromGeneralToGroup} setRoute={setRoute} setGeneralButton={setGeneralButton} setEvaluationsButton={setEvaluationsButton} setGroupsButton={setGroupsButton}/>;
             case 'evaluations':
                 return <Evaluations
                     ws={socketSignal}
@@ -33,7 +34,7 @@ function App() {
                     setEvaluationData={setEvaluationData}
                     fromGroupToEval={fromGroupToEval}/>;
             case 'groups':
-                return <Groups  ws={socketSignal} groupData={groupData} setGroupData={setGroupData} setFromGroupToEval={setFromGroupToEval} setRoute={setRoute} setGeneralButton={setGeneralButton} setEvaluationsButton={setEvaluationsButton} setGroupsButton={setGroupsButton}/>;
+                return <Groups  ws={socketSignal} groupData={groupData} setGroupData={setGroupData} setFromGroupToEval={setFromGroupToEval} setRoute={setRoute} setGeneralButton={setGeneralButton} setEvaluationsButton={setEvaluationsButton} setGroupsButton={setGroupsButton} fromGeneralToGroup={fromGeneralToGroup}/>;
             default:
                 // do nothing
         }
